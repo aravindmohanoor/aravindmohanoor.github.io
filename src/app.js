@@ -44,7 +44,7 @@ const renderHits = (renderOptions, isFirstRender) => {
       item =>
         `<li>
               <h3>${instantsearch.highlight({ attribute: 'title', hit: item })}</h3>
-              <h5><i>${item.authors} - ${item.year} - DOI:<a target="_blank" href="https://www.google.com/search?q=${item.doi}">${item.doi}</a></i></h5>
+              <h5><i>${item.authors} - ${item.year} - DOI:<a target="_blank" href="${item.url}">${item.doi}</a></i></h5>
               <p>${instantsearch.highlight({ attribute: 'section_text', hit: item })}</p>
               <div class="method_snippet">
               <h5>${item.best_result_title}</h5>
