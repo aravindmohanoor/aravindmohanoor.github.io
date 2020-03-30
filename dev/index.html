@@ -1,50 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="theme-color" content="#000000">
+<style>
+  #search-box {
+    margin: 1em 1em 3em;
+    width: calc(100% - 2em);
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+  }
 
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="shortcut icon" href="./favicon.png">
+  #facet-list,
+  #container{
+    max-width: 150px;
+    width: 100%;
+    float: left;
+    padding: 0 1em;
+    margin: 0;
+    list-style: none;
+  }
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css">
-  <link rel="stylesheet" href="./src/index.css">
-  <link rel="stylesheet" href="./src/app.css">
+  #facet-list li {
+    padding: 6px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  #facet-list li input {
+    margin-right: 6px;
+  }
 
-  <title>CORD19 Paper Search Dev</title>
+  #container {
+    max-width: calc(100% - 150px - 4em);
+  }
+  #container li {
+    padding: 8px 0;
+  }
+
+  #container em {
+    background: yellow;
+  }
+</style>
 </head>
-
 <body>
-  <header class="header">
-    <h1 class="header-title">
-      CORD19 Paper Search (Development)
-    </h1>
-    <p class="header-subtitle">
-      using
-      <a href="https://github.com/algolia/instantsearch.js">
-        InstantSearch.js
-      </a>
-    </p>
-  </header>
+<input type="text" autocomplete="off" id="search-box"/>
 
-  <div class="container">
-    <div class="search-panel">
-      <div class="search-panel__results">
-        <div id="searchbox"></div>
-        <div id="hits"></div>
-      </div>
-    </div>
+<ul id=facet-list></ul>
+<ul id=container></ul>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/g/algoliasearch@3(algoliasearchLite.min.js),algoliasearch.helper@2"></script>
+<script>
+    //Config
+    var applicationID = 'ZZ2ZTTMSBH';
+    var apiKey = '71090d1229c06a4d72829a3d0d59d6bc';
+    var index = 'papers_dev';
 
-    <div id="pagination"></div>
-    <p>If you see an empty page, it is because the index is being rebuilt. Rebuilding the index usually takes about 30 minutes to an hour, so come back in an hour if this page is empty</p>
-  </div>
+    var client = algoliasearch(applicationID, apiKey);
+    var helper = algoliasearchHelper(client, index, {
+        facets: ['journal'],
+        facetingAfterDistinct: true,
+    });
 
-  <script src="https://cdn.jsdelivr.net/algoliasearch/3.32.0/algoliasearchLite.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.3.1"></script>
-  <script src="./src/app.js"></script>
+    helper.on('result', function(content) {
+        renderFacetList(content); // not implemented yet
+        renderHits(content);
+    });
 
+    function renderHits(content) {
+        $('#container').html(function() {
+            return $.map(content.hits, function(hit) {
+                return '<li>' + hit._highlightResult.title.value + '</li>';
+            });
+        });
+    }
+
+    $('#facet-list').on('click', 'input[type=checkbox]', function(e) {
+        var facetValue = $(this).data('facet');
+        helper.toggleRefinement('journal', facetValue)
+            .search();
+    });
+
+    function renderFacetList(content) {
+        $('#facet-list').html(function() {
+            return $.map(content.getFacetValues('journal'), function(facet) {
+                var checkbox = $('<input type=checkbox>')
+                    .data('facet', facet.name)
+                    .attr('id', 'fl-' + facet.name);
+                if(facet.isRefined) checkbox.attr('checked', 'checked');
+                var label = $('<label>').html(facet.name + ' (' + facet.count + ')')
+                    .attr('for', 'fl-' + facet.name);
+                return $('<li>').append(checkbox).append(label);
+            });
+        });
+    }
+
+    $('#search-box').on('keyup', function() {
+        helper.setQuery($(this).val())
+            .search();
+    });
+
+    helper.search();
+</script>
 </body>
-
 </html>
