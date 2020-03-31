@@ -38,6 +38,10 @@ search.addWidgets([
           <div class="hit-description">
             {{#helpers.highlight}}{ "attribute": "abstract_excerpt" }{{/helpers.highlight}}
           </div>
+          <span class="badge badge-secondary">{{ best_method_title }}</span>
+          <div class="hit-description">
+            {{#helpers.highlight}}{ "attribute": "best_method_snippet" }{{/helpers.highlight}}
+          </div>
         </div>
       `,
     },
