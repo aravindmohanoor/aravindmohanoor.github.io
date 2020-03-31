@@ -10,3 +10,11 @@ body { font-family: sans-serif; padding: 1em; }
 .hit-name { margin-bottom: 0.5em; }
 .hit-description { color: #888; font-size: 14px; margin-bottom: 0.5em; }
 /*.ais-CurrentRefinements {max-width:250px;overflow: scroll;}*/
+
+.checkboxes input{
+  margin: 0px 0px 0px 0px;
+}
+
+.checkboxes label{
+  margin: 0px 20px 0px 3px;
+}
