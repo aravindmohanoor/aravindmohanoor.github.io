@@ -22,6 +22,10 @@ search.addWidgets([
     container: '#brand-list',
     attribute: 'journal',
   }),
+  instantsearch.widgets.refinementList({
+    container: '#year-facet',
+    attribute: 'year',
+  }),
   instantsearch.widgets.configure({
     hitsPerPage: 10,
     facetingAfterDistinct: true,
