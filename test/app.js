@@ -32,7 +32,7 @@ function renderHits(content) {
     });
 }
 
-$('#facet-list').on('click', 'input[type=checkbox]', function (e) {
+$('#journal-facet').on('click', 'input[type=checkbox]', function (e) {
     var facetValue = $(this).data('facet');
     helper.toggleRefinement('journal', facetValue).
     search();
@@ -45,7 +45,7 @@ $('#year-facet').on('click', 'input[type=checkbox]', function (e) {
 });
 
 function renderFacetList(content) {
-    $('#facet-list').html(function () {
+    $('#journal-facet').html(function () {
         return $.map(content.getFacetValues('journal'), function (facet) {
             var checkbox = $('<input type=checkbox>').
             data('facet', facet.name).

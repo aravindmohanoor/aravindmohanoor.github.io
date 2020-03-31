@@ -8,6 +8,7 @@
 <div class="form-group">
     <input class="form-control" id="search-box" aria-describedby="emailHelp" placeholder="Enter search term">
 </div>
+
 <div class="row">
     <div class="col-lg-1">
         Search in:
@@ -40,9 +41,40 @@
 </div>
 <br/>
 <div class="row">
+    <div class="col-lg-1">
+        Display:
+    </div>
+    <div class="col-lg-1">
+        <label class="form-check-label">
+            <input disabled checked="checked" type="checkbox" class="form-check-input section-display" value="title">Title
+        </label>
+    </div>
+    <div class="col-lg-1">
+        <label class="form-check-label">
+            <input type="checkbox" checked="checked" class="form-check-input section-display" value="abstract_excerpt">Abstract
+        </label>
+    </div>
+    <div class="col-lg-1">
+        <label class="form-check-label">
+            <input type="checkbox" checked="checked" class="form-check-input section-display" value="best_method_snippet">Methods
+        </label>
+    </div>
+    <div class="col-lg-1">
+        <label class="form-check-label">
+            <input type="checkbox" checked="checked" class="form-check-input section-display" value="best_result_snippet">Results
+        </label>
+    </div>
+    <div class="col-lg-2">
+        <label class="form-check-label">
+            <input type="checkbox" checked="checked" class="form-check-input section-display" value="section_text">Full Text Snippet
+        </label>
+    </div>
+</div>
+<br/>
+<div class="row">
     <div class="col-lg-3">
         <h4>Journal</h4>
-        <ul id="facet-list" style="list-style: none;margin-left: 0;padding-left: 0;">
+        <ul id="journal-facet" style="list-style: none;margin-left: 0;padding-left: 0;">
         </ul>
         <h4>Year</h4>
         <ul id="year-facet"  style="list-style: none;list-style: none;margin-left: 0;padding-left: 0;"></ul>
