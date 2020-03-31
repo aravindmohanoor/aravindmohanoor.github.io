@@ -10,6 +10,8 @@ var helper = algoliasearchHelper(client, index, {
     hitsPerPage: 50
 });
 
+window.displayAttributes = ['title','abstract_excerpt','best_method_snippet'];
+
 helper.on('result', function (content) {
     renderFacetList(content); // not implemented yet
     renderHits(content);
@@ -18,17 +20,35 @@ helper.on('result', function (content) {
 function renderHits(content) {
     $('#container').html(function () {
         return $.map(content.hits, function (hit) {
-            var li = $('<li/>');
+            var liHit = $('<li/>');
             var pTitle = $('<p/>');
-            var h4 = $('<h4>',{
+            var h4Title = $('<h4>',{
                 html:hit._highlightResult.title.value
             });
-            li.append(pTitle).append(h4);
-            var pAbstract = $('<p>',{
-                html:hit._highlightResult.abstract_excerpt.value
-            });
-            li.append(pAbstract);
-            return li;
+            liHit.append(pTitle).append(h4Title);
+            if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
+                var pAbstract = $('<p>',{
+                    html:hit._highlightResult.abstract_excerpt.value
+                });
+                liHit.append(pAbstract);
+            }
+            if (window.displayAttributes.indexOf('best_method_snippet') > -1){
+                //<span class="label label-default">Default Label</span>
+                if(hit.best_method_title !== ''){
+                    var h5MethodTitle = $('<h5/>');
+                    var labelMethodTitle = $('<span>',{
+                        html:hit.best_method_title
+                    });
+                    h5MethodTitle.append(labelMethodTitle);
+                    labelMethodTitle.addClass('badge badge-secondary');
+                    var pMethodSnippet = $('<p>',{
+                        html:hit._highlightResult.best_method_snippet.value
+                    });
+                    liHit.append(h5MethodTitle);
+                    liHit.append(pMethodSnippet);
+                }
+            }
+            return liHit;
         });
     });
 }
@@ -84,6 +104,17 @@ $('.section-search').on('change', function(){
         }
     });
     helper.setQueryParameter('restrictSearchableAttributes', restrictSearchableAttributesArray).search();
+});
+
+$('.section-display').on('change', function(){
+    //get all checked boxes
+    window.displayAttributes = [];
+    $('.section-display:checkbox:checked').each(function () {
+        if(this.checked){
+            window.displayAttributes.push($(this).val());
+        }
+    });
+    helper.search();
 });
 
 helper.search();
