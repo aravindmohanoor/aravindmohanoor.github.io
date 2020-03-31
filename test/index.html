@@ -13,11 +13,41 @@
 
 </head>
 <body class="container" style="min-width: 95%;">
+<br/>
 <div class="form-group">
-    <label for="search-box">Search</label>
     <input class="form-control" id="search-box" aria-describedby="emailHelp" placeholder="Enter search term">
 </div>
-<!--<input type="text" autocomplete="off" id="search-box">-->
+<div class="row">
+    <div class="col-lg-1">
+        Search in:
+    </div>
+    <div class="col-lg-1">
+        <label class="form-check-label">
+            <input disabled checked="checked" type="checkbox" class="form-check-input section-search" value="title">Title
+        </label>
+    </div>
+    <div class="col-lg-1">
+        <label class="form-check-label">
+            <input type="checkbox" checked="checked" class="form-check-input section-search" value="abstract_excerpt">Abstract
+        </label>
+    </div>
+    <div class="col-lg-1">
+        <label class="form-check-label">
+            <input type="checkbox" checked="checked" class="form-check-input section-search" value="best_method_snippet">Methods
+        </label>
+    </div>
+    <div class="col-lg-1">
+        <label class="form-check-label">
+            <input type="checkbox" checked="checked" class="form-check-input section-search" value="best_result_snippet">Results
+        </label>
+    </div>
+    <div class="col-lg-1">
+        <label class="form-check-label">
+            <input type="checkbox" checked="checked" class="form-check-input section-search" value="section_text">Full text
+        </label>
+    </div>
+</div>
+<br/>
 <div class="row">
     <div class="col-lg-3">
         <h4>Journal</h4>
