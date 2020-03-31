@@ -2,12 +2,13 @@
 var applicationID = 'ZZ2ZTTMSBH';
 var apiKey = '71090d1229c06a4d72829a3d0d59d6bc';
 var index = 'papers_dev';
+var hits_per_page = 10;
 
 var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
     facets: ['journal','year'],
     facetingAfterDistinct: true,
-    hitsPerPage: 5
+    hitsPerPage: hits_per_page
 });
 
 window.displayAttributes = ['title','section_text','abstract_excerpt','best_method_snippet','best_result_snippet'];
@@ -19,8 +20,11 @@ helper.on('result', function (content) {
 });
 
 function updatePagination(content){
+    var totalResults = content.nbHits;
     var totalPages = content.nbPages;
-    $('#spanNumPages').html(totalPages);
+    $('#spanNumResults').html(totalResults);
+    $('#spanNumResultsPerPage').html(hits_per_page);
+    $('#spanCurrentPage').html(helper.getPage()+1);
     $('#pagesDropdown').html('');
     for(var i=1;i<=totalPages;i++){
         //<button class="dropdown-item" value="1" type="button">1</button>

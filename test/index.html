@@ -11,7 +11,7 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-10">
+    <div class="col-lg-9">
         <div class="row">
             <div class="col-lg-1">
                 Search in:
@@ -75,11 +75,13 @@
         </div>
         <br/>
     </div>
-    <div class="col-lg-2">
-        <h5><span class="badge badge-secondary">
-            Total pages <span id="spanNumPages" class="badge badge-light">9</span>
+    <div class="col-lg-3">
+        <h5><span>
+            Total results : <span id="spanNumResults">20</span>
         </span></h5>
-
+        <h5><span>
+            Showing <span id="spanNumResultsPerPage">20</span> results per page
+        </span></h5>
         <div class="dropdown">
             <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Go to Page
@@ -89,6 +91,9 @@
                 <button class="dropdown-item" value="2" type="button">2</button>
                 <button class="dropdown-item" value="3" type="button">3</button>
             </div>
+            <span>
+            Current Page <span id="spanCurrentPage" class="badge badge-secondary">1</span>
+            </span>
         </div>
     </div>
 </div>
