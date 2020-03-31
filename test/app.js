@@ -7,7 +7,7 @@ var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
     facets: ['journal','year'],
     facetingAfterDistinct: true,
-    hitsPerPage: 50
+    hitsPerPage: 5
 });
 
 window.displayAttributes = ['title','section_text','abstract_excerpt','best_method_snippet','best_result_snippet'];
@@ -15,7 +15,31 @@ window.displayAttributes = ['title','section_text','abstract_excerpt','best_meth
 helper.on('result', function (content) {
     renderFacetList(content); // not implemented yet
     renderHits(content);
+    updatePagination(content);
 });
+
+function updatePagination(content){
+    var totalPages = content.nbPages;
+    $('#spanNumPages').html(totalPages);
+    $('#pagesDropdown').html('');
+    for(var i=1;i<=totalPages;i++){
+        //<button class="dropdown-item" value="1" type="button">1</button>
+        var dropdownItem = $('<button>',{
+            value:i,
+            type:'button',
+            text:i
+        });
+        dropdownItem.addClass('dropdown-item');
+        dropdownItem.on('click',function () {
+            helper.setPage(parseInt($(this).val())-1).search();
+        });
+        $('#pagesDropdown').append(dropdownItem);
+    }
+}
+
+/*$('.dropdown-item').on('click',function () {
+    alert($(this).val());
+});*/
 
 function renderHits(content) {
     $('#container').html(function () {
@@ -154,6 +178,8 @@ $('.section-search').on('change', function(){
     });
     helper.setQueryParameter('restrictSearchableAttributes', restrictSearchableAttributesArray).search();
 });
+
+
 
 $('.section-display').on('change', function(){
     //get all checked boxes
