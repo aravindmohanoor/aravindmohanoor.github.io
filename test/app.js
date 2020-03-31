@@ -18,16 +18,17 @@ helper.on('result', function (content) {
 function renderHits(content) {
     $('#container').html(function () {
         return $.map(content.hits, function (hit) {
-            return '<li>' +
-                '<p><h4>'+
-                hit._highlightResult.title.value +
-                '</h4></p>'
-                +
-                '<p>'+
-                hit._highlightResult.abstract_excerpt.value +
-                '</p>'
-                +
-                '</li>';
+            var li = $('<li/>');
+            var pTitle = $('<p/>');
+            var h4 = $('<h4>',{
+                html:hit._highlightResult.title.value
+            });
+            li.append(pTitle).append(h4);
+            var pAbstract = $('<p>',{
+                html:hit._highlightResult.abstract_excerpt.value
+            });
+            li.append(pAbstract);
+            return li;
         });
     });
 }
