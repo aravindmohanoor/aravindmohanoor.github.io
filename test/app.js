@@ -30,10 +30,21 @@ function renderHits(content) {
             });
             liHit.append(pTitle).append(h4Title);
             if (window.displayAttributes.indexOf('section_text') > -1){
-                var pAbstract = $('<p>',{
+                /*var pAbstract = $('<p>',{
                     html:hit._highlightResult.section_text.value
                 });
-                liHit.append(pAbstract);
+                liHit.append(pAbstract);*/
+                var h5SnippetTitle = $('<h5/>');
+                var labelSnippetTitle = $('<span>',{
+                    html:hit.section
+                });
+                h5SnippetTitle.append(labelSnippetTitle);
+                labelSnippetTitle.addClass('badge badge-secondary');
+                var pSnippetText = $('<p>',{
+                    html:hit._highlightResult.section_text.value
+                });
+                liHit.append(h5SnippetTitle);
+                liHit.append(pSnippetText);
             }
             if (window.displayAttributes.indexOf('best_method_snippet') > -1){
                 if(hit.best_method_title !== ''){
@@ -42,7 +53,7 @@ function renderHits(content) {
                         html:hit.best_method_title
                     });
                     h5MethodTitle.append(labelMethodTitle);
-                    labelMethodTitle.addClass('badge badge-secondary');
+                    labelMethodTitle.addClass('badge badge-success');
                     var pMethodSnippet = $('<p>',{
                         html:hit._highlightResult.best_method_snippet.value
                     });
@@ -63,6 +74,21 @@ function renderHits(content) {
                     });
                     liHit.append(h5ResultTitle);
                     liHit.append(pResultSnippet);
+                }
+            }
+            if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
+                if(hit.abstract_excerpt !== ''){
+                    var h5AbstractTitle = $('<h5/>');
+                    var labelAbstractTitle = $('<span>',{
+                        html:'Abstract'
+                    });
+                    h5AbstractTitle.append(labelAbstractTitle);
+                    labelAbstractTitle.addClass('badge badge-warning');
+                    var pAbstract = $('<p>',{
+                        html:hit._highlightResult.abstract_excerpt.value
+                    });
+                    liHit.append(h5AbstractTitle);
+                    liHit.append(pAbstract);
                 }
             }
             divHit.append(liHit);
