@@ -1,0 +1,15 @@
+html {
+    font-size: 14px;
+}
+.search-highlight {
+    background-color: bisque;
+}
+
+.verticalLine {
+    border-left: thick solid lightgray;
+    margin-bottom: 40px;
+}
+
+.hitMargin{
+    margin-left: 10px;
+}
