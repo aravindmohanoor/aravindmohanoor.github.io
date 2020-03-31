@@ -10,7 +10,7 @@ var helper = algoliasearchHelper(client, index, {
     hitsPerPage: 50
 });
 
-window.displayAttributes = ['title','abstract_excerpt','best_method_snippet'];
+window.displayAttributes = ['title','abstract_excerpt','best_method_snippet','best_result_snippet'];
 
 helper.on('result', function (content) {
     renderFacetList(content); // not implemented yet
@@ -20,7 +20,10 @@ helper.on('result', function (content) {
 function renderHits(content) {
     $('#container').html(function () {
         return $.map(content.hits, function (hit) {
+            var divHit = $('<div/>');
+            divHit.addClass('verticalline');
             var liHit = $('<li/>');
+            liHit.addClass('hitMargin');
             var pTitle = $('<p/>');
             var h4Title = $('<h4>',{
                 html:hit._highlightResult.title.value
@@ -33,7 +36,6 @@ function renderHits(content) {
                 liHit.append(pAbstract);
             }
             if (window.displayAttributes.indexOf('best_method_snippet') > -1){
-                //<span class="label label-default">Default Label</span>
                 if(hit.best_method_title !== ''){
                     var h5MethodTitle = $('<h5/>');
                     var labelMethodTitle = $('<span>',{
@@ -48,7 +50,23 @@ function renderHits(content) {
                     liHit.append(pMethodSnippet);
                 }
             }
-            return liHit;
+            if (window.displayAttributes.indexOf('best_result_snippet') > -1){
+                if(hit.best_method_title !== ''){
+                    var h5ResultTitle = $('<h5/>');
+                    var labelResultTitle = $('<span>',{
+                        html:hit.best_result_title
+                    });
+                    h5ResultTitle.append(labelResultTitle);
+                    labelResultTitle.addClass('badge badge-primary');
+                    var pResultSnippet = $('<p>',{
+                        html:hit._highlightResult.best_result_snippet.value
+                    });
+                    liHit.append(h5ResultTitle);
+                    liHit.append(pResultSnippet);
+                }
+            }
+            divHit.append(liHit);
+            return divHit;
         });
     });
 }
