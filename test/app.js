@@ -29,6 +29,11 @@ function renderHits(content) {
                 html:hit._highlightResult.title.value
             });
             liHit.append(pTitle).append(h4Title);
+            strDetails =  hit.journal+' ( '+hit.year+' ) - '+hit.authors+' - '+' <a target="_blank" href="'+hit.url+'">'+hit.doi+'</a>';
+            var pDetails = $('<p>',{
+                html:strDetails
+            });
+            liHit.append(pDetails);
             if (window.displayAttributes.indexOf('section_text') > -1){
                 /*var pAbstract = $('<p>',{
                     html:hit._highlightResult.section_text.value
