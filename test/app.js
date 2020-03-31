@@ -10,7 +10,7 @@ var helper = algoliasearchHelper(client, index, {
     hitsPerPage: 50
 });
 
-window.displayAttributes = ['title','abstract_excerpt','best_method_snippet','best_result_snippet'];
+window.displayAttributes = ['title','section_text','abstract_excerpt','best_method_snippet','best_result_snippet'];
 
 helper.on('result', function (content) {
     renderFacetList(content); // not implemented yet
@@ -29,9 +29,9 @@ function renderHits(content) {
                 html:hit._highlightResult.title.value
             });
             liHit.append(pTitle).append(h4Title);
-            if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
+            if (window.displayAttributes.indexOf('section_text') > -1){
                 var pAbstract = $('<p>',{
-                    html:hit._highlightResult.abstract_excerpt.value
+                    html:hit._highlightResult.section_text.value
                 });
                 liHit.append(pAbstract);
             }
