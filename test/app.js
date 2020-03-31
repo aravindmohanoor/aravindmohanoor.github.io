@@ -19,9 +19,9 @@ function renderHits(content) {
     $('#container').html(function () {
         return $.map(content.hits, function (hit) {
             return '<li>' +
-                '<p><b>'+
+                '<p><h4>'+
                 hit._highlightResult.title.value +
-                '</b></p>'
+                '</h4></p>'
                 +
                 '<p>'+
                 hit._highlightResult.abstract_excerpt.value +
