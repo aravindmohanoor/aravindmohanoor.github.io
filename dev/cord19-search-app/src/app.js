@@ -10,6 +10,12 @@ const search = instantsearch({
   searchClient,
 });
 
+restrictSearchableAttributesArray = [];
+
+window.displayAttributes = ['title','section_text','abstract_excerpt','best_method_snippet','best_result_snippet'];
+
+window.searchAttributes = ['title','section_text','abstract_excerpt','best_method_snippet','best_result_snippet'];
+
 search.addWidgets([
   instantsearch.widgets.searchBox({
     container: '#searchbox',
@@ -29,13 +35,92 @@ search.addWidgets([
   instantsearch.widgets.configure({
     hitsPerPage: 10,
     facetingAfterDistinct: true,
+    restrictSearchableAttributes: restrictSearchableAttributesArray
   }),
   instantsearch.widgets.hits({
     container: '#hits',
     templates: {
+      item:function(hit) {
+        var divHit = $('<div/>');
+        var liHit = $('<div/>');
+        //divHit.addClass('verticalline');
+        // var liHit = $('<li/>');
+        // liHit.addClass('hitMargin');
+        var pTitle = $('<p/>');
+        var h4Title = $('<h4>',{
+          html:hit._highlightResult.title.value
+        });
+        liHit.append(pTitle).append(h4Title);
+        strDetails =  hit.journal+' ('+hit.year+') - '+hit.authors+' - '+' <a target="_blank" href="'+hit.url+'">'+hit.doi+'</a>';
+        var pDetails = $('<p>',{
+          html:strDetails
+        });
+        liHit.append(pDetails);
+        if (window.displayAttributes.indexOf('section_text') > -1){
+          var h5SnippetTitle = $('<h5/>');
+          var labelSnippetTitle = $('<span>',{
+            html:hit.section
+          });
+          h5SnippetTitle.append(labelSnippetTitle);
+          labelSnippetTitle.addClass('badge badge-secondary');
+          var pSnippetText = $('<p>',{
+            html:hit._highlightResult.section_text.value
+          });
+          liHit.append(h5SnippetTitle);
+          liHit.append(pSnippetText);
+        }
+        if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
+          if(hit.abstract_excerpt !== ''){
+            var h5AbstractTitle = $('<h5/>');
+            var labelAbstractTitle = $('<span>',{
+              html:'Abstract'
+            });
+            h5AbstractTitle.append(labelAbstractTitle);
+            labelAbstractTitle.addClass('badge badge-warning');
+            var pAbstract = $('<p>',{
+              html:hit._highlightResult.abstract_excerpt.value
+            });
+            liHit.append(h5AbstractTitle);
+            liHit.append(pAbstract);
+          }
+        }
+        if (window.displayAttributes.indexOf('best_method_snippet') > -1){
+          if(hit.best_method_title !== ''){
+            var h5MethodTitle = $('<h5/>');
+            var labelMethodTitle = $('<span>',{
+              html:hit.best_method_title
+            });
+            h5MethodTitle.append(labelMethodTitle);
+            labelMethodTitle.addClass('badge badge-success');
+            var pMethodSnippet = $('<p>',{
+              html:hit._highlightResult.best_method_snippet.value
+            });
+            liHit.append(h5MethodTitle);
+            liHit.append(pMethodSnippet);
+          }
+        }
+        if (window.displayAttributes.indexOf('best_result_snippet') > -1){
+          if(hit.best_method_title !== ''){
+            var h5ResultTitle = $('<h5/>');
+            var labelResultTitle = $('<span>',{
+              html:hit.best_result_title
+            });
+            h5ResultTitle.append(labelResultTitle);
+            labelResultTitle.addClass('badge badge-primary');
+            var pResultSnippet = $('<p>',{
+              html:hit._highlightResult.best_result_snippet.value
+            });
+            liHit.append(h5ResultTitle);
+            liHit.append(pResultSnippet);
+          }
+        }
+        divHit.append(liHit);
+        return divHit[0].innerHTML;
+      }
+    },
+    /*templates: {
       item: `
         <div>
-          <img src="{{image}}" align="left" alt="{{name}}" />
           <div class="hit-name">
             {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
           </div>
@@ -57,12 +142,31 @@ search.addWidgets([
           </div>
         </div>
       `,
-    },
+    },*/
   }),
   instantsearch.widgets.pagination({
     container: '#pagination',
   }),
 ]);
 
+$('.showSection').on('change', function(){
+  window.displayAttributes = [];
+  $('.showSection:checkbox:checked').each(function () {
+    if(this.checked){
+      window.displayAttributes.push($(this).val());
+    }
+  });
+});
+
+
+$('.searchSection').on('change', function(){
+  restrictSearchableAttributesArray = [];
+  $('.searchSection:checkbox:checked').each(function () {
+    if(this.checked){
+      restrictSearchableAttributesArray.push($(this).val());
+    }
+  });
+});
 
 search.start();
+

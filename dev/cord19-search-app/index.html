@@ -19,7 +19,7 @@
 
 <body>
 
-<div id="current-refinements"></div>
+<div id="current-refinements" style="height:50px; width:100%"></div>
 <div class="ais-InstantSearch">
 
   <div class="left-panel">
@@ -37,11 +37,21 @@
     <div class="checkboxes">
       Show only:
       <span>
-      <input type="checkbox" disabled checked="checked" value="title"> <label>Title</label>
-      <input type="checkbox" checked="checked" value="abstract_excerpt"> <label>Abstract</label>
-        <input type="checkbox" checked="checked" value="best_method_snippet"> <label>Method</label>
-      <input type="checkbox" checked="checked" value="best_result_snippet"> <label>Result</label>
-      <input type="checkbox" checked="checked" value="section_text"><label>Full text</label>
+      <input class="showSection" type="checkbox" disabled checked="checked" value="title"> <label>Title</label>
+      <input class="showSection" type="checkbox" checked="checked" value="abstract_excerpt"> <label>Abstract</label>
+        <input class="showSection" type="checkbox" checked="checked" value="best_method_snippet"> <label>Method</label>
+      <input class="showSection" type="checkbox" checked="checked" value="best_result_snippet"> <label>Result</label>
+      <input class="showSection" type="checkbox" checked="checked" value="section_text"><label>Full text</label>
+      </span>
+    </div>
+    <div class="checkboxes">
+      Search only:
+      <span>
+      <input class="searchSection" type="checkbox" disabled checked="checked" value="title"> <label>Title</label>
+      <input class="searchSection" type="checkbox" checked="checked" value="abstract_excerpt"> <label>Abstract</label>
+        <input class="searchSection" type="checkbox" checked="checked" value="best_method_snippet"> <label>Method</label>
+      <input class="searchSection" type="checkbox" checked="checked" value="best_result_snippet"> <label>Result</label>
+      <input class="searchSection" type="checkbox" checked="checked" value="section_text"><label>Full text</label>
       </span>
     </div>
     <br/>
@@ -50,8 +60,8 @@
   </div>
 </div>
 
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/algoliasearch/3.32.0/algoliasearchLite.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.3.1"></script>
   <script src="./src/app.js"></script>

@@ -6,7 +6,7 @@ var hits_per_page = 10;
 
 var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
-    facets: ['journal','year'],
+    disjunctiveFacets: ['journal','year'],
     facetingAfterDistinct: true,
     hitsPerPage: hits_per_page
 });
@@ -132,14 +132,12 @@ function renderHits(content) {
 
 $('#journal-facet').on('click', 'input[type=checkbox]', function (e) {
     var facetValue = $(this).data('facet');
-    helper.toggleRefinement('journal', facetValue).
-    search();
+    helper.toggleRefinement('journal', facetValue).search();
 });
 
 $('#year-facet').on('click', 'input[type=checkbox]', function (e) {
     var facetValue = $(this).data('facet');
-    helper.toggleRefinement('year', facetValue).
-    search();
+    helper.toggleRefinement('year', facetValue).search();
 });
 
 function renderFacetList(content) {
