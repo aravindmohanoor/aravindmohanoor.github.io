@@ -6,7 +6,7 @@ var hits_per_page = 10;
 
 var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
-    facets: ['journal','year'],
+    disjunctiveFacets: ['journal','year'],
     facetingAfterDistinct: true,
     hitsPerPage: hits_per_page
 });
@@ -57,16 +57,12 @@ function renderHits(content) {
                 html:hit._highlightResult.title.value
             });
             liHit.append(pTitle).append(h4Title);
-            strDetails =  hit.journal+' ( '+hit.year+' ) - '+hit.authors+' - '+' <a target="_blank" href="'+hit.url+'">'+hit.doi+'</a>';
+            strDetails =  hit.journal+' ('+hit.year+') - '+hit.authors+' - '+' <a target="_blank" href="'+hit.url+'">'+hit.doi+'</a>';
             var pDetails = $('<p>',{
                 html:strDetails
             });
             liHit.append(pDetails);
             if (window.displayAttributes.indexOf('section_text') > -1){
-                /*var pAbstract = $('<p>',{
-                    html:hit._highlightResult.section_text.value
-                });
-                liHit.append(pAbstract);*/
                 var h5SnippetTitle = $('<h5/>');
                 var labelSnippetTitle = $('<span>',{
                     html:hit.section
@@ -78,6 +74,21 @@ function renderHits(content) {
                 });
                 liHit.append(h5SnippetTitle);
                 liHit.append(pSnippetText);
+            }
+            if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
+                if(hit.abstract_excerpt !== ''){
+                    var h5AbstractTitle = $('<h5/>');
+                    var labelAbstractTitle = $('<span>',{
+                        html:'Abstract'
+                    });
+                    h5AbstractTitle.append(labelAbstractTitle);
+                    labelAbstractTitle.addClass('badge badge-warning');
+                    var pAbstract = $('<p>',{
+                        html:hit._highlightResult.abstract_excerpt.value
+                    });
+                    liHit.append(h5AbstractTitle);
+                    liHit.append(pAbstract);
+                }
             }
             if (window.displayAttributes.indexOf('best_method_snippet') > -1){
                 if(hit.best_method_title !== ''){
@@ -109,21 +120,7 @@ function renderHits(content) {
                     liHit.append(pResultSnippet);
                 }
             }
-            if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
-                if(hit.abstract_excerpt !== ''){
-                    var h5AbstractTitle = $('<h5/>');
-                    var labelAbstractTitle = $('<span>',{
-                        html:'Abstract'
-                    });
-                    h5AbstractTitle.append(labelAbstractTitle);
-                    labelAbstractTitle.addClass('badge badge-warning');
-                    var pAbstract = $('<p>',{
-                        html:hit._highlightResult.abstract_excerpt.value
-                    });
-                    liHit.append(h5AbstractTitle);
-                    liHit.append(pAbstract);
-                }
-            }
+
             divHit.append(liHit);
             return divHit;
         });
@@ -132,14 +129,12 @@ function renderHits(content) {
 
 $('#journal-facet').on('click', 'input[type=checkbox]', function (e) {
     var facetValue = $(this).data('facet');
-    helper.toggleRefinement('journal', facetValue).
-    search();
+    helper.toggleRefinement('journal', facetValue).search();
 });
 
 $('#year-facet').on('click', 'input[type=checkbox]', function (e) {
     var facetValue = $(this).data('facet');
-    helper.toggleRefinement('year', facetValue).
-    search();
+    helper.toggleRefinement('year', facetValue).search();
 });
 
 function renderFacetList(content) {
