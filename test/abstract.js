@@ -6,10 +6,9 @@ var hits_per_page = 10;
 
 var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
-    disjunctiveFacets: ['journal','year','outcome','difference'],
+    disjunctiveFacets: ['journal','year','outcome','difference','design','disease'],
     facetingAfterDistinct: true,
-    hitsPerPage: hits_per_page,
-    sortFacetValuesBy: 'alpha'
+    hitsPerPage: hits_per_page
 });
 
 window.displayAttributes = ['title','section_text','abstract_excerpt','best_method_snippet','best_result_snippet'];
@@ -63,7 +62,7 @@ function renderHits(content) {
                 html:strDetails
             });
             liHit.append(pDetails);
-            if (window.displayAttributes.indexOf('section_text') > -1){
+            /*if (window.displayAttributes.indexOf('section_text') > -1){
                 var h5SnippetTitle = $('<h5/>');
                 var labelSnippetTitle = $('<span>',{
                     html:hit.section
@@ -75,7 +74,7 @@ function renderHits(content) {
                 });
                 liHit.append(h5SnippetTitle);
                 liHit.append(pSnippetText);
-            }
+            }*/
             if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
                 if(hit.abstract_excerpt !== ''){
                     var h5AbstractTitle = $('<h5/>');
@@ -148,6 +147,16 @@ $('#difference-facet').on('click', 'input[type=checkbox]', function (e) {
     helper.toggleRefinement('difference', facetValue).search();
 });
 
+$('#design-facet').on('click', 'input[type=checkbox]', function (e) {
+    var facetValue = $(this).data('facet');
+    helper.toggleRefinement('design', facetValue).search();
+});
+
+$('#disease-facet').on('click', 'input[type=checkbox]', function (e) {
+    var facetValue = $(this).data('facet');
+    helper.toggleRefinement('disease', facetValue).search();
+});
+
 function renderFacetList(content) {
     $('#journal-facet').html(function () {
         return $.map(content.getFacetValues('journal'), function (facet) {
@@ -184,6 +193,28 @@ function renderFacetList(content) {
     });
     $('#difference-facet').html(function () {
         return $.map(content.getFacetValues('difference'), function (facet) {
+            var checkbox = $('<input type=checkbox>').
+            data('facet', facet.name).
+            attr('id', 'fl-' + facet.name);
+            if (facet.isRefined) checkbox.attr('checked', 'checked');
+            var label = $('<label>').html(facet.name + ' (' + facet.count + ')').
+            attr('for', 'fl-' + facet.name);
+            return $('<li>').append(checkbox).append(label);
+        });
+    });
+    $('#design-facet').html(function () {
+        return $.map(content.getFacetValues('design'), function (facet) {
+            var checkbox = $('<input type=checkbox>').
+            data('facet', facet.name).
+            attr('id', 'fl-' + facet.name);
+            if (facet.isRefined) checkbox.attr('checked', 'checked');
+            var label = $('<label>').html(facet.name + ' (' + facet.count + ')').
+            attr('for', 'fl-' + facet.name);
+            return $('<li>').append(checkbox).append(label);
+        });
+    });
+    $('#disease-facet').html(function () {
+        return $.map(content.getFacetValues('disease'), function (facet) {
             var checkbox = $('<input type=checkbox>').
             data('facet', facet.name).
             attr('id', 'fl-' + facet.name);
