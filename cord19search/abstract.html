@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="shortcut icon" href="./favicon.png">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="abstract.css">
+
+    <title>Cord 19 Search</title>
+</head>
+
+<body>
+
+<div id="current-refinements" style="height:50px; width:100%"></div>
+<div class="ais-InstantSearch">
+    <div class="left-panel">
+        <p style="font-size: small">Powered by <a target="_blank" href="https://www.algolia.com">Algolia</a></p>
+        <h6><b>Journal</b></h6>
+        <div id="brand-list"></div>
+        <br/>
+        <h6><b>Year</b></h6>
+        <div id="year-facet"></div>
+        <br/>
+        <h6><b>Study Design</b></h6>
+        <div id="design-facet" style="max-height: 250px;overflow-y: scroll"></div>
+        <br/>
+        <h6><b>Outcome</b></h6>
+        <div id="outcome-facet" style="max-height: 250px;overflow-y: scroll"></div>
+        <br/>
+        <h6><b>Difference</b></h6>
+        <div id="difference-facet" style="max-height: 250px;overflow-y: scroll"></div>
+        <br/>
+        <h6><b>Disease</b></h6>
+        <div id="disease-facet" style="max-height: 250px;overflow-y: scroll"></div>
+        <br/>
+    </div>
+    <div class="right-panel">
+        <div id="searchbox"></div>
+        <div id="hits"></div>
+        <div id="pagination"></div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/algoliasearch/3.32.0/algoliasearchLite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.3.1"></script>
+<script src="abstract.js"></script>
+</body>
+
+</html>
