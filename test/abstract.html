@@ -1,99 +1,59 @@
-<html lang="en" class=""><head>
-    <meta charset="UTF-8">
-    <title>Cord 19 Abstract Search</title>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="shortcut icon" href="./favicon.png">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="abstract.css">
+
+    <title>Cord 19 Search</title>
 </head>
-<body class="container" style="min-width: 95%;">
-<br/>
-<div class="row">
-    <div class="col-lg-10">
-        <div class="form-group">
-            <input class="form-control" id="search-box" aria-describedby="emailHelp" placeholder="Enter search term">
-        </div>
-    </div>
-    <div class="col-lg-2">
-        Powered by <a href="https://algolia.com">Algolia</a>
-    </div>
-</div>
-<br/>
 
-<div class="row">
-    <div class="col-lg-9">
+<body>
 
-    </div>
-    <div class="col-lg-3">
-        <h5><span>
-            Total results : <span id="spanNumResults">20</span>
-        </span></h5>
-        <h5><span>
-            Showing <span id="spanNumResultsPerPage">20</span> results per page
-        </span></h5>
-        <div class="dropdown">
-            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Go to Page
-            </button>
-            <div id="pagesDropdown" class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button class="dropdown-item" value="1" type="button">1</button>
-                <button class="dropdown-item" value="2" type="button">2</button>
-                <button class="dropdown-item" value="3" type="button">3</button>
-            </div>
-            <span>
-            Current Page <span id="spanCurrentPage" class="badge badge-secondary">1</span>
-            </span>
-        </div>
-    </div>
-</div>
-<br/>
-
-<div class="row">
-    <div class="col-lg-3">
-        <h4>Year</h4>
-        <ul id="year-facet"  style="list-style: none;list-style: none;margin-left: 0;padding-left: 0;"></ul>
-        <h4>Journal</h4>
-        <div style="max-height:250px; overflow-y: scroll">
-            <ul id="journal-facet" style="list-style: none;margin-left: 0;padding-left: 0;">
-            </ul>
-        </div>
+<div id="current-refinements" style="height:50px; width:100%"></div>
+<div class="ais-InstantSearch">
+    <div class="left-panel">
+        <h6>Journal</h6>
+        <div id="brand-list"></div>
         <br/>
-        <h4>Study Design</h4>
-        <div style="max-height:250px; overflow-y: scroll">
-            <ul id="design-facet" style="list-style: none;margin-left: 0;padding-left: 0;">
-            </ul>
-        </div>
+        <h6>Year</h6>
+        <div id="year-facet"></div>
         <br/>
-        <h4>Outcome</h4>
-        <div style="max-height:250px; overflow-y: scroll">
-            <ul id="outcome-facet" style="list-style: none;margin-left: 0;padding-left: 0;">
-            </ul>
-        </div>
+        <h6>Study Design</h6>
+        <div id="design-facet" style="max-height: 250px;overflow-y: scroll"></div>
         <br/>
-        <h4>Difference</h4>
-        <div style="max-height:250px; overflow-y: scroll">
-            <ul id="difference-facet" style="list-style: none;margin-left: 0;padding-left: 0;">
-            </ul>
-        </div>
+        <h6>Outcome</h6>
+        <div id="outcome-facet" style="max-height: 250px;overflow-y: scroll"></div>
         <br/>
-        <h4>Disease</h4>
-        <div style="max-height:250px; overflow-y: scroll">
-            <ul id="disease-facet" style="list-style: none;margin-left: 0;padding-left: 0;">
-            </ul>
-        </div>
+        <h6>Difference</h6>
+        <div id="difference-facet" style="max-height: 250px;overflow-y: scroll"></div>
+        <br/>
+        <h6>Disease</h6>
+        <div id="disease-facet" style="max-height: 250px;overflow-y: scroll"></div>
         <br/>
     </div>
-    <div class="col-lg-9">
-        <ul id="container"  style="list-style: none;list-style: none;margin-left: 0;padding-left: 0;">
-
-        </ul>
+    <div class="right-panel">
+        <div id="searchbox"></div>
+        <div id="hits"></div>
+        <div id="pagination"></div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/g/algoliasearch@3(algoliasearchLite.min.js),algoliasearch.helper@2"></script>
-<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.js"></script>
-
+<script src="https://cdn.jsdelivr.net/algoliasearch/3.32.0/algoliasearchLite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.3.1"></script>
 <script src="abstract.js"></script>
-</body></html>
+</body>
+
+</html>

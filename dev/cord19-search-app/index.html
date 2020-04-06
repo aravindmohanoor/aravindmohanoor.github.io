@@ -21,45 +21,34 @@
 
 <div id="current-refinements" style="height:50px; width:100%"></div>
 <div class="ais-InstantSearch">
-
   <div class="left-panel">
-
-
-    <h5>Journal</h5>
+    <h6>Journal</h6>
     <div id="brand-list"></div>
     <br/>
-    <h5>Year</h5>
+    <h6>Year</h6>
     <div id="year-facet"></div>
+    <br/>
+    <h6>Study Design</h6>
+    <div id="design-facet" style="max-height: 250px;overflow-y: scroll"></div>
+    <br/>
+    <h6>Outcome</h6>
+    <div id="outcome-facet" style="max-height: 250px;overflow-y: scroll"></div>
+    <br/>
+    <h6>Difference</h6>
+    <div id="difference-facet" style="max-height: 250px;overflow-y: scroll"></div>
+    <br/>
+    <h6>Disease</h6>
+    <div id="disease-facet" style="max-height: 250px;overflow-y: scroll"></div>
+    <br/>
   </div>
-
   <div class="right-panel">
     <div id="searchbox"></div>
-    <div class="checkboxes">
-      Show only:
-      <span>
-      <input class="showSection" type="checkbox" disabled checked="checked" value="title"> <label>Title</label>
-      <input class="showSection" type="checkbox" checked="checked" value="abstract_excerpt"> <label>Abstract</label>
-        <input class="showSection" type="checkbox" checked="checked" value="best_method_snippet"> <label>Method</label>
-      <input class="showSection" type="checkbox" checked="checked" value="best_result_snippet"> <label>Result</label>
-      <input class="showSection" type="checkbox" checked="checked" value="section_text"><label>Full text</label>
-      </span>
-    </div>
-    <div class="checkboxes">
-      Search only:
-      <span>
-      <input class="searchSection" type="checkbox" disabled checked="checked" value="title"> <label>Title</label>
-      <input class="searchSection" type="checkbox" checked="checked" value="abstract_excerpt"> <label>Abstract</label>
-        <input class="searchSection" type="checkbox" checked="checked" value="best_method_snippet"> <label>Method</label>
-      <input class="searchSection" type="checkbox" checked="checked" value="best_result_snippet"> <label>Result</label>
-      <input class="searchSection" type="checkbox" checked="checked" value="section_text"><label>Full text</label>
-      </span>
-    </div>
-    <br/>
     <div id="hits"></div>
     <div id="pagination"></div>
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/algoliasearch/3.32.0/algoliasearchLite.min.js"></script>
