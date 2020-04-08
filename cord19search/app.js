@@ -69,8 +69,21 @@ function renderHits(content) {
                 });
                 h5SnippetTitle.append(labelSnippetTitle);
                 labelSnippetTitle.addClass('badge badge-secondary');
+                strSectionText = '';
+                var sectionTextValue = hit._highlightResult.section_text;
+                if (Array.isArray(sectionTextValue)){
+                    for(var item in sectionTextValue){
+                        strSectionText += sectionTextValue[item].value + ' ';
+                    }
+                }
+                else{
+                    strSectionText = sectionTextValue;
+                }
+                // for(const text of hit._highlightResult.section_text){
+                //     strSectionText += text.value + ' ';
+                // }
                 var pSnippetText = $('<p>',{
-                    html:hit._highlightResult.section_text.value
+                    html:strSectionText
                 });
                 liHit.append(h5SnippetTitle);
                 liHit.append(pSnippetText);
@@ -83,6 +96,7 @@ function renderHits(content) {
                     });
                     h5AbstractTitle.append(labelAbstractTitle);
                     labelAbstractTitle.addClass('badge badge-warning');
+
                     var pAbstract = $('<p>',{
                         html:hit._highlightResult.abstract_excerpt.value
                     });
@@ -139,7 +153,9 @@ $('#year-facet').on('click', 'input[type=checkbox]', function (e) {
 
 function renderFacetList(content) {
     $('#journal-facet').html(function () {
-        return $.map(content.getFacetValues('journal'), function (facet) {
+        allFacetValues = content.getFacetValues('journal');
+        sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
             data('facet', facet.name).
             attr('id', 'fl-' + facet.name);
