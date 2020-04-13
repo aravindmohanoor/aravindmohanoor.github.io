@@ -1,8 +1,41 @@
 html {
-    font-size: 14px;
+    font-size: 15px;
 }
 .search-highlight {
     background-color: bisque;
+}
+
+.difference-pill {
+    background-color: #ff4444;
+    border: none;
+    color: white;
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    margin: 2px 2px;
+    border-radius: 5px;
+}
+
+.outcome-pill {
+    background-color: #FF8800;
+    border: none;
+    color: white;
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    margin: 2px 2px;
+    border-radius: 5px;
+}
+
+.design-pill{
+    background-color: #0099CC;
+    border: none;
+    color: white;
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    margin: 2px 2px;
+    border-radius: 5px;
 }
 
 .verticalLine {

@@ -6,7 +6,7 @@ var hits_per_page = 10;
 
 var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
-    disjunctiveFacets: ['journal','year'],
+    disjunctiveFacets: ['journal','year_month','design'],
     facetingAfterDistinct: true,
     hitsPerPage: hits_per_page
 });
@@ -17,7 +17,37 @@ helper.on('result', function (content) {
     renderFacetList(content); // not implemented yet
     renderHits(content);
     updatePagination(content);
+    highlightFilters();
 });
+
+function highlightFilters(){
+    highlighted_differences = [];
+    $( ".difference" ).each(function( index ) {
+        var lower = $(this).text().toLowerCase();
+        if (!highlighted_differences.includes(lower)){
+            $(this).addClass('difference-pill');
+            highlighted_differences.push(lower);
+        }
+    });
+
+    highlighted_outcomes = [];
+    $( ".outcome" ).each(function( index ) {
+        var lower = $(this).text().toLowerCase();
+        if (!highlighted_outcomes.includes(lower)){
+            $(this).addClass('outcome-pill');
+            highlighted_outcomes.push(lower);
+        }
+    });
+
+    highlighted_designs = [];
+    $( ".design" ).each(function( index ) {
+        var lower = $(this).text().toLowerCase();
+        if (!highlighted_designs.includes(lower)){
+            $(this).addClass('design-pill');
+            highlighted_designs.push(lower);
+        }
+    });
+}
 
 function updatePagination(content){
     var totalResults = content.nbHits;
@@ -79,6 +109,7 @@ function renderHits(content) {
                 var pSnippetText = $('<p>',{
                     html:strSectionText
                 });
+                pSnippetText.addClass('snippet');
                 liHit.append(h5SnippetTitle);
                 liHit.append(pSnippetText);
             }
@@ -142,7 +173,12 @@ $('#journal-facet').on('click', 'input[type=checkbox]', function (e) {
 
 $('#year-facet').on('click', 'input[type=checkbox]', function (e) {
     var facetValue = $(this).data('facet');
-    helper.toggleRefinement('year', facetValue).search();
+    helper.toggleRefinement('year_month', facetValue).search();
+});
+
+$('#design-facet').on('click', 'input[type=checkbox]', function (e) {
+    var facetValue = $(this).data('facet');
+    helper.toggleRefinement('design', facetValue).search();
 });
 
 function renderFacetList(content) {
@@ -160,7 +196,20 @@ function renderFacetList(content) {
         });
     });
     $('#year-facet').html(function () {
-        return $.map(content.getFacetValues('year'), function (facet) {
+        return $.map(content.getFacetValues('year_month'), function (facet) {
+            var checkbox = $('<input type=checkbox>').
+            data('facet', facet.name).
+            attr('id', 'fl-' + facet.name);
+            if (facet.isRefined) checkbox.attr('checked', 'checked');
+            var label = $('<label>').html(facet.name + ' (' + facet.count + ')').
+            attr('for', 'fl-' + facet.name);
+            return $('<li>').append(checkbox).append(label);
+        });
+    });
+    $('#design-facet').html(function () {
+        allFacetValues = content.getFacetValues('design');
+        sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
             data('facet', facet.name).
             attr('id', 'fl-' + facet.name);
