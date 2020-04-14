@@ -21,31 +21,38 @@ helper.on('result', function (content) {
 });
 
 function highlightFilters(){
-    highlighted_differences = [];
-    $( ".difference" ).each(function( index ) {
-        var lower = $(this).text().toLowerCase();
-        if (!highlighted_differences.includes(lower)){
-            $(this).addClass('difference-pill');
-            highlighted_differences.push(lower);
-        }
+
+    $( "p.snippet" ).each(function( index ) {
+        highlighted_differences = [];
+        $(this).find('.difference').each(function( index ) {
+            var lower = $(this).text().toLowerCase();
+            if (!highlighted_differences.includes(lower)){
+                $(this).addClass('difference-pill');
+                highlighted_differences.push(lower);
+            }
+        })
     });
 
-    highlighted_outcomes = [];
-    $( ".outcome" ).each(function( index ) {
-        var lower = $(this).text().toLowerCase();
-        if (!highlighted_outcomes.includes(lower)){
-            $(this).addClass('outcome-pill');
-            highlighted_outcomes.push(lower);
-        }
+    $( "p.snippet" ).each(function( index ) {
+        highlighted_designs = [];
+        $(this).find('.design').each(function( index ) {
+            var lower = $(this).text().toLowerCase();
+            if (!highlighted_designs.includes(lower)){
+                $(this).addClass('design-pill');
+                highlighted_designs.push(lower);
+            }
+        })
     });
 
-    highlighted_designs = [];
-    $( ".design" ).each(function( index ) {
-        var lower = $(this).text().toLowerCase();
-        if (!highlighted_designs.includes(lower)){
-            $(this).addClass('design-pill');
-            highlighted_designs.push(lower);
-        }
+    $( "p.snippet" ).each(function( index ) {
+        highlighted_outcomes = [];
+        $(this).find('.outcome').each(function( index ) {
+            var lower = $(this).text().toLowerCase();
+            if (!highlighted_outcomes.includes(lower)){
+                $(this).addClass('outcome-pill');
+                highlighted_outcomes.push(lower);
+            }
+        })
     });
 }
 
