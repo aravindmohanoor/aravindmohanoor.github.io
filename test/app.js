@@ -155,7 +155,7 @@ function toggleFilterDisplay(facet, facetValue, facetLabel, isChecked){
         var spanFilter = $('<span>',{
             html:facetLabel+' : '+facetValue
         });
-        spanFilter.addClass('badge badge-pill badge-primary active-filter');
+        spanFilter.addClass('badge badge-pill badge-secondary active-filter');
         var buttonFilter = $('<i/>');
         buttonFilter.addClass('btn btn-sm fa fa-close');
         buttonFilter.attr('font-size','12px');
