@@ -78,9 +78,6 @@ function updatePagination(content){
     }
 }
 
-/*$('.dropdown-item').on('click',function () {
-    alert($(this).val());
-});*/
 
 function renderHits(content) {
     $('#container').html(function () {
@@ -100,12 +97,12 @@ function renderHits(content) {
             });
             liHit.append(pDetails);
             if (window.displayAttributes.indexOf('section_text') > -1){
-                var h5SnippetTitle = $('<h5/>');
+                var h6SnippetTitle = $('<h6/>');
                 var labelSnippetTitle = $('<span>',{
-                    html:hit.section
+                    html:'Snippet > '+hit.section
                 });
-                h5SnippetTitle.append(labelSnippetTitle);
-                labelSnippetTitle.addClass('badge badge-secondary');
+                h6SnippetTitle.append(labelSnippetTitle);
+                labelSnippetTitle.addClass('heading-pill');
                 strSectionText = '';
                 for (let [key, value] of Object.entries(hit._highlightResult.section_text)) {
                     strSectionText += value.value+' ';
@@ -117,52 +114,53 @@ function renderHits(content) {
                     html:strSectionText
                 });
                 pSnippetText.addClass('snippet');
-                liHit.append(h5SnippetTitle);
+                liHit.append(h6SnippetTitle);
                 liHit.append(pSnippetText);
             }
             if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
                 if(hit.abstract_excerpt !== ''){
-                    var h5AbstractTitle = $('<h5/>');
+                    var h6AbstractTitle = $('<h6/>');
                     var labelAbstractTitle = $('<span>',{
                         html:'Abstract'
                     });
-                    h5AbstractTitle.append(labelAbstractTitle);
-                    labelAbstractTitle.addClass('badge badge-warning');
+                    h6AbstractTitle.append(labelAbstractTitle);
+                    labelAbstractTitle.addClass('heading-pill');
 
                     var pAbstract = $('<p>',{
                         html:hit._highlightResult.abstract_excerpt.value
                     });
-                    liHit.append(h5AbstractTitle);
+                    liHit.append(h6AbstractTitle);
                     liHit.append(pAbstract);
                 }
             }
             if (window.displayAttributes.indexOf('best_method_snippet') > -1){
                 if(hit.best_method_title !== ''){
-                    var h5MethodTitle = $('<h5/>');
+                    var h6MethodTitle = $('<h6/>');
                     var labelMethodTitle = $('<span>',{
-                        html:hit.best_method_title
+                        html:'Methods > '+hit.best_method_title
                     });
-                    h5MethodTitle.append(labelMethodTitle);
-                    labelMethodTitle.addClass('badge badge-success');
+                    h6MethodTitle.append(labelMethodTitle);
+                    labelMethodTitle.addClass('heading-pill');
+
                     var pMethodSnippet = $('<p>',{
                         html:hit._highlightResult.best_method_snippet.value
                     });
-                    liHit.append(h5MethodTitle);
+                    liHit.append(h6MethodTitle);
                     liHit.append(pMethodSnippet);
                 }
             }
             if (window.displayAttributes.indexOf('best_result_snippet') > -1){
                 if(hit.best_method_title !== ''){
-                    var h5ResultTitle = $('<h5/>');
+                    var h6ResultTitle = $('<h6/>');
                     var labelResultTitle = $('<span>',{
-                        html:hit.best_result_title
+                        html:'Results > '+hit.best_result_title
                     });
-                    h5ResultTitle.append(labelResultTitle);
-                    labelResultTitle.addClass('badge badge-primary');
+                    h6ResultTitle.append(labelResultTitle);
+                    labelResultTitle.addClass('heading-pill');
                     var pResultSnippet = $('<p>',{
                         html:hit._highlightResult.best_result_snippet.value
                     });
-                    liHit.append(h5ResultTitle);
+                    liHit.append(h6ResultTitle);
                     liHit.append(pResultSnippet);
                 }
             }
