@@ -6,7 +6,7 @@ var hits_per_page = 10;
 
 var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
-    disjunctiveFacets: ['journal','year_month','design'],
+    disjunctiveFacets: ['journal','year_month','design','outcome','difference'],
     facetingAfterDistinct: true,
     hitsPerPage: hits_per_page
 });
@@ -163,6 +163,16 @@ $('#design-facet').on('click', 'input[type=checkbox]', function (e) {
     helper.toggleRefinement('design', facetValue).search();
 });
 
+$('#outcome-facet').on('click', 'input[type=checkbox]', function (e) {
+    var facetValue = $(this).data('facet');
+    helper.toggleRefinement('outcome', facetValue).search();
+});
+
+$('#difference-facet').on('click', 'input[type=checkbox]', function (e) {
+    var facetValue = $(this).data('facet');
+    helper.toggleRefinement('difference', facetValue).search();
+});
+
 function renderFacetList(content) {
     $('#journal-facet').html(function () {
         allFacetValues = content.getFacetValues('journal');
@@ -190,6 +200,32 @@ function renderFacetList(content) {
     });
     $('#design-facet').html(function () {
         allFacetValues = content.getFacetValues('design');
+        sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        return $.map(sortedFacetValues, function (facet) {
+            var checkbox = $('<input type=checkbox>').
+            data('facet', facet.name).
+            attr('id', 'fl-' + facet.name);
+            if (facet.isRefined) checkbox.attr('checked', 'checked');
+            var label = $('<label>').html(facet.name + ' (' + facet.count + ')').
+            attr('for', 'fl-' + facet.name);
+            return $('<li>').append(checkbox).append(label);
+        });
+    });
+    $('#outcome-facet').html(function () {
+        allFacetValues = content.getFacetValues('outcome');
+        sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        return $.map(sortedFacetValues, function (facet) {
+            var checkbox = $('<input type=checkbox>').
+            data('facet', facet.name).
+            attr('id', 'fl-' + facet.name);
+            if (facet.isRefined) checkbox.attr('checked', 'checked');
+            var label = $('<label>').html(facet.name + ' (' + facet.count + ')').
+            attr('for', 'fl-' + facet.name);
+            return $('<li>').append(checkbox).append(label);
+        });
+    });
+    $('#difference-facet').html(function () {
+        allFacetValues = content.getFacetValues('difference');
         sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
         return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
