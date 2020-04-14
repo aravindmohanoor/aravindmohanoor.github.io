@@ -13,6 +13,8 @@ var helper = algoliasearchHelper(client, index, {
 
 window.displayAttributes = ['title','section_text','abstract_excerpt','best_method_snippet','best_result_snippet'];
 
+window.spanFilters = {}
+
 helper.on('result', function (content) {
     renderFacetList(content); // not implemented yet
     renderHits(content);
@@ -148,29 +150,58 @@ function renderHits(content) {
     });
 }
 
-$('#journal-facet').on('click', 'input[type=checkbox]', function (e) {
-    var facetValue = $(this).data('facet');
-    helper.toggleRefinement('journal', facetValue).search();
-});
-
-$('#year-facet').on('click', 'input[type=checkbox]', function (e) {
-    var facetValue = $(this).data('facet');
-    helper.toggleRefinement('year_month', facetValue).search();
-});
+function toggleFilterDisplay(facet, facetValue, facetLabel, isChecked){
+    if (isChecked){
+        var spanFilter = $('<span>',{
+            html:facetLabel+' : '+facetValue
+        });
+        spanFilter.addClass('badge badge-pill badge-primary active-filter');
+        var buttonFilter = $('<i/>');
+        buttonFilter.addClass('btn btn-sm fa fa-close');
+        buttonFilter.attr('font-size','12px');
+        buttonFilter.attr('color','white');
+        buttonFilter.on('click',function (e) {
+            helper.toggleRefinement(facet, facetValue).search();
+            spanFilter.remove();
+        });
+        spanFilter.append(buttonFilter);
+        $('#spanFilters').append(spanFilter);
+        window.spanFilters[facetLabel+'_'+facetValue] = spanFilter;
+    }
+    else{
+        let filterElem = window.spanFilters[facetLabel+'_'+facetValue];
+        filterElem.remove();
+    }
+}
 
 $('#design-facet').on('click', 'input[type=checkbox]', function (e) {
     var facetValue = $(this).data('facet');
     helper.toggleRefinement('design', facetValue).search();
+    toggleFilterDisplay('design',facetValue, 'Study Design', this.checked);
 });
 
 $('#outcome-facet').on('click', 'input[type=checkbox]', function (e) {
     var facetValue = $(this).data('facet');
     helper.toggleRefinement('outcome', facetValue).search();
+    toggleFilterDisplay('outcome',facetValue, 'Outcome', this.checked);
 });
 
 $('#difference-facet').on('click', 'input[type=checkbox]', function (e) {
     var facetValue = $(this).data('facet');
     helper.toggleRefinement('difference', facetValue).search();
+    toggleFilterDisplay('difference', facetValue, 'Risk factor', this.checked);
+});
+
+$('#year-facet').on('click', 'input[type=checkbox]', function (e) {
+    var facetValue = $(this).data('facet');
+    helper.toggleRefinement('year_month', facetValue).search();
+    toggleFilterDisplay('year_month',facetValue,'Month', this.checked);
+});
+
+$('#journal-facet').on('click', 'input[type=checkbox]', function (e) {
+    var facetValue = $(this).data('facet');
+    helper.toggleRefinement('journal', facetValue).search();
+    toggleFilterDisplay('journal',facetValue,'Journal', this.checked);
 });
 
 function renderFacetList(content) {
