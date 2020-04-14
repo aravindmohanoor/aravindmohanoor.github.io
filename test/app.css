@@ -2,7 +2,14 @@ html {
     font-size: 15px;
 }
 .search-highlight {
-    background-color: bisque;
+    background-color: #2BBBAD;
+    border: none;
+    color: white;
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    margin: 2px 2px;
+    border-radius: 5px;
 }
 
 .difference-pill {
