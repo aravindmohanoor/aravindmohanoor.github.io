@@ -17,40 +17,20 @@ helper.on('result', function (content) {
     renderFacetList(content); // not implemented yet
     renderHits(content);
     updatePagination(content);
-    highlightFilters();
+    //highlightFilters();
+    highlightFilter('design');
+    highlightFilter('difference');
+    highlightFilter('outcome');
 });
 
-function highlightFilters(){
-
+function highlightFilter(filterName){
     $( "p.snippet" ).each(function( index ) {
-        highlighted_differences = [];
-        $(this).find('.difference').each(function( index ) {
+        highlighted_items = [];
+        $(this).find('.'+filterName).each(function( index ) {
             var lower = $(this).text().toLowerCase();
-            if (!highlighted_differences.includes(lower)){
-                $(this).addClass('difference-pill');
-                highlighted_differences.push(lower);
-            }
-        })
-    });
-
-    $( "p.snippet" ).each(function( index ) {
-        highlighted_designs = [];
-        $(this).find('.design').each(function( index ) {
-            var lower = $(this).text().toLowerCase();
-            if (!highlighted_designs.includes(lower)){
-                $(this).addClass('design-pill');
-                highlighted_designs.push(lower);
-            }
-        })
-    });
-
-    $( "p.snippet" ).each(function( index ) {
-        highlighted_outcomes = [];
-        $(this).find('.outcome').each(function( index ) {
-            var lower = $(this).text().toLowerCase();
-            if (!highlighted_outcomes.includes(lower)){
-                $(this).addClass('outcome-pill');
-                highlighted_outcomes.push(lower);
+            if (!highlighted_items.includes(lower)){
+                $(this).addClass(filterName+'-pill');
+                highlighted_items.push(lower);
             }
         })
     });
@@ -107,9 +87,6 @@ function renderHits(content) {
                 for (let [key, value] of Object.entries(hit._highlightResult.section_text)) {
                     strSectionText += value.value+' ';
                 }
-                // for(const text of hit._highlightResult.section_text){
-                //     strSectionText += text.value + ' ';
-                // }
                 var pSnippetText = $('<p>',{
                     html:strSectionText
                 });
@@ -253,6 +230,22 @@ $('.section-display').on('change', function(){
         }
     });
     helper.search();
+});
+
+$('.facet-highlight').on('change', function(){
+    $('.facet-highlight:checkbox').each(function () {
+        var is_checked = this.checked;
+        if(!is_checked){
+            var type = $(this).val();
+            $('span.'+type).each(function () {
+                $(this).removeClass(type+'-pill')
+            });
+        }
+        else{
+            var type = $(this).val();
+            highlightFilter(type);
+        }
+    });
 });
 
 helper.search();
