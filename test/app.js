@@ -188,7 +188,9 @@ function renderFacetList(content) {
         });
     });
     $('#year-facet').html(function () {
-        return $.map(content.getFacetValues('year_month'), function (facet) {
+        allFacetValues = content.getFacetValues('year_month');
+        sortedFacetValues = allFacetValues.sort((a,b) => (b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0));
+        return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
             data('facet', facet.name).
             attr('id', 'fl-' + facet.name);
