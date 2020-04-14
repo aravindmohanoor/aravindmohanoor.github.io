@@ -2,6 +2,7 @@
     <meta charset="UTF-8">
     <title>Cord 19 Search</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="app.css">
 </head>
 <body class="container" style="min-width: 95%;">
@@ -26,7 +27,7 @@
             </div>
             <div class="col-lg-1">
                 <label class="form-check-label">
-                    <input disabled checked="checked" type="checkbox" class="form-check-input section-search" value="title">Title
+                    <input checked="checked" type="checkbox" class="form-check-input section-search" value="title">Title
                 </label>
             </div>
             <div class="col-lg-1">
@@ -82,6 +83,29 @@
             </div>
         </div>
         <br/>
+        <div class="row">
+            <div class="col-lg-2">
+                Highlight:
+            </div>
+            <div class="col-lg-2">
+                <label class="form-check-label">
+                    <input checked="checked" type="checkbox" class="form-check-input facet-highlight" value="design">
+                    <span class="design-pill">Study Design</span>
+                </label>
+            </div>
+            <div class="col-lg-2">
+                <label class="form-check-label">
+                    <input type="checkbox" checked="checked" class="form-check-input facet-highlight" value="difference">
+                    <span class="difference-pill">Risk Factor</span>
+                </label>
+            </div>
+            <div class="col-lg-2">
+                <label class="form-check-label">
+                    <input type="checkbox" checked="checked" class="form-check-input facet-highlight" value="outcome">
+                    <span class="outcome-pill">Outcome</span>
+                </label>
+            </div>
+        </div>
     </div>
     <div class="col-lg-3">
         <h5><span>
@@ -107,14 +131,43 @@
 </div>
 <br/>
 <div class="row">
-    <div class="col-lg-3">
-        <h4>Year</h4>
-        <ul id="year-facet"  style="list-style: none;list-style: none;margin-left: 0;padding-left: 0;"></ul>
-        <h4>Journal</h4>
-        <div style="max-height:400px; overflow-y: scroll">
-            <ul id="journal-facet" style="list-style: none;margin-left: 0;padding-left: 0;">
-            </ul>
+    <div class="col-lg-1">
+        Filters:
+    </div>
+    <div class="col-lg-11">
+        <div id="spanFilters">
+
         </div>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-lg-3">
+        <h6><b>Date</b></h6>
+        <div style="max-height:250px; overflow-y: scroll">
+        <ul id="year-facet"  style="list-style: none;margin-left: 0;padding-left: 0;"></ul>
+        </div>
+        <br/>
+        <h6><b>Study Design</b></h6>
+        <div style="max-height:250px; overflow-y: scroll">
+            <ul id="design-facet" style="list-style: none;margin-left: 0;padding-left: 0;"></ul>
+        </div>
+        <br/>
+        <h6><b>Outcome</b></h6>
+        <div style="max-height:250px; overflow-y: scroll">
+            <ul id="outcome-facet" style="list-style: none;margin-left: 0;padding-left: 0;"></ul>
+        </div>
+        <br/>
+        <h6><b>Risk Factors</b></h6>
+        <div style="max-height:250px; overflow-y: scroll">
+            <ul id="difference-facet" style="list-style: none;margin-left: 0;padding-left: 0;"></ul>
+        </div>
+        <br/>
+        <h6><b>Journal</b></h6>
+        <div style="max-height:250px; overflow-y: scroll">
+            <ul id="journal-facet" style="list-style: none;margin-left: 0;padding-left: 0;"></ul>
+        </div>
+        <br/>
     </div>
     <div class="col-lg-9">
         <ul id="container"  style="list-style: none;list-style: none;margin-left: 0;padding-left: 0;">
