@@ -23,6 +23,28 @@ html {
     border-radius: 5px;
 }
 
+.diagnostic_risk_factor-pill {
+    background-color: #33b5e5;
+    border: none;
+    color: white;
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    margin: 2px 2px;
+    border-radius: 5px;
+}
+
+.prognostic_risk_factor-pill {
+    background-color: #33b5e5;
+    border: none;
+    color: white;
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    margin: 2px 2px;
+    border-radius: 5px;
+}
+
 .heading-pill {
     background-color: #757575 ;
     border: none;

@@ -6,7 +6,7 @@ var hits_per_page = 10;
 
 var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
-    disjunctiveFacets: ['journal','year_month','design','outcome','difference'],
+    disjunctiveFacets: ['journal','year_month','design','outcome','diagnostic_risk_factor','prognostic_risk_factor'],
     facetingAfterDistinct: true,
     hitsPerPage: hits_per_page
 });
@@ -21,7 +21,8 @@ helper.on('result', function (content) {
     updatePagination(content);
     //highlightFilters();
     highlightFilter('design');
-    highlightFilter('difference');
+    highlightFilter('diagnostic_risk_factor');
+    highlightFilter('prognostic_risk_factor');
     highlightFilter('outcome');
 });
 
@@ -186,11 +187,18 @@ $('#outcome-facet').on('click', 'input[type=checkbox]', function (e) {
     toggleFilterDisplay('outcome',facetValue, 'Outcome', this.checked);
 });
 
-$('#difference-facet').on('click', 'input[type=checkbox]', function (e) {
+$('#diagnostic-facet').on('click', 'input[type=checkbox]', function (e) {
     var facetValue = $(this).data('facet');
-    helper.toggleRefinement('difference', facetValue).search();
-    toggleFilterDisplay('difference', facetValue, 'Risk factor', this.checked);
+    helper.toggleRefinement('diagnostic_risk_factor', facetValue).search();
+    toggleFilterDisplay('diagnostic_risk_factor', facetValue, 'Diag. Risk Factor', this.checked);
 });
+
+$('#prognostic-facet').on('click', 'input[type=checkbox]', function (e) {
+    var facetValue = $(this).data('facet');
+    helper.toggleRefinement('prognostic_risk_factor', facetValue).search();
+    toggleFilterDisplay('prognostic_risk_factor', facetValue, 'Prog. Risk factor', this.checked);
+});
+
 
 $('#year-facet').on('click', 'input[type=checkbox]', function (e) {
     var facetValue = $(this).data('facet');
@@ -257,8 +265,8 @@ function renderFacetList(content) {
             return $('<li>').append(checkbox).append(label);
         });
     });
-    $('#difference-facet').html(function () {
-        allFacetValues = content.getFacetValues('difference');
+    $('#diagnostic-facet').html(function () {
+        allFacetValues = content.getFacetValues('diagnostic_risk_factor');
         sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
         return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
@@ -270,6 +278,20 @@ function renderFacetList(content) {
             return $('<li>').append(checkbox).append(label);
         });
     });
+    $('#prognostic-facet').html(function () {
+        allFacetValues = content.getFacetValues('prognostic_risk_factor');
+        sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        return $.map(sortedFacetValues, function (facet) {
+            var checkbox = $('<input type=checkbox>').
+            data('facet', facet.name).
+            attr('id', 'fl-' + facet.name);
+            if (facet.isRefined) checkbox.attr('checked', 'checked');
+            var label = $('<label>').html(facet.name + ' (' + facet.count + ')').
+            attr('for', 'fl-' + facet.name);
+            return $('<li>').append(checkbox).append(label);
+        });
+    });
+
 }
 
 $('#search-box').on('keyup', function () {
