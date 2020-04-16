@@ -24,6 +24,7 @@ helper.on('result', function (content) {
     highlightFilter('diagnostic_risk_factor');
     highlightFilter('prognostic_risk_factor');
     highlightFilter('outcome');
+    highlightFilter('search-highlight');
 });
 
 function highlightFilter(filterName){
@@ -328,7 +329,7 @@ $('.facet-highlight').on('change', function(){
         var is_checked = this.checked;
         if(!is_checked){
             var type = $(this).val();
-            $('span.'+type).each(function () {
+            $('.'+type).each(function () {
                 $(this).removeClass(type+'-pill')
             });
         }
