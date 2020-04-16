@@ -11,7 +11,8 @@ var helper = algoliasearchHelper(client, index, {
     hitsPerPage: hits_per_page
 });
 
-window.displayAttributes = ['title','section_text','abstract_excerpt','best_method_snippet','best_result_snippet'];
+window.displayAttributes = ['title','section_text','abstract_excerpt','best_method_snippet',
+    'best_result_snippet','extractive_summary'];
 
 window.spanFilters = {}
 
@@ -97,6 +98,25 @@ function renderHits(content) {
                 pSnippetText.addClass('snippet');
                 liHit.append(h6SnippetTitle);
                 liHit.append(pSnippetText);
+            }
+            if (window.displayAttributes.indexOf('extractive_summary') > -1){
+                var h6SummaryTitle = $('<h6/>');
+                var labelSummaryTitle = $('<span>',{
+                    html:'Extractive Summary'
+                });
+                h6SummaryTitle.append(labelSummaryTitle);
+                labelSummaryTitle.addClass('heading-pill');
+                strSummaryText = '<ul>';
+                let key_sentences = hit.key_sentences;
+                key_sentences.forEach(function(item){
+                    strSummaryText += '<li>'+item+'</li>';
+                });
+                strSummaryText += '</ul>';
+                var pSummaryText = $('<p>',{
+                    html:strSummaryText
+                });
+                liHit.append(h6SummaryTitle);
+                liHit.append(pSummaryText);
             }
             if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
                 if(hit.abstract_excerpt !== ''){
