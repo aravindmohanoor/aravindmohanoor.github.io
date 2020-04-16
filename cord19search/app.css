@@ -1,7 +1,7 @@
 html {
     font-size: 15px;
 }
-.search-highlight {
+.search-highlight-pill {
     background-color: #2BBBAD;
     border: none;
     color: white;
@@ -12,7 +12,31 @@ html {
     border-radius: 5px;
 }
 
+
+
 .difference-pill {
+    background-color: #33b5e5;
+    border: none;
+    color: white;
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    margin: 2px 2px;
+    border-radius: 5px;
+}
+
+.diagnostic_risk_factor-pill {
+    background-color: #33b5e5;
+    border: none;
+    color: white;
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    margin: 2px 2px;
+    border-radius: 5px;
+}
+
+.prognostic_risk_factor-pill {
     background-color: #33b5e5;
     border: none;
     color: white;
