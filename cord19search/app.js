@@ -2,7 +2,7 @@
 var applicationID = 'ZZ2ZTTMSBH';
 var apiKey = '71090d1229c06a4d72829a3d0d59d6bc';
 var index = 'papers';
-var hits_per_page = 10;
+var hits_per_page = 25;
 
 var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
@@ -11,8 +11,7 @@ var helper = algoliasearchHelper(client, index, {
     hitsPerPage: hits_per_page
 });
 
-window.displayAttributes = ['title','section_text','abstract_excerpt','best_method_snippet',
-    'best_result_snippet','extractive_summary'];
+window.displayAttributes = ['title','section_text','abstract_excerpt'];
 
 window.spanFilters = {}
 
@@ -20,11 +19,6 @@ helper.on('result', function (content) {
     renderFacetList(content); // not implemented yet
     renderHits(content);
     updatePagination(content);
-    //highlightFilters();
-    highlightFilter('design');
-    highlightFilter('diagnostic_risk_factor');
-    highlightFilter('prognostic_risk_factor');
-    highlightFilter('outcome');
     highlightFilter('search-highlight');
 });
 
