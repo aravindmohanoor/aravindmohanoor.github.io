@@ -6,7 +6,7 @@ var hits_per_page = 25;
 
 var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
-    disjunctiveFacets: ['journal','year_month','design','outcome','diagnostic_risk_factor','prognostic_risk_factor'],
+    disjunctiveFacets: ['journal','year_month','year','design','outcome','diagnostic_risk_factor','prognostic_risk_factor'],
     facetingAfterDistinct: true,
     hitsPerPage: hits_per_page
 });
@@ -218,10 +218,16 @@ $('#prognostic-facet').on('click', 'input[type=checkbox]', function (e) {
 });
 
 
-$('#year-facet').on('click', 'input[type=checkbox]', function (e) {
+$('#year_month-facet').on('click', 'input[type=checkbox]', function (e) {
     var facetValue = $(this).data('facet');
     helper.toggleRefinement('year_month', facetValue).search();
     toggleFilterDisplay('year_month',facetValue,'Month', this.checked);
+});
+
+$('#year-facet').on('click', 'input[type=checkbox]', function (e) {
+    var facetValue = $(this).data('facet');
+    helper.toggleRefinement('year', facetValue).search();
+    toggleFilterDisplay('year',facetValue,'Year', this.checked);
 });
 
 $('#journal-facet').on('click', 'input[type=checkbox]', function (e) {
@@ -244,8 +250,21 @@ function renderFacetList(content) {
             return $('<li>').append(checkbox).append(label);
         });
     });
-    $('#year-facet').html(function () {
+    $('#year_month-facet').html(function () {
         allFacetValues = content.getFacetValues('year_month');
+        sortedFacetValues = allFacetValues.sort((a,b) => (b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0));
+        return $.map(sortedFacetValues, function (facet) {
+            var checkbox = $('<input type=checkbox>').
+            data('facet', facet.name).
+            attr('id', 'fl-' + facet.name);
+            if (facet.isRefined) checkbox.attr('checked', 'checked');
+            var label = $('<label>').html(facet.name + ' (' + facet.count + ')').
+            attr('for', 'fl-' + facet.name);
+            return $('<li>').append(checkbox).append(label);
+        });
+    });
+    $('#year-facet').html(function () {
+        allFacetValues = content.getFacetValues('year');
         sortedFacetValues = allFacetValues.sort((a,b) => (b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0));
         return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
