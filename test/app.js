@@ -13,7 +13,7 @@ var helper = algoliasearchHelper(client, index, {
 
 window.displayAttributes = ['title','section_text','abstract_excerpt'];
 
-window.spanFilters = {}
+window.spanFilters = {};
 
 helper.on('result', function (content) {
     renderFacetList(content); // not implemented yet
@@ -103,10 +103,16 @@ function renderHits(content) {
                 });
                 h6SnippetTitle.append(labelSnippetTitle);
                 labelSnippetTitle.addClass('heading-pill');
-                strSectionText = '';
-                for (let [key, value] of Object.entries(hit._highlightResult.section_text)) {
-                    strSectionText += value.value+' ';
+                let strSectionText = '';
+                if (Array.isArray(hit._highlightResult.section_text)){
+                    for (let [key, value] of Object.entries(hit._highlightResult.section_text)) {
+                        strSectionText += value.value+' ';
+                    }
                 }
+                else{
+                    strSectionText = hit._highlightResult.section_text.value;
+                }
+
                 var pSnippetText = $('<p>',{
                     html:strSectionText
                 });
