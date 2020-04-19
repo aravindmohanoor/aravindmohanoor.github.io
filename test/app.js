@@ -133,6 +133,7 @@ function renderHits(content) {
                     var pAbstract = $('<p>',{
                         html:hit._highlightResult.abstract_excerpt.value
                     });
+                    pAbstract.addClass('snippet');
                     liHit.append(h6AbstractTitle);
                     liHit.append(pAbstract);
                 }
@@ -149,6 +150,7 @@ function renderHits(content) {
                     var pMethodSnippet = $('<p>',{
                         html:hit._highlightResult.best_method_snippet.value
                     });
+                    pMethodSnippet.addClass('snippet');
                     liHit.append(h6MethodTitle);
                     liHit.append(pMethodSnippet);
                 }
@@ -164,6 +166,7 @@ function renderHits(content) {
                     var pResultSnippet = $('<p>',{
                         html:hit._highlightResult.best_result_snippet.value
                     });
+                    pResultSnippet.addClass('snippet');
                     liHit.append(h6ResultTitle);
                     liHit.append(pResultSnippet);
                 }
