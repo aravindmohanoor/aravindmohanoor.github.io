@@ -11,6 +11,93 @@ var helper = algoliasearchHelper(client, index, {
     hitsPerPage: hits_per_page
 });
 
+/*
+* <option value="1" selected="selected">Feature 1</option>
+                <option value="2">Feature 2</option>
+                <option value="3">Feature 3</option>
+                <option value="4">Feature 4</option>
+* */
+$(document).ready(function() {
+
+
+    function ajax1() {
+        return $.get('diagnostic_risk_factors.txt', function (data) {
+            let allLines = data.split(/\r\n|\n/);
+            let allLinesSorted = allLines.sort(function (a, b) {
+                return a.toLowerCase().localeCompare(b.toLowerCase());
+            });
+
+            let numLinesRiskFactors = allLines.length;
+            for(let i=1;i<=5;i++){
+                let random = Math.floor(Math.random() * numLinesRiskFactors);
+                let select = '#intervention_'+i.toString();
+                allLinesSorted.forEach(function (item, index) {
+                    let option = $('<option>', {
+                        html: item.charAt(0).toUpperCase()+item.slice(1)
+                    });
+                    if (index === random) {
+                        option.attr("selected", "selected");
+                    }
+                    $(select).append(option);
+                });
+            }
+        });
+    }
+
+    function ajax2(){
+        return $.get('outcomes.txt', function (data) {
+            let allLines = data.split(/\r\n|\n/);
+            let allLinesSorted = allLines.sort(function (a, b) {
+                return a.toLowerCase().localeCompare(b.toLowerCase());
+            });
+            let numLines = allLines.length;
+
+            for(let i=1;i<=5;i++){
+                let random = Math.floor(Math.random() * numLines);
+                let select = '#outcome_'+i.toString();
+                allLinesSorted.forEach(function (item, index) {
+                    let option = $('<option>', {
+                        html: item.charAt(0).toUpperCase()+item.slice(1)
+                    });
+                    if (index === random) {
+                        option.attr("selected", "selected");
+                    }
+                    $(select).append(option);
+                });
+            }
+        });
+    }
+
+    $.when(ajax1(), ajax2()).done(function(a1, a2){
+        let risk_factor_1 = $('#intervention_1 option:selected').text();
+        let risk_factor_2 = $('#intervention_2 option:selected').text();
+        let risk_factor_3 = $('#intervention_3 option:selected').text();
+        let risk_factor_4 = $('#intervention_4 option:selected').text();
+        let risk_factor_5 = $('#intervention_5 option:selected').text();
+
+        let outcome_1 = $('#outcome_1 option:selected').text();
+        let outcome_2 = $('#outcome_2 option:selected').text();
+        let outcome_3 = $('#outcome_3 option:selected').text();
+        let outcome_4 = $('#outcome_4 option:selected').text();
+        let outcome_5 = $('#outcome_5 option:selected').text();
+
+        helper.toggleRefinement('diagnostic_risk_factor', risk_factor_1);
+        helper.toggleRefinement('diagnostic_risk_factor', risk_factor_2);
+        helper.toggleRefinement('diagnostic_risk_factor', risk_factor_3);
+        helper.toggleRefinement('diagnostic_risk_factor', risk_factor_4);
+        helper.toggleRefinement('diagnostic_risk_factor', risk_factor_5);
+
+        helper.toggleRefinement('outcome', outcome_1);
+        helper.toggleRefinement('outcome', outcome_2);
+        helper.toggleRefinement('outcome', outcome_3);
+        helper.toggleRefinement('outcome', outcome_4);
+        helper.toggleRefinement('outcome', outcome_5);
+
+        helper.search();
+    });
+
+});
+
 window.displayAttributes = ['title','section_text','abstract_excerpt'];
 
 window.spanFilters = {};

@@ -1,0 +1,208 @@
+incidence
+attack rate
+risk factor analysis
+risk factors
+odds
+log odds
+RR
+AOR
+HR
+coefficient
+β
+logistic regression
+mean difference
+Time to defervescence
+remission rate of respiratory symptoms
+time to cough reported as mild
+time to cough reported as absent
+Leicester cough questionnaire
+percentage of cases without coughing
+different approaches of oxygen inhalation
+time to dyspnea reported as mild/absent
+frequency of dyspnea
+respiratory rate
+frequency of hypoxia
+duration of supplemental oxygenation
+recovery time of pulmonary function
+respiratory symptoms and signs
+frequency of respiratory progression
+frequency of respiratory remission
+time to gastrointestinal symptoms reported as absent
+frequency of individual symptom absent
+time to clinical remission
+frequency of clinical improvement
+clinical symptoms
+score of clinical symptoms
+TTCI
+curative effects of TCM syndromes
+score of TCM symptoms
+X-ray examination
+changes in pulmonary imaging
+CT and MRI scan of hip joint
+chest imaging
+pulmonary function
+cardiac function
+CBC
+peripheral blood cell count
+C-reactive protein
+hypersensitive C-reactive protein
+erythrocyte sedimentation rate
+calcitonin
+procalcitonin
+proinflammatory cytokines
+blood gas analysis
+blood oxygen saturation
+PaO2/FiO2
+improvement rate of finger oxygen
+recovery rate of laboratory indexes
+lymphocyte count
+change curve of lymphocyte subsets count
+immunological indexes
+CD4+ T cells count
+CD8+ T cells count
+D-dimer
+coagulation function
+myocardial enzymes
+myoglobin
+creatinine kinase
+2019-nCoV RT-PCR test
+virologic indicators
+virus antibody level in blood samples
+Modified Barthel index
+health survey short form
+self-rating anxiety scale
+European Qol-5 dimensional questionnaire
+assessment of daily living ability
+social support rating scale
+SF-36
+psychological indexes
+self-rating depression scale
+Fatality rate
+all-cause fatality rate
+all-cause mortality
+survival condition
+mortality rate
+time to treatment failure
+frequency of MODS
+frequency of ARDS
+sequential organ failure assessment
+organ support intensity
+frequency of shock
+Percentage of cases with significant improvement or meeting discharge standard
+time to recovery
+de-isolation rate
+frequency of 2019-nCoV RT-PCR negativity
+time to cure
+cure rate
+frequency of disease remission
+frequency of disease progression
+assessment of disease evolution
+frequency of requirement for first aid
+combination with other infections
+percentage of cases administered with steroids
+percentage of antibiotics use
+DIC score
+vasopressor days
+percentage of cases turning to critical
+frequency of hemodialysis filtration
+frequency of requirement for pulmonary surfactant
+percentage of cases turning to severe
+time to cases turning to severe
+percentage of cases recovering to mild type
+time to cases recovering to mild type
+frequency/length of severe cases turning to critical type or death
+frequency of ICU admission
+length of ICU stay
+time to ICU admission
+length of hospital stay
+frequency of tube insertion
+duration of tube insertion
+parameters of respirator
+frequency of requirement for mechanical ventilation
+duration of mechanical ventilation
+parameters of mechanical ventilation
+duration of ECMO
+mode and parameters of ECMO
+seven-point ordinal scale
+APACHE II score
+CURB-65 pneumonia severity score
+Murray lung injury score
+NEWS 2
+SOFA score
+pulmonary high-resolution CT score
+PSI score
+St. George’s respiratory questionnaire
+Adverse reactions
+frequency of adverse events
+frequency of severe adverse events
+frequency of drug withdrawal due to adverse reactions
+frequency of complications
+blood biochemistry
+liver function
+liver and renal function
+frequency of renal injury
+routine urinalysis
+electrocardiography
+blood concentration of chloroquine
+viral burden
+viral load
+Time to 2019-nCoV RR-PCR negativity
+Time taken by SARS-CoV-2-RNA to become negative
+Proportion of patients negative for SARS-CoV-2
+Declining speed of SARS-CoV-2
+Viral load
+Respiratory rate
+Improvement in respiratory rate
+Time to achieve a normal respiratory rate
+Oxygen saturation
+Blood oxygen saturation
+prevalence of improvement
+Oxygen saturation
+Oxygen intake
+Duration of supplemental oxygenation
+Frequency of requirement for supplemental oxygen
+Prevalence of supplemental-oxygen requirement
+Oxygen-intake method
+Mechanical ventilation
+PaO2
+FiO2
+Respiratory failure occurred and mechanical ventilation required
+Duration of mechanical ventilation
+Mechanical ventilation
+Duration of mechanical ventilation
+Frequency of requirement for mechanical ventilation
+Prevalence of mechanical ventilation
+Pulmonary imaging
+Lesions progression within 24–48 h in pulmonary imaging
+Inflammation absorption
+time to recovery
+Length of hospital stay
+fever
+cough
+fatigue
+shortness of breath
+Dyspnea prevalence
+Prevalence of dyspnea clearance
+diarrhea
+shock
+shock occurrence
+organ failure
+need for icu treatment
+icu treatment required
+recovery
+recovery time
+recovery prevalence
+improvement
+progression
+Prevalence of progressing to severe
+prevalence of progressing to critical
+progressing to severe
+progressing to critical
+time of progressing
+Inflammation
+CRP level
+time for  CRP recovery
+Lymphocyte count
+Virus antibody level
+Arterial blood-gas analysis
+Pneumonia severity index

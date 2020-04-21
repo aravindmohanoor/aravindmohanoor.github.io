@@ -1,0 +1,64 @@
+diabetes
+hypertension
+heart disease
+cancer
+smoking status
+history of lung disease
+local climate
+elderly
+small children
+immune compromised groups
+age
+race/ethnicity
+education
+income
+insurance status
+housing status
+immigration status
+prison inmates
+mental hospital inpatients
+long-term care facility residents
+health workers
+first responders
+hospital staff
+nursing home staff
+prison staff
+pregnancy status
+neonates
+renal impairment
+chronic kidney disease
+Parkinson's Disease
+Cerebral Infarction
+History of stroke
+Influenza
+Bacterial pneumonia
+Hepatitis B
+alcoholic liver disease
+fatty liver
+fungal infection
+Thyroid diseases
+COPD
+chronic bronchitis
+obesity
+BMI
+gender
+cough
+fever
+sputum production
+diarrhea
+vomiting
+shortness of breath
+sleep disruption
+fatigue
+general pain
+Lymphadenopathy
+dizzyness
+chills
+chest tightness/pain
+abdominal pain
+anorexia
+malnutrition
+polypnea
+septic shock,
+asymptomatic
+Nasal congestion
