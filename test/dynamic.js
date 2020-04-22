@@ -38,7 +38,7 @@ function updateOutcome(index, outcome, init=false){
 
 $(document).ready(function() {
 
-    study_design = {};
+    window.study_design = {};
 
     function ajax1() {
         return $.get('diagnostic_risk_factors.txt', function (data) {
@@ -94,7 +94,8 @@ $(document).ready(function() {
             allLines.forEach(function (item, index) {
                 let level = item.split(':')[0];
                 let label = item.split(':')[1];
-                study_design[label.trim().toLowerCase()] = level;
+                let capitalizedLabel = label.charAt(0).toUpperCase()+label.slice(1);
+                window.study_design[capitalizedLabel] = level;
             });
         });
     }
@@ -308,30 +309,125 @@ function populateGapMap(content){
             let gapmapArray = gapmap[i1.toString()][j1.toString()];
             $(cellName).html('');
             let allDesigns = [];
+            let level1Designs = [];
+            let level2Designs = [];
+            let level3Designs = [];
+            let level4Designs = [];
+            let level5Designs = [];
+            let level6Designs = [];
             gapmapArray.forEach(function (item) {
                 let designs = item.design;
                 designs.forEach(function (design) {
                     let val = design.charAt(0).toUpperCase()+design.slice(1);
-                    if(allDesigns.indexOf(val) == -1){
-                        allDesigns.push(val);
+                    switch(window.study_design[val]) {
+                        case "1":
+                            addUniques(level1Designs, val);
+                            break;
+                        case "2":
+                            addUniques(level2Designs, val);
+                            break;
+                        case "3":
+                            addUniques(level3Designs, val);
+                            break;
+                        case "4":
+                            addUniques(level4Designs, val);
+                            break;
+                        case "5":
+                            addUniques(level5Designs, val);
+                            break;
+                        case "6":
+                            addUniques(level6Designs, val);
+                            break;
+                        default:
+                            console.log('incorrect level number');
+                            break;
                     }
                 });
             });
-            allDesigns.forEach(function (item) {
-                let val = item.charAt(0).toUpperCase()+item.slice(1);
-                let p = $('<p/>');
-                let label = $('<label>',{
-                    'html':val
-                });
-                let input = $('<input>',{
-                    'type':'checkbox',
-                    'value':val
-                });
-                p.append(label);
-                label.prepend(input);
-                $(cellName).append(p);
-            });
+            if(level1Designs.length > 0){
+                populateLevelSummary(cellName,'Level 1',level1Designs);
+            }
+            if(level2Designs.length > 0){
+                populateLevelSummary(cellName,'Level 2',level2Designs);
+            }
+            if(level3Designs.length > 0){
+                populateLevelSummary(cellName,'Level 3',level3Designs);
+            }
+            if(level4Designs.length > 0){
+                populateLevelSummary(cellName,'Level 4',level4Designs);
+            }
+            if(level5Designs.length > 0){
+                populateLevelSummary(cellName,'Level 5',level5Designs);
+            }
+            if(level6Designs.length > 0){
+                populateLevelSummary(cellName,'Level 6',level6Designs);
+            }
         }
+    }
+}
+
+function populateLevelSummary(cell, levelName, levelArray){
+    /*
+    *  <details>
+  <summary>Copyright 1999-2014.</summary>
+  <p> - by Refsnes Data. All Rights Reserved.</p>
+  <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+</details>
+    * */
+    let detail = $('<details/>');
+    let summary = $('<summary>',{
+        html: levelName
+    });
+    detail.append(summary);
+    /*let h6Level = $('<h6>',{
+        html:levelName
+    });
+    $(cell).append(h6Level);*/
+    levelArray.forEach(function (item) {
+        let val = item.charAt(0).toUpperCase()+item.slice(1);
+        let p = $('<p/>');
+        let label = $('<label>',{
+            'html':val
+        });
+        let input = $('<input>',{
+            'type':'checkbox',
+            'value':val
+        });
+        p.append(label);
+        label.prepend(input);
+        $(detail).append(p);
+    });
+    $(cell).append(detail);
+}
+
+function populateLevelCheckboxes(cell, levelArray){
+
+    levelArray.forEach(function (item) {
+        let val = item.charAt(0).toUpperCase()+item.slice(1);
+        let p = $('<p/>');
+        let label = $('<label>',{
+            'html':val
+        });
+        let input = $('<input>',{
+            'type':'checkbox',
+            'value':val
+        });
+        p.append(label);
+        label.prepend(input);
+        $(cell).append(p);
+    });
+}
+
+function addLevelHeader(cell, title){
+    let h6Level = $('<h6>',{
+        html:title
+    });
+    $(cell).append(h6Level);
+}
+
+function addUniques(levelArray, value){
+    if(levelArray.indexOf(value)===-1){
+        levelArray.push(value);
     }
 }
 
