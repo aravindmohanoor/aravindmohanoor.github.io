@@ -105,6 +105,7 @@ $(document).ready(function() {
             let interventionDiv = '#intervention_'+i.toString()+' option:selected';
             let intervention = $(interventionDiv).text();
             updateIntervention(i-1, intervention, true);
+
         }
 
         for(let j=1;j<=5;j++){
@@ -125,11 +126,15 @@ window.displayAttributes = ['title','section_text','abstract_excerpt'];
 
 window.spanFilters = {};
 
+window.intervention = 0;
+window.outcome = 0;
+
 helper.on('result', function (content) {
     renderFacetList(content); // not implemented yet
     renderHits(content);
     updatePagination(content);
     highlightFilter('search-highlight');
+    populateGapMap(content);
 });
 
 $('#intervention_1').on('change', function() {
@@ -207,6 +212,128 @@ function updatePagination(content){
     }
 }
 
+function populateGapMap(content){
+    let gapmap = {
+        "1":{
+            "1":[],
+            "2":[],
+            "3":[],
+            "4":[],
+            "5":[]
+        },
+        "2":{
+            "1":[],
+            "2":[],
+            "3":[],
+            "4":[],
+            "5":[]
+        },
+        "3":{
+            "1":[],
+            "2":[],
+            "3":[],
+            "4":[],
+            "5":[]
+        },
+        "4":{
+            "1":[],
+            "2":[],
+            "3":[],
+            "4":[],
+            "5":[]
+        },
+        "5":{
+            "1":[],
+            "2":[],
+            "3":[],
+            "4":[],
+            "5":[]
+        }
+    };
+    for(let i=0;i<content.nbHits;i++){
+        try{
+            hit = content.hits[i];
+            outerIndex = [];
+            innerIndex = [];
+            let diagnostic_risk_factors = hit.diagnostic_risk_factor;
+            let outcomes = hit.outcome;
+            diagnostic_risk_factors.forEach(function (item) {
+                if ($('#intervention_1 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    outerIndex.push(1);
+                }
+                if ($('#intervention_2 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    outerIndex.push(2);
+                }
+                if ($('#intervention_3 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    outerIndex.push(3)
+                }
+                if ($('#intervention_4 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    outerIndex.push(4);
+                }
+                if ($('#intervention_5 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    outerIndex.push(5);
+                }
+            });
+            outcomes.forEach(function (item) {
+                if ($('#outcome_1 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    innerIndex.push(1);
+                }
+                if ($('#outcome_2 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    innerIndex.push(2);
+                }
+                if ($('#outcome_3 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    innerIndex.push(3);
+                }
+                if ($('#outcome_4 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    innerIndex.push(4);
+                }
+                if ($('#outcome_5 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    innerIndex.push(5);
+                }
+            });
+            outerIndex.forEach(function (item) {
+                innerIndex.forEach(function (item1) {
+                    gapmap[item.toString()][item1.toString()].push(hit);
+                })
+            });
+        }
+        catch (e) {
+            console.log(e);
+        }
+
+    }
+    for(let i1=1;i1<=5;i1++){
+        for(let j1=1;j1<=5;j1++){
+            let cellName = '#row'+i1.toString()+'_col'+j1.toString();
+            let gapmapArray = gapmap[i1.toString()][j1.toString()];
+            $(cellName).html('');
+            let allDesigns = [];
+            gapmapArray.forEach(function (item) {
+                let designs = item.design;
+                designs.forEach(function (design) {
+                    let val = design.charAt(0).toUpperCase()+design.slice(1);
+                    if(allDesigns.indexOf(val) == -1){
+                        allDesigns.push(val);
+                    }
+                });
+            });
+            allDesigns.forEach(function (item) {
+                let val = item.charAt(0).toUpperCase()+item.slice(1);
+                let p = $('<p/>');
+                let label = $('<label>',{
+                    'html':val
+                });
+                let input = $('<input>',{
+                    'type':'checkbox',
+                    'value':val
+                });
+                p.append(label);
+                label.prepend(input);
+                $(cellName).append(p);
+            });
+        }
+    }
+}
 
 function renderHits(content) {
     $('#container').html(function () {
