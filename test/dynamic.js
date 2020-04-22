@@ -308,68 +308,95 @@ function populateGapMap(content){
             let cellName = '#row'+i1.toString()+'_col'+j1.toString();
             let gapmapArray = gapmap[i1.toString()][j1.toString()];
             $(cellName).html('');
-            let allDesigns = [];
             let level1Designs = [];
             let level2Designs = [];
             let level3Designs = [];
             let level4Designs = [];
             let level5Designs = [];
             let level6Designs = [];
-            gapmapArray.forEach(function (item) {
-                let designs = item.design;
+
+            let level1Hits = [];
+            let level2Hits = [];
+            let level3Hits = [];
+            let level4Hits = [];
+            let level5Hits = [];
+            let level6Hits = [];
+
+            gapmapArray.forEach(function (hit) {
+                let designs = hit.design;
+
+                let hasLevel1Design = false;
+                let hasLevel2Design = false;
+                let hasLevel3Design = false;
+                let hasLevel4Design = false;
+                let hasLevel5Design = false;
+                let hasLevel6Design = false;
+
                 designs.forEach(function (design) {
                     let val = design.charAt(0).toUpperCase()+design.slice(1);
                     switch(window.study_design[val]) {
                         case "1":
                             addUniques(level1Designs, val);
+                            hasLevel1Design = true;
                             break;
                         case "2":
                             addUniques(level2Designs, val);
+                            hasLevel2Design = true;
                             break;
                         case "3":
                             addUniques(level3Designs, val);
+                            hasLevel3Design = true;
                             break;
                         case "4":
                             addUniques(level4Designs, val);
+                            hasLevel4Design = true;
                             break;
                         case "5":
                             addUniques(level5Designs, val);
+                            hasLevel5Design = true;
                             break;
                         case "6":
                             addUniques(level6Designs, val);
+                            hasLevel6Design = true;
                             break;
                         default:
                             console.log('incorrect level number');
                             break;
                     }
                 });
+                if(hasLevel1Design) level1Hits.push(hit);
+                if(hasLevel2Design) level2Hits.push(hit);
+                if(hasLevel3Design) level3Hits.push(hit);
+                if(hasLevel4Design) level4Hits.push(hit);
+                if(hasLevel5Design) level5Hits.push(hit);
+                if(hasLevel6Design) level6Hits.push(hit);
             });
             if(level1Designs.length > 0){
-                populateLevelSummary(cellName,'Level 1',level1Designs);
+                populateLevelSummary(cellName,'Level 1',level1Designs, level1Hits);
             }
             if(level2Designs.length > 0){
-                populateLevelSummary(cellName,'Level 2',level2Designs);
+                populateLevelSummary(cellName,'Level 2',level2Designs, level2Hits);
             }
             if(level3Designs.length > 0){
-                populateLevelSummary(cellName,'Level 3',level3Designs);
+                populateLevelSummary(cellName,'Level 3',level3Designs, level3Hits);
             }
             if(level4Designs.length > 0){
-                populateLevelSummary(cellName,'Level 4',level4Designs);
+                populateLevelSummary(cellName,'Level 4',level4Designs, level4Hits);
             }
             if(level5Designs.length > 0){
-                populateLevelSummary(cellName,'Level 5',level5Designs);
+                populateLevelSummary(cellName,'Level 5',level5Designs, level5Hits);
             }
             if(level6Designs.length > 0){
-                populateLevelSummary(cellName,'Level 6',level6Designs);
+                populateLevelSummary(cellName,'Level 6',level6Designs, level6Hits);
             }
         }
     }
 }
 
-function populateLevelSummary(cell, levelName, levelArray){
+function populateLevelSummary(cell, levelName, levelArray, levelHits){
     let detail = $('<details/>');
     let summary = $('<summary>',{
-        html: levelName
+        html: levelName+' ('+levelHits.length.toString()+')'
     });
     detail.append(summary);
     levelArray.forEach(function (item) {
