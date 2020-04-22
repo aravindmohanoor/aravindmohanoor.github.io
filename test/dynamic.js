@@ -7,16 +7,35 @@ var hits_per_page = 25;
 var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
     disjunctiveFacets: ['journal','year_month','year','design','outcome','diagnostic_risk_factor','prognostic_risk_factor'],
-    //facetingAfterDistinct: true,
+    facetingAfterDistinct: true,
     hitsPerPage: hits_per_page
 });
 
-/*
-* <option value="1" selected="selected">Feature 1</option>
-                <option value="2">Feature 2</option>
-                <option value="3">Feature 3</option>
-                <option value="4">Feature 4</option>
-* */
+window.outcomeArray = [];
+window.interventionArray = [];
+
+function updateIntervention(index, intervention, init=false){
+    if(!init){
+        helper.toggleRefinement('diagnostic_risk_factor', window.interventionArray[index]);
+        toggleFilterDisplay('diagnostic_risk_factor',window.interventionArray[index],'Diag. risk factor', false);
+    }
+    window.interventionArray[index] = intervention;
+    helper.toggleRefinement('diagnostic_risk_factor', intervention);
+    toggleFilterDisplay('diagnostic_risk_factor',intervention,'Diag. risk factor', true);
+    helper.search();
+}
+
+function updateOutcome(index, outcome, init=false){
+    if(!init){
+        helper.toggleRefinement('outcome', window.outcomeArray[index]);
+        toggleFilterDisplay('outcome',window.outcomeArray[index],'Outcome', false);
+    }
+    window.outcomeArray[index] = outcome;
+    helper.toggleRefinement('outcome', outcome);
+    toggleFilterDisplay('outcome',outcome,'Outcome', true);
+    helper.search();
+}
+
 $(document).ready(function() {
 
 
@@ -81,20 +100,26 @@ $(document).ready(function() {
         let outcome_4 = $('#outcome_4 option:selected').text();
         let outcome_5 = $('#outcome_5 option:selected').text();
 
-        helper.toggleRefinement('diagnostic_risk_factor', risk_factor_1);
-        helper.toggleRefinement('diagnostic_risk_factor', risk_factor_2);
-        helper.toggleRefinement('diagnostic_risk_factor', risk_factor_3);
-        helper.toggleRefinement('diagnostic_risk_factor', risk_factor_4);
-        helper.toggleRefinement('diagnostic_risk_factor', risk_factor_5);
+        updateIntervention(0, risk_factor_1, true);
+        updateIntervention(1, risk_factor_2, true);
+        updateIntervention(2, risk_factor_3, true);
+        updateIntervention(3, risk_factor_4, true);
+        updateIntervention(4, risk_factor_5, true);
 
-        helper.toggleRefinement('outcome', outcome_1);
-        helper.toggleRefinement('outcome', outcome_2);
-        helper.toggleRefinement('outcome', outcome_3);
-        helper.toggleRefinement('outcome', outcome_4);
-        helper.toggleRefinement('outcome', outcome_5);
+
+        updateOutcome(0, outcome_1, true);
+        updateOutcome(1, outcome_2, true);
+        updateOutcome(2, outcome_3, true);
+        updateOutcome(3, outcome_4, true);
+        updateOutcome(4, outcome_5, true);
 
         helper.search();
+
+        $("#spanFilters").addClass("disabledDiv");
+
     });
+
+
 
 });
 
@@ -107,6 +132,46 @@ helper.on('result', function (content) {
     renderHits(content);
     updatePagination(content);
     highlightFilter('search-highlight');
+});
+
+$('#intervention_1').on('change', function() {
+    updateIntervention(0, this.value);
+});
+
+$('#intervention_2').on('change', function() {
+    updateIntervention(1, this.value);
+});
+
+$('#intervention_3').on('change', function() {
+    updateIntervention(2, this.value);
+});
+
+$('#intervention_4').on('change', function() {
+    updateIntervention(3, this.value);
+});
+
+$('#intervention_5').on('change', function() {
+    updateIntervention(4, this.value);
+});
+
+$('#outcome_1').on('change', function () {
+    updateOutcome(0, this.value);
+});
+
+$('#outcome_2').on('change', function () {
+    updateOutcome(1, this.value);
+});
+
+$('#outcome_3').on('change', function () {
+    updateOutcome(2, this.value);
+});
+
+$('#outcome_4').on('change', function () {
+    updateOutcome(3, this.value);
+});
+
+$('#outcome_5').on('change', function () {
+    updateOutcome(4, this.value);
 });
 
 function highlightFilter(filterName){
