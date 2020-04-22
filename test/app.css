@@ -96,3 +96,7 @@ html {
 summary{
     outline:none;
 }
+
+.borderless td, .borderless th {
+    border: none;
+}

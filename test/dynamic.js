@@ -394,6 +394,39 @@ function populateGapMap(content){
 }
 
 function populateLevelSummary(cell, levelName, levelArray, levelHits){
+    let table = $('<table/>');
+    table.addClass('table borderless');
+    let tr = $('<tr/>');
+    table.append(tr);
+    let tdCheckbox = $('<td/>');
+    let tdSummary = $('<td/>');
+    tr.append(tdCheckbox);
+    tr.append(tdSummary);
+    let input = $('<input>',{
+        'type':'checkbox',
+        'value':levelArray
+    });
+    tdCheckbox.append(input);
+
+    $(input).change(function(){
+        $('#tbGapMap input:checkbox').prop("checked",false);
+        $(this).prop("checked",true);
+        let rownum = cell.split('_')[0].replace('#row','');
+        let colnum = cell.split('_')[1].replace('col','');
+        let intervention = $('#intervention_'+rownum+' option:selected').text();
+        let outcome = $('#outcome_'+colnum+' option:selected').text();
+        helper.clearRefinements();
+        helper.toggleRefinement('diagnostic_risk_factor',intervention);
+        helper.toggleRefinement('outcome',outcome);
+        let designs = $(input).val().split(',');
+        designs.forEach(function (item) {
+            helper.toggleRefinement('design', item);
+        });
+        helper.search();
+        console.log(rownum+","+colnum);
+    });
+
+
     let detail = $('<details/>');
     let summary = $('<summary>',{
         html: levelName+' ('+levelHits.length.toString()+')'
@@ -405,15 +438,11 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
         let label = $('<label>',{
             'html':val
         });
-        let input = $('<input>',{
-            'type':'checkbox',
-            'value':val
-        });
         p.append(label);
-        label.prepend(input);
         $(detail).append(p);
     });
-    $(cell).append(detail);
+    tdSummary.append(detail);
+    $(cell).append(table);
 }
 
 function addUniques(levelArray, value){
