@@ -38,6 +38,7 @@ function updateOutcome(index, outcome, init=false){
 
 $(document).ready(function() {
 
+    study_design = {};
 
     function ajax1() {
         return $.get('diagnostic_risk_factors.txt', function (data) {
@@ -87,25 +88,32 @@ $(document).ready(function() {
         });
     }
 
-    $.when(ajax1(), ajax2()).done(function(a1, a2){
+    function ajax3(){
+        return $.get('study_design.txt', function (data) {
+            let allLines = data.split(/\r\n|\n/);
+            allLines.forEach(function (item, index) {
+                let level = item.split(':')[0];
+                let label = item.split(':')[1];
+                study_design[label.trim().toLowerCase()] = level;
+            });
+        });
+    }
 
+    $.when(ajax1(), ajax2(), ajax3()).done(function(a1, a2, a3){
 
         for(let i=1;i<=5;i++){
-            let divName = '#intervention_'+i.toString()+' option:selected';
-            let intervention = $(divName).text();
+            let interventionDiv = '#intervention_'+i.toString()+' option:selected';
+            let intervention = $(interventionDiv).text();
             updateIntervention(i-1, intervention, true);
         }
 
         for(let j=1;j<=5;j++){
-            let divName = '#outcome_'+j.toString()+' option:selected';
-            let outcome = $(divName).text();
+            let outcomeDiv = '#outcome_'+j.toString()+' option:selected';
+            let outcome = $(outcomeDiv).text();
             updateOutcome(j-1, outcome, true);
         }
 
-
         helper.search();
-
-
 
     });
 
