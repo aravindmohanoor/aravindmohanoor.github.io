@@ -367,22 +367,11 @@ function populateGapMap(content){
 }
 
 function populateLevelSummary(cell, levelName, levelArray){
-    /*
-    *  <details>
-  <summary>Copyright 1999-2014.</summary>
-  <p> - by Refsnes Data. All Rights Reserved.</p>
-  <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-</details>
-    * */
     let detail = $('<details/>');
     let summary = $('<summary>',{
         html: levelName
     });
     detail.append(summary);
-    /*let h6Level = $('<h6>',{
-        html:levelName
-    });
-    $(cell).append(h6Level);*/
     levelArray.forEach(function (item) {
         let val = item.charAt(0).toUpperCase()+item.slice(1);
         let p = $('<p/>');
@@ -398,31 +387,6 @@ function populateLevelSummary(cell, levelName, levelArray){
         $(detail).append(p);
     });
     $(cell).append(detail);
-}
-
-function populateLevelCheckboxes(cell, levelArray){
-
-    levelArray.forEach(function (item) {
-        let val = item.charAt(0).toUpperCase()+item.slice(1);
-        let p = $('<p/>');
-        let label = $('<label>',{
-            'html':val
-        });
-        let input = $('<input>',{
-            'type':'checkbox',
-            'value':val
-        });
-        p.append(label);
-        label.prepend(input);
-        $(cell).append(p);
-    });
-}
-
-function addLevelHeader(cell, title){
-    let h6Level = $('<h6>',{
-        html:title
-    });
-    $(cell).append(h6Level);
 }
 
 function addUniques(levelArray, value){
