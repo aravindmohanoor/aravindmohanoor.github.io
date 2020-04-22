@@ -88,38 +88,28 @@ $(document).ready(function() {
     }
 
     $.when(ajax1(), ajax2()).done(function(a1, a2){
-        let risk_factor_1 = $('#intervention_1 option:selected').text();
-        let risk_factor_2 = $('#intervention_2 option:selected').text();
-        let risk_factor_3 = $('#intervention_3 option:selected').text();
-        let risk_factor_4 = $('#intervention_4 option:selected').text();
-        let risk_factor_5 = $('#intervention_5 option:selected').text();
-
-        let outcome_1 = $('#outcome_1 option:selected').text();
-        let outcome_2 = $('#outcome_2 option:selected').text();
-        let outcome_3 = $('#outcome_3 option:selected').text();
-        let outcome_4 = $('#outcome_4 option:selected').text();
-        let outcome_5 = $('#outcome_5 option:selected').text();
-
-        updateIntervention(0, risk_factor_1, true);
-        updateIntervention(1, risk_factor_2, true);
-        updateIntervention(2, risk_factor_3, true);
-        updateIntervention(3, risk_factor_4, true);
-        updateIntervention(4, risk_factor_5, true);
 
 
-        updateOutcome(0, outcome_1, true);
-        updateOutcome(1, outcome_2, true);
-        updateOutcome(2, outcome_3, true);
-        updateOutcome(3, outcome_4, true);
-        updateOutcome(4, outcome_5, true);
+        for(let i=1;i<=5;i++){
+            let divName = '#intervention_'+i.toString()+' option:selected';
+            let intervention = $(divName).text();
+            updateIntervention(i-1, intervention, true);
+        }
+
+        for(let j=1;j<=5;j++){
+            let divName = '#outcome_'+j.toString()+' option:selected';
+            let outcome = $(divName).text();
+            updateOutcome(j-1, outcome, true);
+        }
+
 
         helper.search();
 
-        $("#spanFilters").addClass("disabledDiv");
+
 
     });
 
-
+    $("#spanFilters").addClass("disabledDiv");
 
 });
 
