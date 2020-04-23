@@ -2,7 +2,7 @@
 var applicationID = 'ZZ2ZTTMSBH';
 var apiKey = '71090d1229c06a4d72829a3d0d59d6bc';
 var index = 'papers_dev';
-var hits_per_page = 25;
+var hits_per_page = 1000;
 
 var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
@@ -14,15 +14,22 @@ var helper = algoliasearchHelper(client, index, {
 window.outcomeArray = [];
 window.interventionArray = [];
 
+window.selectedDesigns = [];
+window.selectedIntervention = null;
+window.selectedOutcome = null;
+
 function updateIntervention(index, intervention, init=false){
     if(!init){
         helper.toggleRefinement('diagnostic_risk_factor', window.interventionArray[index]);
         toggleFilterDisplay('diagnostic_risk_factor',window.interventionArray[index],'Diag. risk factor', false);
     }
     window.interventionArray[index] = intervention;
+    window.selectedIntervention = intervention;
     helper.toggleRefinement('diagnostic_risk_factor', intervention);
     toggleFilterDisplay('diagnostic_risk_factor',intervention,'Diag. risk factor', true);
-    helper.search();
+    if(!init){
+        helper.search();
+    }
 }
 
 function updateOutcome(index, outcome, init=false){
@@ -31,6 +38,7 @@ function updateOutcome(index, outcome, init=false){
         toggleFilterDisplay('outcome',window.outcomeArray[index],'Outcome', false);
     }
     window.outcomeArray[index] = outcome;
+    window.selectedOutcome = outcome;
     helper.toggleRefinement('outcome', outcome);
     toggleFilterDisplay('outcome',outcome,'Outcome', true);
     helper.search();
@@ -40,7 +48,7 @@ $(document).ready(function() {
 
     window.study_design = {};
 
-    function ajax1() {
+    function loadRiskFactors() {
         return $.get('diagnostic_risk_factors.txt', function (data) {
             let allLines = data.split(/\r\n|\n/);
             let allLinesSorted = allLines.sort(function (a, b) {
@@ -64,7 +72,7 @@ $(document).ready(function() {
         });
     }
 
-    function ajax2(){
+    function loadOutcomes(){
         return $.get('outcomes.txt', function (data) {
             let allLines = data.split(/\r\n|\n/);
             let allLinesSorted = allLines.sort(function (a, b) {
@@ -88,7 +96,7 @@ $(document).ready(function() {
         });
     }
 
-    function ajax3(){
+    function loadStudyDesigns(){
         return $.get('study_design.txt', function (data) {
             let allLines = data.split(/\r\n|\n/);
             allLines.forEach(function (item, index) {
@@ -100,7 +108,7 @@ $(document).ready(function() {
         });
     }
 
-    $.when(ajax1(), ajax2(), ajax3()).done(function(a1, a2, a3){
+    $.when(loadRiskFactors(), loadOutcomes(), loadStudyDesigns()).done(function(a1, a2, a3){
 
         for(let i=1;i<=5;i++){
             let interventionDiv = '#intervention_'+i.toString()+' option:selected';
@@ -183,11 +191,79 @@ function highlightFilter(filterName){
         highlighted_items = [];
         $(this).find('.'+filterName).each(function( index ) {
             var lower = $(this).text().toLowerCase();
-            if (!highlighted_items.includes(lower)){
-                $(this).addClass(filterName+'-pill');
-                highlighted_items.push(lower);
+            if(filterName === 'design'){
+                if (window.selectedDesigns.length > 0){
+                    window.selectedDesigns.forEach(function(index, item){
+                        if (!highlighted_items.includes(lower)){
+
+                            $(this).addClass(filterName+'-pill');
+                            highlighted_items.push(lower);
+                        }
+                    });
+                }
             }
         })
+    });
+}
+
+function highlightDesigns(){
+    $( "p.snippet" ).each(function( index ) {
+        highlighted_items = [];
+        $(this).find('.design').each(function( index, item ) {
+            var lower = $(item).text().toLowerCase();
+            if (window.selectedDesigns.length > 0){
+                window.selectedDesigns.forEach(function(item1){
+                    var lowerItem = item1.toLowerCase();
+                    if(lowerItem === lower && !highlighted_items.includes(lower)){
+                        $(item).addClass('design-pill');
+                        highlighted_items.push(lower);
+                    }
+                })
+            }
+        });
+    });
+}
+
+function highlightInterventions(){
+    $( "p.snippet" ).each(function( index ) {
+        highlighted_items = [];
+        $(this).find('.diagnostic_risk_factor').each(function( index, item ) {
+            var lower = $(item).text().toLowerCase();
+            if (window.selectedIntervention){
+                if (lower === window.selectedIntervention.toLowerCase() && !highlighted_items.includes(lower)){
+                    $(item).addClass('diagnostic_risk_factor-pill');
+                    highlighted_items.push(lower);
+                }
+            }
+        });
+    });
+}
+
+function highlightOutcomes(){
+    $( "p.snippet" ).each(function( index ) {
+        highlighted_items = [];
+        $(this).find('.outcome').each(function( index, item ) {
+            var lower = $(item).text().toLowerCase();
+            if (window.selectedOutcome){
+                if (lower === window.selectedOutcome.toLowerCase() && !highlighted_items.includes(lower)){
+                    $(item).addClass('outcome-pill');
+                    highlighted_items.push(lower);
+                }
+            }
+        });
+    });
+}
+
+function highlightSearchResults(){
+    $( "p.snippet" ).each(function( index ) {
+        highlighted_items = [];
+        $(this).find('.search-highlight').each(function( index, item ) {
+            var lower = $(item).text().toLowerCase();
+            if (!highlighted_items.includes(lower)){
+                $(item).addClass('search-highlight-pill');
+                highlighted_items.push(lower);
+            }
+        });
     });
 }
 
@@ -255,47 +331,53 @@ function populateGapMap(content){
             hit = content.hits[i];
             outerIndex = [];
             innerIndex = [];
-            let diagnostic_risk_factors = hit.diagnostic_risk_factor;
-            let outcomes = hit.outcome;
-            diagnostic_risk_factors.forEach(function (item) {
-                if ($('#intervention_1 option:selected').text().toLowerCase() === item.toLowerCase()){
-                    outerIndex.push(1);
-                }
-                if ($('#intervention_2 option:selected').text().toLowerCase() === item.toLowerCase()){
-                    outerIndex.push(2);
-                }
-                if ($('#intervention_3 option:selected').text().toLowerCase() === item.toLowerCase()){
-                    outerIndex.push(3)
-                }
-                if ($('#intervention_4 option:selected').text().toLowerCase() === item.toLowerCase()){
-                    outerIndex.push(4);
-                }
-                if ($('#intervention_5 option:selected').text().toLowerCase() === item.toLowerCase()){
-                    outerIndex.push(5);
-                }
-            });
-            outcomes.forEach(function (item) {
-                if ($('#outcome_1 option:selected').text().toLowerCase() === item.toLowerCase()){
-                    innerIndex.push(1);
-                }
-                if ($('#outcome_2 option:selected').text().toLowerCase() === item.toLowerCase()){
-                    innerIndex.push(2);
-                }
-                if ($('#outcome_3 option:selected').text().toLowerCase() === item.toLowerCase()){
-                    innerIndex.push(3);
-                }
-                if ($('#outcome_4 option:selected').text().toLowerCase() === item.toLowerCase()){
-                    innerIndex.push(4);
-                }
-                if ($('#outcome_5 option:selected').text().toLowerCase() === item.toLowerCase()){
-                    innerIndex.push(5);
-                }
-            });
-            outerIndex.forEach(function (item) {
-                innerIndex.forEach(function (item1) {
-                    gapmap[item.toString()][item1.toString()].push(hit);
-                })
-            });
+            if(hit && hit.hasOwnProperty('diagnostic_risk_factor')){
+                let diagnostic_risk_factors = hit.diagnostic_risk_factor;
+                diagnostic_risk_factors.forEach(function (item) {
+                    if ($('#intervention_1 option:selected').text().toLowerCase() === item.toLowerCase()){
+                        outerIndex.push(1);
+                    }
+                    if ($('#intervention_2 option:selected').text().toLowerCase() === item.toLowerCase()){
+                        outerIndex.push(2);
+                    }
+                    if ($('#intervention_3 option:selected').text().toLowerCase() === item.toLowerCase()){
+                        outerIndex.push(3)
+                    }
+                    if ($('#intervention_4 option:selected').text().toLowerCase() === item.toLowerCase()){
+                        outerIndex.push(4);
+                    }
+                    if ($('#intervention_5 option:selected').text().toLowerCase() === item.toLowerCase()){
+                        outerIndex.push(5);
+                    }
+                });
+            }
+            if(hit && hit.hasOwnProperty('outcome')){
+                let outcomes = hit.outcome;
+                outcomes.forEach(function (item) {
+                    if ($('#outcome_1 option:selected').text().toLowerCase() === item.toLowerCase()){
+                        innerIndex.push(1);
+                    }
+                    if ($('#outcome_2 option:selected').text().toLowerCase() === item.toLowerCase()){
+                        innerIndex.push(2);
+                    }
+                    if ($('#outcome_3 option:selected').text().toLowerCase() === item.toLowerCase()){
+                        innerIndex.push(3);
+                    }
+                    if ($('#outcome_4 option:selected').text().toLowerCase() === item.toLowerCase()){
+                        innerIndex.push(4);
+                    }
+                    if ($('#outcome_5 option:selected').text().toLowerCase() === item.toLowerCase()){
+                        innerIndex.push(5);
+                    }
+                });
+            }
+            if(hit){
+                outerIndex.forEach(function (item) {
+                    innerIndex.forEach(function (item1) {
+                        gapmap[item.toString()][item1.toString()].push(hit);
+                    })
+                });
+            }
         }
         catch (e) {
             console.log(e);
@@ -313,6 +395,7 @@ function populateGapMap(content){
             let level4Designs = [];
             let level5Designs = [];
             let level6Designs = [];
+            let levelUnknownDesigns = [];
 
             let level1Hits = [];
             let level2Hits = [];
@@ -320,6 +403,7 @@ function populateGapMap(content){
             let level4Hits = [];
             let level5Hits = [];
             let level6Hits = [];
+            let levelUnknownHits = [];
 
             gapmapArray.forEach(function (hit) {
                 let designs = hit.design;
@@ -330,37 +414,44 @@ function populateGapMap(content){
                 let hasLevel4Design = false;
                 let hasLevel5Design = false;
                 let hasLevel6Design = false;
-
+                let hasLevelUnknownDesign = false;
+                if(designs.length === 0){
+                    levelUnknownHits.push(hit);
+                }
                 designs.forEach(function (design) {
                     let val = design.charAt(0).toUpperCase()+design.slice(1);
-                    switch(window.study_design[val]) {
-                        case "1":
-                            addUniques(level1Designs, val);
-                            hasLevel1Design = true;
-                            break;
-                        case "2":
-                            addUniques(level2Designs, val);
-                            hasLevel2Design = true;
-                            break;
-                        case "3":
-                            addUniques(level3Designs, val);
-                            hasLevel3Design = true;
-                            break;
-                        case "4":
-                            addUniques(level4Designs, val);
-                            hasLevel4Design = true;
-                            break;
-                        case "5":
-                            addUniques(level5Designs, val);
-                            hasLevel5Design = true;
-                            break;
-                        case "6":
-                            addUniques(level6Designs, val);
-                            hasLevel6Design = true;
-                            break;
-                        default:
-                            console.log('incorrect level number');
-                            break;
+                    if(window.study_design.hasOwnProperty(val)){
+                        switch(window.study_design[val]) {
+                            case "1":
+                                addUniques(level1Designs, val);
+                                hasLevel1Design = true;
+                                break;
+                            case "2":
+                                addUniques(level2Designs, val);
+                                hasLevel2Design = true;
+                                break;
+                            case "3":
+                                addUniques(level3Designs, val);
+                                hasLevel3Design = true;
+                                break;
+                            case "4":
+                                addUniques(level4Designs, val);
+                                hasLevel4Design = true;
+                                break;
+                            case "5":
+                                addUniques(level5Designs, val);
+                                hasLevel5Design = true;
+                                break;
+                            case "6":
+                                addUniques(level6Designs, val);
+                                hasLevel6Design = true;
+                                break;
+                            default:
+                                addUniques(levelUnknownDesigns, val);
+                                hasLevelUnknownDesign = true;
+                                console.log('incorrect level number');
+                                break;
+                        }
                     }
                 });
                 if(hasLevel1Design) level1Hits.push(hit);
@@ -369,6 +460,7 @@ function populateGapMap(content){
                 if(hasLevel4Design) level4Hits.push(hit);
                 if(hasLevel5Design) level5Hits.push(hit);
                 if(hasLevel6Design) level6Hits.push(hit);
+                if(hasLevelUnknownDesign) levelUnknownHits.push(hit);
             });
             if(level1Designs.length > 0){
                 populateLevelSummary(cellName,'Level 1',level1Designs, level1Hits);
@@ -387,6 +479,9 @@ function populateGapMap(content){
             }
             if(level6Designs.length > 0){
                 populateLevelSummary(cellName,'Level 6',level6Designs, level6Hits);
+            }
+            if(levelUnknownDesigns.length > 0){
+                populateLevelSummary(cellName,'Unknown',levelUnknownDesigns, levelUnknownHits);
             }
         }
     }
@@ -407,7 +502,7 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
     buttonBadge.append(spanCount);
     pButton.append(buttonBadge);
     $(cell).append(pButton);
-
+    buttonBadge.attr('title',levelArray.join(','));
     buttonBadge.on('click', function(item){
         $('#container').html(function () {
             return $.map(levelHits, function (hit) {
@@ -419,7 +514,9 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
         let currOutcomeNum = cell.split('_')[1].replace('col','');
         let currDifference = $('#intervention_'+currDifferenceNum+' option:selected').text();
         let currOutcome = $('#outcome_'+currOutcomeNum+' option:selected').text();
-        $( "p.snippet" ).each(function( index ) {
+        window.selectedIntervention = currDifference;
+        window.selectedOutcome = currOutcome;
+        /*$( "p.snippet" ).each(function( index ) {
             highlighted_items = [];
             $(this).find('.diagnostic_risk_factor').each(function( index, item ) {
                 var lower = $(this).text().toLowerCase();
@@ -450,14 +547,12 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
                     });
                 }
             });
-            highlightFilter('search-highlight');
-        });
-    });
-}
-
-function highlight(items){
-    items.forEach(function (item) {
-
+        });*/
+        window.selectedDesigns = levelArray;
+        highlightSearchResults();
+        $('#highlight_design').prop('checked',false);
+        $('#highlight_outcome').prop('checked',false);
+        $('#highlight_intervention').prop('checked',false);
     });
 }
 
@@ -895,6 +990,8 @@ $('.section-display').on('change', function(){
     helper.search();
 });
 
+
+
 $('.facet-highlight').on('change', function(){
     $('.facet-highlight:checkbox').each(function () {
         var is_checked = this.checked;
@@ -906,6 +1003,22 @@ $('.facet-highlight').on('change', function(){
         }
         else{
             var type = $(this).val();
+            switch (type) {
+                case 'design':
+                    highlightDesigns();
+                    break;
+                case 'diagnostic_risk_factor':
+                    highlightInterventions();
+                    break;
+                case 'outcome':
+                    highlightOutcomes();
+                    break;
+                case 'search-highlight':
+                    highlightSearchResults();
+                    break;
+                default:
+                    break;
+            }
             highlightFilter(type);
         }
     });
