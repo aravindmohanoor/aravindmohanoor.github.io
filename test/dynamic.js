@@ -131,10 +131,10 @@ window.intervention = 0;
 window.outcome = 0;
 
 helper.on('result', function (content) {
-    renderFacetList(content); // not implemented yet
-    renderHits(content);
-    updatePagination(content);
-    highlightFilter('search-highlight');
+    //renderFacetList(content); // not implemented yet
+    //renderHits(content);
+    //updatePagination(content);
+    //highlightFilter('search-highlight');
     populateGapMap(content);
 });
 
@@ -421,24 +421,35 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
         let currOutcome = $('#outcome_'+currOutcomeNum+' option:selected').text();
         $( "p.snippet" ).each(function( index ) {
             highlighted_items = [];
-            $(this).find('.diagnostic_risk_factor').each(function( index ) {
+            $(this).find('.diagnostic_risk_factor').each(function( index, item ) {
                 var lower = $(this).text().toLowerCase();
                 if (!highlighted_items.includes(lower)){
                     if(currDifference.toLowerCase() === lower){
-                        $(this).addClass('diagnostic_risk_factor-pill');
+                        $(item).addClass('diagnostic_risk_factor-pill');
                         highlighted_items.push(lower);
                     }
                 }
-            })
-            $(this).find('.outcome').each(function( index ) {
+            });
+            $(this).find('.outcome').each(function( index, item ) {
                 var lower = $(this).text().toLowerCase();
                 if (!highlighted_items.includes(lower)){
                     if(currOutcome.toLowerCase() === lower){
-                        $(this).addClass('outcome-pill');
+                        $(item).addClass('outcome-pill');
                         highlighted_items.push(lower);
                     }
                 }
-            })
+            });
+            $(this).find('.design').each(function( index, item ) {
+                var lower = $(this).text().toLowerCase();
+                if (!highlighted_items.includes(lower)){
+                    levelArray.forEach(function (design) {
+                        if(design.toLowerCase() === lower){
+                            $(item).addClass('design-pill');
+                            highlighted_items.push(lower);
+                        }
+                    });
+                }
+            });
             highlightFilter('search-highlight');
         });
     });
