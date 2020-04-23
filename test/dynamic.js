@@ -394,42 +394,6 @@ function populateGapMap(content){
 }
 
 function populateLevelSummary(cell, levelName, levelArray, levelHits){
-    let table = $('<table/>');
-    table.addClass('table borderless');
-    let tr = $('<tr/>');
-    table.append(tr);
-
-    let tdSummary = $('<td/>');
-    tr.append(tdSummary);
-
-    /*$(input).change(function(){
-        $('#tbGapMap input:checkbox').prop("checked",false);
-        $(this).attr("checked",true);
-        let rownum = cell.split('_')[0].replace('#row','');
-        let colnum = cell.split('_')[1].replace('col','');
-        let intervention = $('#intervention_'+rownum+' option:selected').text();
-        let outcome = $('#outcome_'+colnum+' option:selected').text();
-        helper.clearRefinements();
-        $('#spanFilters').html('');
-        helper.toggleRefinement('diagnostic_risk_factor',intervention);
-        toggleFilterDisplay('diagnostic_risk_factor',intervention,'Diag. risk factor',true);
-        helper.toggleRefinement('outcome',outcome);
-        toggleFilterDisplay('outcome',outcome,'Outcome', true);
-        let designs = $(input).val().split(',');
-        designs.forEach(function (item) {
-            helper.toggleRefinement('design', item);
-            toggleFilterDisplay('design',item,'Design',true);
-        });
-        helper.search();
-        console.log(rownum+","+colnum);
-    });*/
-
-    /*
-    * <button type="button" class="btn btn-primary">
-  Profile <span class="badge badge-light">9</span>
-  <span class="sr-only">unread messages</span>
-</button>
-    * */
 
     let pButton = $('<p/>');
     let buttonBadge = $('<button>',{
@@ -445,22 +409,6 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
     pButton.append(buttonBadge);
     $(cell).append(pButton);
 
-    let detail = $('<details/>');
-    let summary = $('<summary>',{
-        html: levelName+' ('+levelHits.length.toString()+')'
-    });
-    detail.append(summary);
-    levelArray.forEach(function (item) {
-        let val = item.charAt(0).toUpperCase()+item.slice(1);
-        let p = $('<p/>');
-        let label = $('<label>',{
-            'html':val
-        });
-        p.append(label);
-        $(detail).append(p);
-    });
-    tdSummary.append(detail);
-    //$(cell).append(table);
 }
 
 function addUniques(levelArray, value){
