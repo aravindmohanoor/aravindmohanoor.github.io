@@ -503,19 +503,36 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
     pButton.append(buttonBadge);
     $(cell).append(pButton);
     buttonBadge.attr('title',levelArray.join(','));
+
+    /*
+        * <i class="fas fa-check-square"></i>
+        * */
+
+
     buttonBadge.on('click', function(item){
+        $('.fa-check-square').each(function(item){
+            $(this).remove();
+        });
+        let checkbox = $('<i>');
+        checkbox.addClass('fas fa-check-square');
+        checkbox.attr('font-size','20px');
+        checkbox.attr('color','black');
+        pButton.append(checkbox);
         $('#container').html(function () {
             return $.map(levelHits, function (hit) {
                 divHit = getSingleHit(hit);
                 return divHit;
             });
         });
+
         let currDifferenceNum = cell.split('_')[0].replace('#row','');
         let currOutcomeNum = cell.split('_')[1].replace('col','');
         let currDifference = $('#intervention_'+currDifferenceNum+' option:selected').text();
         let currOutcome = $('#outcome_'+currOutcomeNum+' option:selected').text();
         window.selectedIntervention = currDifference;
         window.selectedOutcome = currOutcome;
+
+
         /*$( "p.snippet" ).each(function( index ) {
             highlighted_items = [];
             $(this).find('.diagnostic_risk_factor').each(function( index, item ) {
