@@ -398,34 +398,52 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
     table.addClass('table borderless');
     let tr = $('<tr/>');
     table.append(tr);
-    let tdCheckbox = $('<td/>');
-    let tdSummary = $('<td/>');
-    tr.append(tdCheckbox);
-    tr.append(tdSummary);
-    let input = $('<input>',{
-        'type':'checkbox',
-        'value':levelArray
-    });
-    tdCheckbox.append(input);
 
-    $(input).change(function(){
+    let tdSummary = $('<td/>');
+    tr.append(tdSummary);
+
+    /*$(input).change(function(){
         $('#tbGapMap input:checkbox').prop("checked",false);
-        $(this).prop("checked",true);
+        $(this).attr("checked",true);
         let rownum = cell.split('_')[0].replace('#row','');
         let colnum = cell.split('_')[1].replace('col','');
         let intervention = $('#intervention_'+rownum+' option:selected').text();
         let outcome = $('#outcome_'+colnum+' option:selected').text();
         helper.clearRefinements();
+        $('#spanFilters').html('');
         helper.toggleRefinement('diagnostic_risk_factor',intervention);
+        toggleFilterDisplay('diagnostic_risk_factor',intervention,'Diag. risk factor',true);
         helper.toggleRefinement('outcome',outcome);
+        toggleFilterDisplay('outcome',outcome,'Outcome', true);
         let designs = $(input).val().split(',');
         designs.forEach(function (item) {
             helper.toggleRefinement('design', item);
+            toggleFilterDisplay('design',item,'Design',true);
         });
         helper.search();
         console.log(rownum+","+colnum);
-    });
+    });*/
 
+    /*
+    * <button type="button" class="btn btn-primary">
+  Profile <span class="badge badge-light">9</span>
+  <span class="sr-only">unread messages</span>
+</button>
+    * */
+
+    let pButton = $('<p/>');
+    let buttonBadge = $('<button>',{
+        html:levelName
+    });
+    buttonBadge.addClass('btn btn-light');
+    let  spanCount = $('<span>',{
+        html:levelHits.length.toString()
+    });
+    spanCount.addClass('badge badge-primary');
+    spanCount.css({'margin':'5px'});
+    buttonBadge.append(spanCount);
+    pButton.append(buttonBadge);
+    $(cell).append(pButton);
 
     let detail = $('<details/>');
     let summary = $('<summary>',{
@@ -442,7 +460,7 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
         $(detail).append(p);
     });
     tdSummary.append(detail);
-    $(cell).append(table);
+    //$(cell).append(table);
 }
 
 function addUniques(levelArray, value){
