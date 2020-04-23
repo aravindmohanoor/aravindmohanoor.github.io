@@ -1,0 +1,64 @@
+Abdominal pain
+Age
+Alcoholic liver disease
+Anorexia
+Asymptomatic
+Bacterial pneumonia
+BMI
+Cancer
+Cerebral Infarction
+Chest tightness/pain
+Chills
+Chronic bronchitis
+Chronic kidney disease
+COPD
+Cough
+Diabetes
+Diarrhea
+Dizzyness
+Education
+Elderly
+Fatigue
+Fatty liver
+Fever
+First responders
+Fungal infection
+Gender
+General pain
+Health workers
+Heart disease
+Hepatitis B
+History of lung disease
+History of stroke
+Hospital staff
+Housing status
+Hypertension
+Immigration status
+Immune compromised groups
+Income
+Influenza
+Insurance status
+Local climate
+Long-term care facility residents
+Lymphadenopathy
+Malnutrition
+Mental hospital inpatients
+Nasal congestion
+Neonates
+Nursing home staff
+Obesity
+Parkinson's Disease
+Polypnea
+Pregnancy status
+Prison inmates
+Prison staff
+Race/ethnicity
+Renal impairment
+Septic shock,
+Shortness of breath
+Sleep disruption
+Small children
+Smoking status
+Sputum production
+Thyroid diseases
+Vomiting

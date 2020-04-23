@@ -1,0 +1,145 @@
+6:adherence
+5:adjusted hazard ratio
+4:Adjusted Odds Ratio
+6:AIC
+6:Akaike Information Criterion
+3:allocation method
+4:AOR
+6:area under the curve
+6:associated with
+6:association
+6:AUC
+3:baseline
+3:blind
+6:bootstrap
+6:case report
+6:case series
+6:case study
+4:case-control
+5:censoring
+4:chart review
+6:clinical findings
+1:Cochrane review
+1:Cohen's d
+4:cohen's kappa
+5:cohort
+6:computer model
+5:confounding
+2:CONSORT
+3:control arm
+5:covariates
+5:Cox proportional hazards
+6:cross-sectional survey
+1:d-pooled
+4:data abstraction forms
+6:data collection instrument
+1:databases searched
+6:deep learning
+6:diagnosis
+1:difference between means
+1:difference in means
+6:dosage
+3:double-blind
+6:duration
+4:EHR
+4:electronic health records
+1:electronic search
+3:eligibility
+6:eligibility criteria
+5:estimation
+5:etiology
+1:exclusion criteria
+4:exposure status
+6:follow-up
+6:forecast
+6:frequency
+5:gamma
+5:hazard ratio
+1:heterogeneity
+1:i2
+1:inclusion criteria
+4:inter-rater reliability
+6:interventions
+5:Kaplan-Meier
+4:log odds
+4:logistic regression
+5:lognormal
+5:longitudinal
+6:machine learning
+4:matched
+4:matching
+4:matching criteria
+6:mathematical model
+5:median time to event
+1:meta-analysis
+6:model fit
+6:monte carlo
+5:multivariate hazard ratio
+5:non-comparative study
+3:non-randomised
+3:non-randomized
+4:non-response bias
+4:number of controls per case
+4:Odds Ratio
+4:OR
+6:outcomes
+3:placebo
+1:pooled adjusted odds ratio
+1:pooled AOR
+1:pooled odds ratio
+1:pooled OR
+1:pooled relative risk
+1:pooled risk ratio
+1:pooled RR
+6:potential confounders
+3:power
+6:prevalence
+4:prevalence survey
+1:PRISMA
+3:protocol
+3:pseudo-randomised
+3:pseudo-randomized
+6:psychometric evaluation of instrument
+1:publication bias
+3:quasi-randomised
+3:quasi-randomized
+6:questionnaire development
+6:random sample
+2:randomisation
+2:randomised
+2:randomization method
+2:randomized
+2:randomized clinical trial
+2:randomized controlled trial
+2:RCT
+6:receiver-operator curve
+6:recruitment
+3:registry
+6:registry data
+6:response rate
+5:right-censored
+4:risk factor analysis
+4:risk factors
+3:risk of bias
+6:ROC
+1:search criteria
+1:search strategy
+1:search string
+6:simulation
+6:statistical model
+6:stochastic model
+6:strength
+6:surveillance
+6:survey instrument
+5:survival analysis
+6:symptoms
+6:syndromic surveillance
+6:synthetic data
+1:systematic review
+5:time-to-event analysis
+6:tolerability
+3:treatment arm
+3:treatment effect
+5:truncated
+5:Weibull
+4:β

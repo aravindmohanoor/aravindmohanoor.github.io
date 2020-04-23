@@ -1,0 +1,321 @@
+<html lang="en" class=""><head>
+    <meta charset="UTF-8">
+    <title>Cord 19 Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+<body class="container" style="min-width: 95%;">
+<br/>
+<div class="row">
+    <div class="col-lg-10">
+        <div class="form-group">
+            <input class="form-control" id="search-box" aria-describedby="emailHelp" placeholder="Enter search term">
+        </div>
+    </div>
+    <div class="col-lg-2">
+        Powered by <a href="https://algolia.com">Algolia</a>
+    </div>
+</div>
+<br/>
+<table id="tbGapMap" class="table table-striped" style="width: 95%;">
+    <thead>
+        <th scope="col" style="width: 20%;">
+            <table>
+
+                <tr>
+                    <td>
+                        <h6>Intervention</h6>
+                        <i class="fa fa-arrow-down" style="font-size: 20px; color: black;" aria-hidden="true"></i>
+                    </td>
+                    <td>
+                        <h6>Outcome</h6>
+                        <i class="fa fa-arrow-right" style="font-size: 20px;color: black;"></i>
+                    </td>
+                </tr>
+            </table>
+        </th>
+        <th scope="col" style="width: 16%;">
+            <select style="max-width: 200px;" id="outcome_1" class="bootstrap-select">
+
+            </select>
+        </th>
+        <th scope="col" style="width: 16%;">
+            <select style="max-width: 200px;" id="outcome_2" class="bootstrap-select">
+
+            </select>
+        </th>
+        <th scope="col" style="width: 16%;">
+            <select style="max-width: 200px;" id="outcome_3" class="bootstrap-select">
+
+            </select>
+        </th>
+        <th scope="col" style="width: 16%;">
+            <select style="max-width: 200px;" id="outcome_4" class="bootstrap-select">
+
+            </select>
+        </th>
+        <th scope="col" style="width: 16%;">
+            <select style="max-width: 200px;" id="outcome_5" class="bootstrap-select">
+
+            </select>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr id="row_1">
+        <td style="width: 20%;">
+            <select style="max-width: 200px;" id="intervention_1" class="bootstrap-select">
+
+            </select>
+        </td>
+        <td style="width: 16%;" id="row1_col1"></td>
+        <td style="width: 16%;" id="row1_col2"></td>
+        <td style="width: 16%;" id="row1_col3"></td>
+        <td style="width: 16%;" id="row1_col4"></td>
+        <td style="width: 16%;" id="row1_col5"></td>
+    </tr>
+    <tr id="row_2">
+
+        <td style="width: 20%;">
+            <select style="max-width: 200px;" id="intervention_2" class="bootstrap-select">
+
+            </select>
+        </td>
+        <td style="width: 16%;" id="row2_col1"></td>
+        <td style="width: 16%;" id="row2_col2"></td>
+        <td style="width: 16%;" id="row2_col3"></td>
+        <td style="width: 16%;" id="row2_col4"></td>
+        <td style="width: 16%;" id="row2_col5"></td>
+    </tr>
+    <tr id="row_3">
+
+        <td style="width: 20%;">
+            <select style="max-width: 200px;" id="intervention_3" class="bootstrap-select">
+
+            </select>
+        </td>
+        <td style="width: 16%;" id="row3_col1"></td>
+        <td style="width: 16%;" id="row3_col2"></td>
+        <td style="width: 16%;" id="row3_col3"></td>
+        <td style="width: 16%;" id="row3_col4"></td>
+        <td style="width: 16%;" id="row3_col5"></td>
+    </tr>
+    <tr id="row_4">
+
+        <td style="width: 20%;">
+            <select style="max-width: 200px;" id="intervention_4" class="bootstrap-select">
+
+            </select>
+        </td>
+        <td style="width: 16%;" id="row4_col1"></td>
+        <td style="width: 16%;" id="row4_col2"></td>
+        <td style="width: 16%;" id="row4_col3"></td>
+        <td style="width: 16%;" id="row4_col4"></td>
+        <td style="width: 16%;" id="row4_col5"></td>
+    </tr>
+    <tr id="row_5">
+
+        <td style="width: 20%;">
+            <select style="max-width: 200px;" id="intervention_5" class="bootstrap-select">
+
+            </select>
+        </td>
+        <td style="width: 16%;" id="row5_col1"></td>
+        <td style="width: 16%;" id="row5_col2"></td>
+        <td style="width: 16%;" id="row5_col3"></td>
+        <td style="width: 16%;" id="row5_col4"></td>
+        <td style="width: 16%;" id="row5_col5"></td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+
+<div class="row">
+    <div style="display: none;" class="col-lg-9">
+        <div class="row">
+            <div class="col-lg-2">
+                Search in:
+            </div>
+            <div class="col-lg-1">
+                <label class="form-check-label">
+                    <input checked="checked" type="checkbox" class="form-check-input section-search" value="title">Title
+                </label>
+            </div>
+            <div class="col-lg-1">
+                <label class="form-check-label">
+                    <input type="checkbox" checked="checked" class="form-check-input section-search" value="abstract_excerpt">Abstract
+                </label>
+            </div>
+            <div class="col-lg-1">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input section-search" value="best_method_snippet">Methods
+                </label>
+            </div>
+            <div class="col-lg-1">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input section-search" value="best_result_snippet">Results
+                </label>
+            </div>
+            <div class="col-lg-1">
+                <label class="form-check-label">
+                    <input type="checkbox" checked="checked" class="form-check-input section-search" value="section_text">Full text
+                </label>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-lg-2">
+                Display:
+            </div>
+            <div class="col-lg-1">
+                <label class="form-check-label">
+                    <input disabled checked="checked" type="checkbox" class="form-check-input section-display" value="title">Title
+                </label>
+            </div>
+            <div class="col-lg-1">
+                <label class="form-check-label">
+                    <input type="checkbox" checked="checked" class="form-check-input section-display" value="abstract_excerpt">Abstract
+                </label>
+            </div>
+            <div class="col-lg-1">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input section-display" value="best_method_snippet">Methods
+                </label>
+            </div>
+            <div class="col-lg-1">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input section-display" value="best_result_snippet">Results
+                </label>
+            </div>
+            <div class="col-lg-2">
+                <label class="form-check-label">
+                    <input type="checkbox" checked="checked" class="form-check-input section-display" value="section_text">Full Text Snippet
+                </label>
+            </div>
+            <div class="col-lg-2">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input section-display" value="extractive_summary">Summary
+                </label>
+            </div>
+        </div>
+        <br/>
+
+    </div>
+    <div style="display: none;" class="col-lg-3">
+        <h5><span>
+            Total results : <span id="spanNumResults">20</span>
+        </span></h5>
+        <h5><span>
+            Showing <span id="spanNumResultsPerPage">20</span> results per page
+        </span></h5>
+        <div class="dropdown">
+            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Go to Page
+            </button>
+            <div id="pagesDropdown" class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" value="1" type="button">1</button>
+                <button class="dropdown-item" value="2" type="button">2</button>
+                <button class="dropdown-item" value="3" type="button">3</button>
+            </div>
+            <span>
+            Current Page <span id="spanCurrentPage" class="badge badge-secondary">1</span>
+            </span>
+        </div>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-lg-1">
+        Highlight:
+    </div>
+    <div class="col-lg-2">
+        <label class="form-check-label">
+            <input id="highlight_search_result" type="checkbox" checked="checked" class="form-check-input facet-highlight" value="search-highlight">
+            <span class="search-highlight-pill">Search Results</span>
+        </label>
+    </div>
+    <div class="col-lg-2">
+        <label class="form-check-label">
+            <input id="highlight_design" type="checkbox" class="form-check-input facet-highlight" value="design">
+            <span class="design-pill">Study Design</span>
+        </label>
+    </div>
+    <div class="col-lg-2">
+        <label class="form-check-label">
+            <input id="highlight_intervention" type="checkbox" class="form-check-input facet-highlight" value="diagnostic_risk_factor">
+            <span class="diagnostic_risk_factor-pill">Diagnostic Risk Factor</span>
+        </label>
+    </div>
+    <div class="col-lg-2">
+        <label class="form-check-label">
+            <input id="highlight_outcome" type="checkbox" class="form-check-input facet-highlight" value="outcome">
+            <span class="outcome-pill">Outcome</span>
+        </label>
+    </div>
+</div>
+<br/>
+<div style="display: none;" class="row">
+    <div class="col-lg-1">
+        Filters:
+    </div>
+    <div class="col-lg-11">
+        <div id="spanFilters">
+
+        </div>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div style="display: none;" class="col-lg-3">
+        <h6><b>Year</b></h6>
+        <div style="max-height:250px; overflow-y: scroll">
+            <ul id="year-facet"  style="list-style: none;margin-left: 0;padding-left: 0;"></ul>
+        </div>
+        <br/>
+        <h6><b>Month</b></h6>
+        <div style="max-height:250px; overflow-y: scroll">
+            <ul id="year_month-facet"  style="list-style: none;margin-left: 0;padding-left: 0;"></ul>
+        </div>
+        <br/>
+        <h6><b>Study Design</b></h6>
+        <div style="max-height:250px; overflow-y: scroll">
+            <ul id="design-facet" style="list-style: none;margin-left: 0;padding-left: 0;"></ul>
+        </div>
+        <br/>
+        <h6><b>Outcome</b></h6>
+        <div style="max-height:250px; overflow-y: scroll">
+            <ul id="outcome-facet" style="list-style: none;margin-left: 0;padding-left: 0;"></ul>
+        </div>
+        <br/>
+        <h6><b>Diagnostic Risk Factors</b></h6>
+        <div style="max-height:250px; overflow-y: scroll">
+            <ul id="diagnostic-facet" style="list-style: none;margin-left: 0;padding-left: 0;"></ul>
+        </div>
+        <br/>
+        <h6><b>Prognostic Risk Factors</b></h6>
+        <div style="max-height:250px; overflow-y: scroll">
+            <ul id="prognostic-facet" style="list-style: none;margin-left: 0;padding-left: 0;"></ul>
+        </div>
+        <br/>
+        <h6><b>Journal</b></h6>
+        <div style="max-height:250px; overflow-y: scroll">
+            <ul id="journal-facet" style="list-style: none;margin-left: 0;padding-left: 0;"></ul>
+        </div>
+        <br/>
+    </div>
+    <div class="col-lg-12">
+        <ul id="container"  style="list-style: none;list-style: none;margin-left: 0;padding-left: 0;">
+
+        </ul>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/g/algoliasearch@3(algoliasearchLite.min.js),algoliasearch.helper@2"></script>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.js"></script>
+
+<script src="dynamic.js"></script>
+</body></html>

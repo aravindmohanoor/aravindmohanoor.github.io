@@ -87,3 +87,16 @@ html {
 .hitMargin{
     margin-left: 10px;
 }
+
+.disabledDiv {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+summary{
+    outline:none;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
