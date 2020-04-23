@@ -506,6 +506,8 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
 
     /*
         * <i class="fas fa-check-square"></i>
+        * <i class="fa fa-check-square" aria-hidden="true"></i>
+
         * */
 
 
@@ -514,8 +516,9 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
             $(this).remove();
         });
         let checkbox = $('<i>');
-        checkbox.addClass('fas fa-check-square');
-        checkbox.attr('font-size','20px');
+        checkbox.addClass('fa fa-check-square');
+        checkbox.attr('aria-hidden',true);
+        checkbox.attr('font-size','50px');
         checkbox.attr('color','black');
         pButton.append(checkbox);
         $('#container').html(function () {
