@@ -327,6 +327,7 @@ function populateGapMap(content){
             "5":[]
         }
     };
+
     let csvheaders = ['Title','URL','Publication Date', 'Risk Factor', 'Outcome', 'Study Design'];
     let allDataRows = [];
     allDataRows.push(csvheaders);
@@ -381,15 +382,13 @@ function populateGapMap(content){
                 outerIndex.forEach(function (item) {
                     innerIndex.forEach(function (item1) {
                         gapmap[item.toString()][item1.toString()].push(hit);
-                        let currInterventionElem = '#intervention_'+outerIndex.toString()+' option:selected';
+                        let currInterventionElem = '#intervention_'+item.toString()+' option:selected';
                         let currIntervention = $(currInterventionElem).text();
-                        let currOutcomeElem = '#outcome_'+innerIndex.toString()+' option:selected';
+                        let currOutcomeElem = '#outcome_'+item1.toString()+' option:selected';
                         let currOutcome = $(currOutcomeElem).text();
                         let designs = hit.design;
-                        designs.forEach(function(item){
-                            let datarow = [hit.title, hit.doi, hit.year_month, currIntervention, currOutcome, item];
-                            allDataRows.push(datarow);
-                        });
+                        let datarow = [hit.title, hit.doi, hit.year_month, currIntervention, currOutcome, designs];
+                        allDataRows.push(datarow);
                     })
                 });
             }
@@ -400,6 +399,7 @@ function populateGapMap(content){
 
     }
     window.csvdata = allDataRows;
+
     for(let i1=1;i1<=5;i1++){
         for(let j1=1;j1<=5;j1++){
             let cellName = '#row'+i1.toString()+'_col'+j1.toString();
