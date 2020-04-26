@@ -60,6 +60,97 @@ $(document).ready(function() {
                 let random = Math.floor(Math.random() * numLinesRiskFactors);
                 let select = '#intervention_'+i.toString();
                 allLinesSorted.forEach(function (item, index) {
+                    let synonyms = item.split(',');
+                    let key = synonyms[0];
+                    let option = $('<option>', {
+                        html: key.charAt(0).toUpperCase()+key.slice(1)
+                    });
+                    if (index === random) {
+                        option.attr("selected", "selected");
+                    }
+                    $(select).append(option);
+                });
+            }
+        });
+    }
+
+    function loadOutcomes(){
+        return $.get('outcomes.txt', function (data) {
+            let allLines = data.split(/\r\n|\n/);
+            let allLinesSorted = allLines.sort(function (a, b) {
+                return a.toLowerCase().localeCompare(b.toLowerCase());
+            });
+            let numLines = allLines.length;
+
+            for(let i=1;i<=5;i++){
+                let random = Math.floor(Math.random() * numLines);
+                let select = '#outcome_'+i.toString();
+                allLinesSorted.forEach(function (item, index) {
+                    let synonyms = item.split(',');
+                    let key = synonyms[0];
+                    let option = $('<option>', {
+                        html: key.charAt(0).toUpperCase()+key.slice(1)
+                    });
+                    if (index === random) {
+                        option.attr("selected", "selected");
+                    }
+                    $(select).append(option);
+                });
+            }
+        });
+    }
+
+    function loadStudyDesigns(){
+        return $.get('study_design.txt', function (data) {
+            let allLines = data.split(/\r\n|\n/);
+            allLines.forEach(function (item, index) {
+                let level = item.split(':')[0];
+                let label = item.split(':')[1];
+                let capitalizedLabel = label.charAt(0).toUpperCase()+label.slice(1);
+                window.study_design[capitalizedLabel] = level;
+            });
+        });
+    }
+
+    $.when(loadRiskFactors(), loadOutcomes(), loadStudyDesigns()).done(function(a1, a2, a3){
+
+        for(let i=1;i<=5;i++){
+            let interventionDiv = '#intervention_'+i.toString()+' option:selected';
+            let intervention = $(interventionDiv).text();
+            updateIntervention(i-1, intervention, true);
+
+        }
+
+        for(let j=1;j<=5;j++){
+            let outcomeDiv = '#outcome_'+j.toString()+' option:selected';
+            let outcome = $(outcomeDiv).text();
+            updateOutcome(j-1, outcome, true);
+        }
+
+        helper.search();
+
+    });
+
+    $("#spanFilters").addClass("disabledDiv");
+
+});
+
+/*$(document).ready(function() {
+
+    window.study_design = {};
+
+    function loadRiskFactors() {
+        return $.get('diagnostic_risk_factors.txt', function (data) {
+            let allLines = data.split(/\r\n|\n/);
+            let allLinesSorted = allLines.sort(function (a, b) {
+                return a.toLowerCase().localeCompare(b.toLowerCase());
+            });
+
+            let numLinesRiskFactors = allLines.length;
+            for(let i=1;i<=5;i++){
+                let random = Math.floor(Math.random() * numLinesRiskFactors);
+                let select = '#intervention_'+i.toString();
+                allLinesSorted.forEach(function (item, index) {
                     let option = $('<option>', {
                         html: item.charAt(0).toUpperCase()+item.slice(1)
                     });
@@ -129,7 +220,7 @@ $(document).ready(function() {
 
     $("#spanFilters").addClass("disabledDiv");
 
-});
+});*/
 
 window.displayAttributes = ['title','section_text','abstract_excerpt'];
 
@@ -137,6 +228,7 @@ window.spanFilters = {};
 
 window.intervention = 0;
 window.outcome = 0;
+window.csvdata = null;
 
 helper.on('result', function (content) {
     //renderFacetList(content); // not implemented yet
@@ -188,7 +280,7 @@ $('#outcome_5').on('change', function () {
 
 function highlightFilter(filterName){
     $( "p.snippet" ).each(function( index ) {
-        highlighted_items = [];
+        let highlighted_items = [];
         $(this).find('.'+filterName).each(function( index ) {
             var lower = $(this).text().toLowerCase();
             if(filterName === 'design'){
@@ -210,6 +302,55 @@ function highlightDesigns(){
     $( "p.snippet" ).each(function( index ) {
         highlighted_items = [];
         $(this).find('.design').each(function( index, item ) {
+            var id = $(item).attr('data-id').toLowerCase();
+            if (window.selectedDesigns.length > 0){
+                window.selectedDesigns.forEach(function(item1){
+                    var lowerItem = item1.toLowerCase();
+                    if(lowerItem === id && !highlighted_items.includes(id)){
+                        $(item).addClass('design-pill');
+                        highlighted_items.push(id);
+                    }
+                })
+            }
+        });
+    });
+}
+
+function highlightInterventions(){
+    $( "p.snippet" ).each(function( index ) {
+        highlighted_items = [];
+        $(this).find('.diagnostic_risk_factor').each(function( index, item ) {
+            var id = $(item).attr('data-id').toLowerCase();
+            if (window.selectedIntervention){
+                if (id === window.selectedIntervention.toLowerCase() && !highlighted_items.includes(id)){
+                    $(item).addClass('diagnostic_risk_factor-pill');
+                    highlighted_items.push(id);
+                }
+            }
+        });
+    });
+}
+
+function highlightOutcomes(){
+    $( "p.snippet" ).each(function( index ) {
+        highlighted_items = [];
+        $(this).find('.outcome').each(function( index, item ) {
+            var id = $(item).attr('data-id').toLowerCase();
+            //var id = $(item).text().toLowerCase();
+            if (window.selectedOutcome){
+                if (id === window.selectedOutcome.toLowerCase() && !highlighted_items.includes(id)){
+                    $(item).addClass('outcome-pill');
+                    highlighted_items.push(id);
+                }
+            }
+        });
+    });
+}
+
+/*function highlightDesigns(){
+    $( "p.snippet" ).each(function( index ) {
+        let highlighted_items = [];
+        $(this).find('.design').each(function( index, item ) {
             var lower = $(item).text().toLowerCase();
             if (window.selectedDesigns.length > 0){
                 window.selectedDesigns.forEach(function(item1){
@@ -226,7 +367,7 @@ function highlightDesigns(){
 
 function highlightInterventions(){
     $( "p.snippet" ).each(function( index ) {
-        highlighted_items = [];
+        let highlighted_items = [];
         $(this).find('.diagnostic_risk_factor').each(function( index, item ) {
             var lower = $(item).text().toLowerCase();
             if (window.selectedIntervention){
@@ -241,7 +382,7 @@ function highlightInterventions(){
 
 function highlightOutcomes(){
     $( "p.snippet" ).each(function( index ) {
-        highlighted_items = [];
+        let highlighted_items = [];
         $(this).find('.outcome').each(function( index, item ) {
             var lower = $(item).text().toLowerCase();
             if (window.selectedOutcome){
@@ -252,11 +393,11 @@ function highlightOutcomes(){
             }
         });
     });
-}
+}*/
 
 function highlightSearchResults(){
     $( "p.snippet" ).each(function( index ) {
-        highlighted_items = [];
+        let highlighted_items = [];
         $(this).find('.search-highlight').each(function( index, item ) {
             var lower = $(item).text().toLowerCase();
             if (!highlighted_items.includes(lower)){
@@ -326,11 +467,15 @@ function populateGapMap(content){
             "5":[]
         }
     };
+
+    let csvheaders = ['Title','URL','Publication Date', 'Risk Factor', 'Outcome', 'Study Design'];
+    let allDataRows = [];
+    allDataRows.push(csvheaders);
     for(let i=0;i<content.nbHits;i++){
         try{
-            hit = content.hits[i];
-            outerIndex = [];
-            innerIndex = [];
+            let hit = content.hits[i];
+            let outerIndex = [];
+            let innerIndex = [];
             if(hit && hit.hasOwnProperty('diagnostic_risk_factor')){
                 let diagnostic_risk_factors = hit.diagnostic_risk_factor;
                 diagnostic_risk_factors.forEach(function (item) {
@@ -371,10 +516,19 @@ function populateGapMap(content){
                     }
                 });
             }
+
+
             if(hit){
                 outerIndex.forEach(function (item) {
                     innerIndex.forEach(function (item1) {
                         gapmap[item.toString()][item1.toString()].push(hit);
+                        let currInterventionElem = '#intervention_'+item.toString()+' option:selected';
+                        let currIntervention = $(currInterventionElem).text();
+                        let currOutcomeElem = '#outcome_'+item1.toString()+' option:selected';
+                        let currOutcome = $(currOutcomeElem).text();
+                        let designs = hit.design;
+                        let datarow = [hit.title, hit.doi, hit.year_month, currIntervention, currOutcome, designs];
+                        allDataRows.push(datarow);
                     })
                 });
             }
@@ -384,6 +538,8 @@ function populateGapMap(content){
         }
 
     }
+    window.csvdata = allDataRows;
+
     for(let i1=1;i1<=5;i1++){
         for(let j1=1;j1<=5;j1++){
             let cellName = '#row'+i1.toString()+'_col'+j1.toString();
@@ -516,7 +672,7 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
         pButton.append(checkbox);
         $('#container').html(function () {
             return $.map(levelHits, function (hit) {
-                divHit = getSingleHit(hit);
+                let divHit = getSingleHit(hit);
                 return divHit;
             });
         });
@@ -551,7 +707,7 @@ function getSingleHit(hit){
         html:hit._highlightResult.title.value
     });
     liHit.append(pTitle).append(h4Title);
-    strDetails =  hit.journal+' ('+hit.year_month+') - '+hit.authors+' - '+' <a target="_blank" href="'+hit.url+'">'+hit.doi+'</a>';
+    let strDetails =  hit.journal+' ('+hit.year_month+') - '+hit.authors+' - '+' <a target="_blank" href="'+hit.url+'">'+hit.doi+'</a>';
     var pDetails = $('<p>',{
         html:strDetails
     });
@@ -564,7 +720,7 @@ function getSingleHit(hit){
             });
             h6SummaryTitle.append(labelSummaryTitle);
             labelSummaryTitle.addClass('heading-pill');
-            strSummaryText = '<ul>';
+            let strSummaryText = '<ul>';
             let key_sentences = hit.key_sentences;
             key_sentences.forEach(function(item){
                 strSummaryText += '<li>'+item+'</li>';
@@ -660,7 +816,7 @@ function getSingleHit(hit){
 function renderHits(content) {
     $('#container').html(function () {
         return $.map(content.hits, function (hit) {
-            divHit = getSingleHit(hit);
+            let divHit = getSingleHit(hit);
             return divHit;
         });
     });
@@ -735,8 +891,8 @@ $('#journal-facet').on('click', 'input[type=checkbox]', function (e) {
 
 function renderFacetList(content) {
     $('#journal-facet').html(function () {
-        allFacetValues = content.getFacetValues('journal');
-        sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        let allFacetValues = content.getFacetValues('journal');
+        let sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
         return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
             data('facet', facet.name).
@@ -748,8 +904,8 @@ function renderFacetList(content) {
         });
     });
     $('#year_month-facet').html(function () {
-        allFacetValues = content.getFacetValues('year_month');
-        sortedFacetValues = allFacetValues.sort((a,b) => (b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0));
+        let allFacetValues = content.getFacetValues('year_month');
+        let sortedFacetValues = allFacetValues.sort((a,b) => (b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0));
         return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
             data('facet', facet.name).
@@ -761,8 +917,8 @@ function renderFacetList(content) {
         });
     });
     $('#year-facet').html(function () {
-        allFacetValues = content.getFacetValues('year');
-        sortedFacetValues = allFacetValues.sort((a,b) => (b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0));
+        let allFacetValues = content.getFacetValues('year');
+        let sortedFacetValues = allFacetValues.sort((a,b) => (b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0));
         return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
             data('facet', facet.name).
@@ -774,8 +930,8 @@ function renderFacetList(content) {
         });
     });
     $('#design-facet').html(function () {
-        allFacetValues = content.getFacetValues('design');
-        sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        let allFacetValues = content.getFacetValues('design');
+        let sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
         return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
             data('facet', facet.name).
@@ -787,8 +943,8 @@ function renderFacetList(content) {
         });
     });
     $('#outcome-facet').html(function () {
-        allFacetValues = content.getFacetValues('outcome');
-        sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        let allFacetValues = content.getFacetValues('outcome');
+        let sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
         return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
             data('facet', facet.name).
@@ -800,8 +956,8 @@ function renderFacetList(content) {
         });
     });
     $('#diagnostic-facet').html(function () {
-        allFacetValues = content.getFacetValues('diagnostic_risk_factor');
-        sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        let allFacetValues = content.getFacetValues('diagnostic_risk_factor');
+        let sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
         return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
             data('facet', facet.name).
@@ -813,8 +969,8 @@ function renderFacetList(content) {
         });
     });
     $('#prognostic-facet').html(function () {
-        allFacetValues = content.getFacetValues('prognostic_risk_factor');
-        sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        let allFacetValues = content.getFacetValues('prognostic_risk_factor');
+        let sortedFacetValues = allFacetValues.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
         return $.map(sortedFacetValues, function (facet) {
             var checkbox = $('<input type=checkbox>').
             data('facet', facet.name).
@@ -835,7 +991,7 @@ $('#search-box').on('keyup', function () {
 
 $('.section-search').on('change', function(){
     //get all checked boxes
-    restrictSearchableAttributesArray = [];
+    let restrictSearchableAttributesArray = [];
     $('.section-search:checkbox:checked').each(function () {
         if(this.checked){
             restrictSearchableAttributesArray.push($(this).val());
@@ -892,3 +1048,32 @@ $('.facet-highlight').on('change', function(){
 });
 
 helper.search();
+
+function downloadResultsCSV(){
+    downloadCSV({
+        filename: 'filename.csv',
+        data: window.csvdata
+    });
+}
+
+const downloadCSV = (args) => {
+
+    let filename = args.filename || 'export.csv';
+    let columns = args.columns || null;
+
+    let csv = Papa.unparse({ data: args.data, fields: columns})
+    if (csv == null) return;
+
+    var blob = new Blob([csv]);
+    if (window.navigator.msSaveOrOpenBlob)  // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
+        window.navigator.msSaveBlob(blob, args.filename);
+    else
+    {
+        var a = window.document.createElement("a");
+        a.href = window.URL.createObjectURL(blob, {type: "text/plain"});
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();  // IE: "Access is denied"; see: https://connect.microsoft.com/IE/feedback/details/797361/ie-10-treats-blob-url-as-cross-origin-and-denies-access
+        document.body.removeChild(a);
+    }
+}

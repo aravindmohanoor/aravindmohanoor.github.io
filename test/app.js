@@ -7,7 +7,7 @@ var hits_per_page = 25;
 var client = algoliasearch(applicationID, apiKey);
 var helper = algoliasearchHelper(client, index, {
     disjunctiveFacets: ['journal','year_month','year','design','outcome','diagnostic_risk_factor','prognostic_risk_factor'],
-    //facetingAfterDistinct: true,
+    facetingAfterDistinct: true,
     hitsPerPage: hits_per_page
 });
 

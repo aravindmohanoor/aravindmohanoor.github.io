@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="app.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/papaparse@5.1.1/papaparse.min.js"></script>
 </head>
 <body class="container" style="min-width: 95%;">
 <br/>
@@ -19,47 +20,52 @@
 </div>
 <br/>
 <p>Questions, comments, and other feedback? Reach out <a target="_blank" href="https://twitter.com/aravindmc">@aravindmc</a></p>
+<p>
+    <label class="mr-3">Download all results</label>
+    <button onclick="downloadResultsCSV()" id="btnDownloadAll" type="submit" class="btn btn-sm btn-primary my-1 mr-5">Export all results to CSV</button>
+    <span id="timer"></span>
+</p>
 <table id="tbGapMap" class="table table-striped" style="width: 95%;">
     <thead>
-        <th scope="col" style="width: 20%;">
-            <table>
-                <tr>
-                    <td>
-                        <h6>Intervention</h6>
-                        <i class="fa fa-arrow-down" style="font-size: 20px; color: black;" aria-hidden="true"></i>
-                    </td>
-                    <td>
-                        <h6>Outcome</h6>
-                        <i class="fa fa-arrow-right" style="font-size: 20px;color: black;"></i>
-                    </td>
-                </tr>
-            </table>
-        </th>
-        <th scope="col" style="width: 16%;">
-            <select style="max-width: 200px;" id="outcome_1" class="bootstrap-select">
+    <th scope="col" style="width: 20%;">
+        <table>
+            <tr>
+                <td>
+                    <h6>Intervention</h6>
+                    <i class="fa fa-arrow-down" style="font-size: 20px; color: black;" aria-hidden="true"></i>
+                </td>
+                <td>
+                    <h6>Outcome</h6>
+                    <i class="fa fa-arrow-right" style="font-size: 20px;color: black;"></i>
+                </td>
+            </tr>
+        </table>
+    </th>
+    <th scope="col" style="width: 16%;">
+        <select style="max-width: 200px;" id="outcome_1" class="bootstrap-select">
 
-            </select>
-        </th>
-        <th scope="col" style="width: 16%;">
-            <select style="max-width: 200px;" id="outcome_2" class="bootstrap-select">
+        </select>
+    </th>
+    <th scope="col" style="width: 16%;">
+        <select style="max-width: 200px;" id="outcome_2" class="bootstrap-select">
 
-            </select>
-        </th>
-        <th scope="col" style="width: 16%;">
-            <select style="max-width: 200px;" id="outcome_3" class="bootstrap-select">
+        </select>
+    </th>
+    <th scope="col" style="width: 16%;">
+        <select style="max-width: 200px;" id="outcome_3" class="bootstrap-select">
 
-            </select>
-        </th>
-        <th scope="col" style="width: 16%;">
-            <select style="max-width: 200px;" id="outcome_4" class="bootstrap-select">
+        </select>
+    </th>
+    <th scope="col" style="width: 16%;">
+        <select style="max-width: 200px;" id="outcome_4" class="bootstrap-select">
 
-            </select>
-        </th>
-        <th scope="col" style="width: 16%;">
-            <select style="max-width: 200px;" id="outcome_5" class="bootstrap-select">
+        </select>
+    </th>
+    <th scope="col" style="width: 16%;">
+        <select style="max-width: 200px;" id="outcome_5" class="bootstrap-select">
 
-            </select>
-        </th>
+        </select>
+    </th>
     </tr>
     </thead>
     <tbody>
@@ -304,7 +310,9 @@
         </div>
         <br/>
     </div>
+
     <div class="col-lg-12">
+
         <ul id="container"  style="list-style: none;list-style: none;margin-left: 0;padding-left: 0;">
 
         </ul>
@@ -316,6 +324,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.js"></script>
+
 
 <script src="dynamic.js"></script>
 </body></html>

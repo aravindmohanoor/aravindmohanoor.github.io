@@ -1,207 +1,194 @@
 2019-nCoV RT-PCR test
+administered with steroids, percentage of cases administered with steroids
+adverse events, frequency of adverse events
 Adverse reactions
-All-cause fatality rate
-All-cause mortality
-AOR
+all-cause fatality rate
+all-cause mortality
+antibiotics use, percentage of antibiotics use
+anxiety scale, self-rating anxiety scale
+AOR,adjusted odds ratio, adjusted OR
 APACHE II score
+ARDS, frequency of ARDS
 Arterial blood-gas analysis
-Assessment of daily living ability
-Assessment of disease evolution
-Attack rate
-Blood biochemistry
-Blood concentration of chloroquine
-Blood gas analysis
-Blood oxygen saturation
+attack rate
+blood biochemistry
+blood concentration of chloroquine
+blood gas analysis
 Blood oxygen saturation
 C-reactive protein
-Calcitonin
-Cardiac function
+calcitonin
+cardiac function
 CBC
-CD4+ T cells count
-CD8+ T cells count
-Change curve of lymphocyte subsets count
-Changes in pulmonary imaging
-Chest imaging
-Clinical symptoms
-Coagulation function
-Coefficient
-Combination with other infections
-Cough
-Creatinine kinase
+CD4, CD4+ T cells count
+CD8, CD8+ T cells count
+change curve of lymphocyte subsets count
+chest imaging
+clinical improvement, frequency of clinical improvement
+clinical remission, time to clinical remission
+clinical symptoms
+coagulation function
+coefficient
+combination with other infections
+complications, frequency of complications
+cough
+cough reported as absent, time to cough reported as absent
+cough reported as mild, time to cough reported as mild
+creatinine kinase
 CRP level
-CT and MRI scan of hip joint
-Curative effects of TCM syndromes
+CT and MRI scan of hip joint, CT scan of hip joint, MRI scan of hip joint
 CURB-65 pneumonia severity score
-Cure rate
+cure rate
 D-dimer
-De-isolation rate
+de-isolation rate
 Declining speed of SARS-CoV-2
-Diarrhea
+depression scale, self-rating depression scale
+diarrhea
 DIC score
-Different approaches of oxygen inhalation
-Duration of ECMO
+disease evolution, assessment of disease evolution
+disease progression, frequency of disease progression
+disease remission, frequency of disease remission
+drug withdrawal, frequency of drug withdrawal due to adverse reactions
+duration of ECMO
 Duration of mechanical ventilation
-Duration of mechanical ventilation
-Duration of mechanical ventilation
-Duration of supplemental oxygenation
-Duration of supplemental oxygenation
-Duration of tube insertion
-Dyspnea prevalence
-Electrocardiography
-Erythrocyte sedimentation rate
+duration of tube insertion
+dyspnea, frequency of dyspnea,Dyspnea prevalence
+ECMO
+electrocardiography
+erythrocyte sedimentation rate
 European Qol-5 dimensional questionnaire
 Fatality rate
-Fatigue
-Fever
+fatigue
+fever
+finger oxygen, improvement rate of finger oxygen
 FiO2
-Frequency of 2019-nCoV RT-PCR negativity
-Frequency of adverse events
-Frequency of ARDS
-Frequency of clinical improvement
-Frequency of complications
-Frequency of disease progression
-Frequency of disease remission
-Frequency of drug withdrawal due to adverse reactions
-Frequency of dyspnea
-Frequency of hemodialysis filtration
-Frequency of hypoxia
-Frequency of ICU admission
-Frequency of individual symptom absent
-Frequency of MODS
-Frequency of renal injury
-Frequency of requirement for first aid
-Frequency of requirement for mechanical ventilation
-Frequency of requirement for mechanical ventilation
-Frequency of requirement for pulmonary surfactant
-Frequency of requirement for supplemental oxygen
-Frequency of respiratory progression
-Frequency of respiratory remission
-Frequency of severe adverse events
 Frequency of shock
-Frequency of tube insertion
-Frequency/length of severe cases turning to critical type or death
-Health survey short form
+frequency/length of severe cases turning to critical type or death
+health survey short form
+hemodialysis filtration, frequency of hemodialysis filtration
 HR
-Hypersensitive C-reactive protein
-Icu treatment required
-Immunological indexes
-Improvement
+hypersensitive C-reactive protein
+hypoxia, frequency of hypoxia
+ICU admission, frequency of ICU admission
+icu treatment required
+immunological indexes
+improvement
 Improvement in respiratory rate
-Improvement rate of finger oxygen
-Incidence
+incidence
+individual symptom absent, frequency of individual symptom absent
 Inflammation
 Inflammation absorption
 Leicester cough questionnaire
 Length of hospital stay
-Length of hospital stay
-Length of ICU stay
-Lesions progression within 24–48 h in pulmonary imaging
-Liver and renal function
-Liver function
-Log odds
-Logistic regression
+length of ICU stay
+Lesions progression, Lesions progression within 24–48 h in pulmonary imaging
+liver and renal function
+liver function
+living ability, assessment of daily living ability
+log odds
+logistic regression
 Lymphocyte count
-Lymphocyte count
-Mean difference
+mean difference
 Mechanical ventilation
-Mechanical ventilation
-Mode and parameters of ECMO
+mechanical ventilation parameters, parameters of mechanical ventilation
+mode and parameters of ECMO
 Modified Barthel index
-Mortality rate
+MODS, frequency of MODS
+mortality rate
+mortality,death,survivors,non-survivors,discharged to hospice
 Murray lung injury score
-Myocardial enzymes
-Myoglobin
-Need for icu treatment
+myocardial enzymes
+myoglobin
+need for icu treatment
 NEWS 2
-Odds
-Organ failure
-Organ support intensity
+normal respiratory rate, Time to achieve a normal respiratory rate
+odds ratio
+organ failure
+organ support intensity
+oxygen inhalation, different approaches of oxygen inhalation
 Oxygen intake
-Oxygen saturation
 Oxygen saturation
 Oxygen-intake method
 PaO2
-PaO2/FiO2
-Parameters of mechanical ventilation
-Parameters of respirator
-Percentage of antibiotics use
-Percentage of cases administered with steroids
-Percentage of cases recovering to mild type
-Percentage of cases turning to critical
-Percentage of cases turning to severe
-Percentage of cases with significant improvement or meeting discharge standard
-Percentage of cases without coughing
-Peripheral blood cell count
+percentage of cases without coughing
+peripheral blood cell count
 Pneumonia severity index
 Prevalence of dyspnea clearance
-Prevalence of improvement
+prevalence of improvement
 Prevalence of mechanical ventilation
-Prevalence of progressing to critical
+prevalence of progressing to critical
 Prevalence of progressing to severe
 Prevalence of supplemental-oxygen requirement
-Procalcitonin
-Progressing to critical
-Progressing to severe
-Progression
-Proinflammatory cytokines
+procalcitonin
+progressing to critical
+progressing to severe
+progression
+proinflammatory cytokines
 Proportion of patients negative for SARS-CoV-2
 PSI score
-Psychological indexes
-Pulmonary function
-Pulmonary high-resolution CT score
-Pulmonary imaging
-Recovery
-Recovery prevalence
-Recovery rate of laboratory indexes
-Recovery time
-Recovery time of pulmonary function
-Remission rate of respiratory symptoms
+psychological indexes
+pulmonary function
+pulmonary high-resolution CT score
+pulmonary imaging, changes in pulmonary imaging
+recovering to mild type, recovered to mild, percentage of cases recovering to mild type
+recovering to mild type, time to cases recovering to mild type
+recovery
+recovery prevalence
+recovery rate of laboratory indexes
+recovery time
+recovery time of pulmonary function
+remission rate of respiratory symptoms
+renal injury, frequency of renal injury
+requirement for first aid, frequency of requirement for first aid
+requirement for mechanical ventilation, Frequency of requirement for mechanical ventilation
+requirement for pulmonary surfactant, frequency of requirement for pulmonary surfactant
+requirement for supplemental oxygen, Frequency of requirement for supplemental oxygen
+respirator parameter, parameters of respirator
 Respiratory failure occurred and mechanical ventilation required
+respiratory progression, frequency of respiratory progression
 Respiratory rate
-Respiratory rate
-Respiratory symptoms and signs
-Risk factor analysis
-Risk factors
-Routine urinalysis
+respiratory remission, frequency of respiratory remission
+respiratory symptoms and signs
+risk factor analysis
+risk factors
+routine urinalysis
 RR
-Score of clinical symptoms
-Score of TCM symptoms
-Self-rating anxiety scale
-Self-rating depression scale
-Sequential organ failure assessment
-Seven-point ordinal scale
+RT-PCR negativity, frequency of 2019-nCoV RT-PCR negativity
+score of clinical symptoms
+score of TCM symptoms
+sequential organ failure assessment
+seven-point ordinal scale
+severe adverse events, frequency of severe adverse events
 SF-36
-Shock
-Shock occurrence
-Shortness of breath
-Social support rating scale
+shock, shock occurrence
+shortness of breath
+Significant improvement, discharge standard, Percentage of cases with significant improvement or meeting discharge standard
+social support rating scale
 SOFA score
 St. George’s respiratory questionnaire
-Survival condition
-Time for  CRP recovery
-Time of progressing
+supplemental oxygenation, Duration of supplemental oxygenation
+survival condition
+TCM syndrome, curative effects of TCM syndromes
+time for  CRP recovery
+time of progressing
 Time taken by SARS-CoV-2-RNA to become negative
 Time to 2019-nCoV RR-PCR negativity
-Time to achieve a normal respiratory rate
-Time to cases recovering to mild type
-Time to cases turning to severe
-Time to clinical remission
-Time to cough reported as absent
-Time to cough reported as mild
-Time to cure
+time to cure
 Time to defervescence
-Time to dyspnea reported as mild/absent
-Time to gastrointestinal symptoms reported as absent
-Time to ICU admission
-Time to recovery
-Time to recovery
-Time to treatment failure
+time to dyspnea reported as mild/absent, time to dyspnea reported as mild, time to dyspnea reported as absent
+time to gastrointestinal symptoms reported as absent
+time to ICU admission
+time to recovery
+time to treatment failure
 TTCI
-Vasopressor days
-Viral burden
+tube insertion, frequency of tube insertion
+turning to critical, turned critical, percentage of cases turning to critical
+turning to severe, time to cases turning to severe
+turning to severe, turned severe, percentage of cases turning to severe
+vasopressor days
+viral burden
 Viral load
-Virologic indicators
+virologic indicators
 Virus antibody level
-Virus antibody level in blood samples
+virus antibody level in blood samples
 X-ray examination
 β

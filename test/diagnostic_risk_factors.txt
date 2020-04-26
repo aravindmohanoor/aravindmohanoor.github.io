@@ -1,64 +1,60 @@
-Abdominal pain
-Age
-Alcoholic liver disease
-Anorexia
-Asymptomatic
-Bacterial pneumonia
-BMI
-Cancer
-Cerebral Infarction
-Chest tightness/pain
-Chills
-Chronic bronchitis
-Chronic kidney disease
-COPD
-Cough
-Diabetes
-Diarrhea
-Dizzyness
-Education
-Elderly
-Fatigue
-Fatty liver
-Fever
-First responders
-Fungal infection
-Gender
-General pain
-Health workers
-Heart disease
-Hepatitis B
-History of lung disease
+diabetes,diabetes mellitus, type 2 diabetes, type 1 diabetes,insulin, insulin-dependent, insulin resistance, glucose control, blood glucose level, metaformin, hemoglobin A1c, hyperglycemia, hypoglycemia, hyperglycemic, hypoglycemic, pre-diabetes
+hypertension,high blood pressure
+heart disease,coronary heart disease, heart valve disease, cardiovascular disease
+cancer,malignancy, tumor
+smoking status, smoker,current smokers, former smokers, never smokers
+lung disease,asthma, COPD, chronic bronchitis, lung cancer, emphysema
+local climate
+immune compromised groups,immune deficiency, immunodeficiency, HIV, AIDS, leukemia, asplenia, dysfunction of the spleen, spleen dysfunction, neutropenia, neutropaenia, chemotherapy, immune suppression, immune suppressed
+age,median age, mean age, average age, elderly, aged, older, younger, adolescent, adult, child, children, age range, age group
+race/ethnicity, African American, Caucasian, Hispanic, Latino, Asian, Native American, Non-Hispanic White, Roma, minorities, African immigrants, Turkish immigrants
+education, highest level of education completed, average education level, years of education completed, high school, some college, college, post-graduate degree
+income,socioeconomic status, median income, average income, mean income, annual income, monthly income, employment status
+insurance status, insured, uninsured, underinsured
+housing status,homeless, renting, home owners
+immigration status
+prison inmates, prison, inmates
+mental hospital inpatients
+long-term care facility residents
+health workers,doctors, nurses, hospital staff, paramedics, health care personnel, intensivists, ICU staff, Emergency Room staff
+first responders,paramedics, police, firefighters
+hospital staff
+nursing home staff
+prison staff
+pregnancy status,parturients,trimester, weeks of gestation
+neonates
+chronic kidney disease,chronic renal impairment
+Parkinson's Disease,neurological diseases
+Cerebral Infarction,previous stroke, history of stroke, cerebrovascular disease
 History of stroke
-Hospital staff
-Housing status
-Hypertension
-Immigration status
-Immune compromised groups
-Income
 Influenza
-Insurance status
-Local climate
-Long-term care facility residents
-Lymphadenopathy
-Malnutrition
-Mental hospital inpatients
-Nasal congestion
-Neonates
-Nursing home staff
-Obesity
-Parkinson's Disease
-Polypnea
-Pregnancy status
-Prison inmates
-Prison staff
-Race/ethnicity
-Renal impairment
-Septic shock,
-Shortness of breath
-Sleep disruption
-Small children
-Smoking status
-Sputum production
+Bacterial pneumonia
+Hepatitis B,cirrhosis, HBV, HBsAg, HBeAg
+alcoholic liver disease
+fatty liver
+fungal infection,endocrine diseases, hypothyroidism, hyperthyroidism
 Thyroid diseases
-Vomiting
+COPD,chronic obstructive pulmonary disease
+chronic bronchitis
+BMI, obesity, overweight, obese, Body Mass Index,kg/m2
+gender,male gender, female gender, sex, male, female
+cough
+fever
+sputum production
+diarrhea
+vomiting
+shortness of breath,dyspnea
+sleep disruption
+fatigue
+general pain
+Lymphadenopathy,swelling of the lymph nodes
+dizzyness
+chills
+chest tightness/pain
+abdominal pain
+anorexia
+malnutrition
+polypnea,increase in deep breathing
+septic shock
+asymptomatic
+Nasal congestion
