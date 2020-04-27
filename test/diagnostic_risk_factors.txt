@@ -13,7 +13,7 @@ heart disease,coronary heart disease, heart valve disease, cardiovascular diseas
 cancer,malignancy, tumor
 smoking status, smoker,current smokers, former smokers, never smokers
 lung disease,asthma, COPD, chronic bronchitis, lung cancer, emphysema
-local climate
+local climate,temperature, humidity,climatic factors,ambient temperature,room temperature,meteorological
 immune compromised groups,immune deficiency, immunodeficiency, HIV, AIDS, leukemia, asplenia, dysfunction of the spleen, spleen dysfunction, neutropenia, neutropaenia, chemotherapy, immune suppression, immune suppressed
 age,median age, mean age, average age, elderly, aged, older, younger, adolescent, adult, child, children, age range, age group
 race/ethnicity, African American, Caucasian, Hispanic, Latino, Asian, Native American, Non-Hispanic White, Roma, minorities, African immigrants, Turkish immigrants
