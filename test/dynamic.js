@@ -62,9 +62,11 @@ $(document).ready(function() {
                 allLinesSorted.forEach(function (item, index) {
                     let synonyms = item.split(',');
                     let key = synonyms[0];
+                    let value = synonyms.join(' | ');
                     let option = $('<option>', {
-                        html: key.charAt(0).toUpperCase()+key.slice(1)
+                        html: value
                     });
+                    option.attr("value",key.charAt(0).toUpperCase()+key.slice(1));
                     if (index === random) {
                         option.attr("selected", "selected");
                     }
@@ -88,9 +90,11 @@ $(document).ready(function() {
                 allLinesSorted.forEach(function (item, index) {
                     let synonyms = item.split(',');
                     let key = synonyms[0];
+                    let value = synonyms.join(' | ');
                     let option = $('<option>', {
-                        html: key.charAt(0).toUpperCase()+key.slice(1)
+                        html: value
                     });
+                    option.attr("value",key.charAt(0).toUpperCase()+key.slice(1));
                     if (index === random) {
                         option.attr("selected", "selected");
                     }
@@ -116,14 +120,14 @@ $(document).ready(function() {
 
         for(let i=1;i<=5;i++){
             let interventionDiv = '#intervention_'+i.toString()+' option:selected';
-            let intervention = $(interventionDiv).text();
+            let intervention = $(interventionDiv).val();
             updateIntervention(i-1, intervention, true);
 
         }
 
         for(let j=1;j<=5;j++){
             let outcomeDiv = '#outcome_'+j.toString()+' option:selected';
-            let outcome = $(outcomeDiv).text();
+            let outcome = $(outcomeDiv).val();
             updateOutcome(j-1, outcome, true);
         }
 
@@ -479,19 +483,19 @@ function populateGapMap(content){
             if(hit && hit.hasOwnProperty('diagnostic_risk_factor')){
                 let diagnostic_risk_factors = hit.diagnostic_risk_factor;
                 diagnostic_risk_factors.forEach(function (item) {
-                    if ($('#intervention_1 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#intervention_1 option:selected').val().toLowerCase() === item.toLowerCase()){
                         outerIndex.push(1);
                     }
-                    if ($('#intervention_2 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#intervention_2 option:selected').val().toLowerCase() === item.toLowerCase()){
                         outerIndex.push(2);
                     }
-                    if ($('#intervention_3 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#intervention_3 option:selected').val().toLowerCase() === item.toLowerCase()){
                         outerIndex.push(3)
                     }
-                    if ($('#intervention_4 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#intervention_4 option:selected').val().toLowerCase() === item.toLowerCase()){
                         outerIndex.push(4);
                     }
-                    if ($('#intervention_5 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#intervention_5 option:selected').val().toLowerCase() === item.toLowerCase()){
                         outerIndex.push(5);
                     }
                 });
@@ -499,19 +503,19 @@ function populateGapMap(content){
             if(hit && hit.hasOwnProperty('outcome')){
                 let outcomes = hit.outcome;
                 outcomes.forEach(function (item) {
-                    if ($('#outcome_1 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#outcome_1 option:selected').val().toLowerCase() === item.toLowerCase()){
                         innerIndex.push(1);
                     }
-                    if ($('#outcome_2 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#outcome_2 option:selected').val().toLowerCase() === item.toLowerCase()){
                         innerIndex.push(2);
                     }
-                    if ($('#outcome_3 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#outcome_3 option:selected').val().toLowerCase() === item.toLowerCase()){
                         innerIndex.push(3);
                     }
-                    if ($('#outcome_4 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#outcome_4 option:selected').val().toLowerCase() === item.toLowerCase()){
                         innerIndex.push(4);
                     }
-                    if ($('#outcome_5 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#outcome_5 option:selected').val().toLowerCase() === item.toLowerCase()){
                         innerIndex.push(5);
                     }
                 });
@@ -523,9 +527,9 @@ function populateGapMap(content){
                     innerIndex.forEach(function (item1) {
                         gapmap[item.toString()][item1.toString()].push(hit);
                         let currInterventionElem = '#intervention_'+item.toString()+' option:selected';
-                        let currIntervention = $(currInterventionElem).text();
+                        let currIntervention = $(currInterventionElem).val();
                         let currOutcomeElem = '#outcome_'+item1.toString()+' option:selected';
-                        let currOutcome = $(currOutcomeElem).text();
+                        let currOutcome = $(currOutcomeElem).val();
                         let designs = hit.design;
                         let datarow = [hit.title, hit.doi, hit.year_month, currIntervention, currOutcome, designs];
                         allDataRows.push(datarow);
@@ -679,8 +683,8 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
 
         let currDifferenceNum = cell.split('_')[0].replace('#row','');
         let currOutcomeNum = cell.split('_')[1].replace('col','');
-        let currDifference = $('#intervention_'+currDifferenceNum+' option:selected').text();
-        let currOutcome = $('#outcome_'+currOutcomeNum+' option:selected').text();
+        let currDifference = $('#intervention_'+currDifferenceNum+' option:selected').val();
+        let currOutcome = $('#outcome_'+currOutcomeNum+' option:selected').val();
         window.selectedIntervention = currDifference;
         window.selectedOutcome = currOutcome;
         window.selectedDesigns = levelArray;
