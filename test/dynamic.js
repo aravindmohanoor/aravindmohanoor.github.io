@@ -139,93 +139,6 @@ $(document).ready(function() {
 
 });
 
-/*$(document).ready(function() {
-
-    window.study_design = {};
-
-    function loadRiskFactors() {
-        return $.get('diagnostic_risk_factors.txt', function (data) {
-            let allLines = data.split(/\r\n|\n/);
-            let allLinesSorted = allLines.sort(function (a, b) {
-                return a.toLowerCase().localeCompare(b.toLowerCase());
-            });
-
-            let numLinesRiskFactors = allLines.length;
-            for(let i=1;i<=5;i++){
-                let random = Math.floor(Math.random() * numLinesRiskFactors);
-                let select = '#intervention_'+i.toString();
-                allLinesSorted.forEach(function (item, index) {
-                    let option = $('<option>', {
-                        html: item.charAt(0).toUpperCase()+item.slice(1)
-                    });
-                    if (index === random) {
-                        option.attr("selected", "selected");
-                    }
-                    $(select).append(option);
-                });
-            }
-        });
-    }
-
-    function loadOutcomes(){
-        return $.get('outcomes.txt', function (data) {
-            let allLines = data.split(/\r\n|\n/);
-            let allLinesSorted = allLines.sort(function (a, b) {
-                return a.toLowerCase().localeCompare(b.toLowerCase());
-            });
-            let numLines = allLines.length;
-
-            for(let i=1;i<=5;i++){
-                let random = Math.floor(Math.random() * numLines);
-                let select = '#outcome_'+i.toString();
-                allLinesSorted.forEach(function (item, index) {
-                    let option = $('<option>', {
-                        html: item.charAt(0).toUpperCase()+item.slice(1)
-                    });
-                    if (index === random) {
-                        option.attr("selected", "selected");
-                    }
-                    $(select).append(option);
-                });
-            }
-        });
-    }
-
-    function loadStudyDesigns(){
-        return $.get('study_design.txt', function (data) {
-            let allLines = data.split(/\r\n|\n/);
-            allLines.forEach(function (item, index) {
-                let level = item.split(':')[0];
-                let label = item.split(':')[1];
-                let capitalizedLabel = label.charAt(0).toUpperCase()+label.slice(1);
-                window.study_design[capitalizedLabel] = level;
-            });
-        });
-    }
-
-    $.when(loadRiskFactors(), loadOutcomes(), loadStudyDesigns()).done(function(a1, a2, a3){
-
-        for(let i=1;i<=5;i++){
-            let interventionDiv = '#intervention_'+i.toString()+' option:selected';
-            let intervention = $(interventionDiv).text();
-            updateIntervention(i-1, intervention, true);
-
-        }
-
-        for(let j=1;j<=5;j++){
-            let outcomeDiv = '#outcome_'+j.toString()+' option:selected';
-            let outcome = $(outcomeDiv).text();
-            updateOutcome(j-1, outcome, true);
-        }
-
-        helper.search();
-
-    });
-
-    $("#spanFilters").addClass("disabledDiv");
-
-});*/
-
 window.displayAttributes = ['title','section_text','abstract_excerpt'];
 
 window.spanFilters = {};
@@ -434,6 +347,7 @@ function updatePagination(content){
 }
 
 function populateGapMap(content){
+
     let gapmap = {
         "1":{
             "1":[],
@@ -549,6 +463,7 @@ function populateGapMap(content){
             let cellName = '#row'+i1.toString()+'_col'+j1.toString();
             let gapmapArray = gapmap[i1.toString()][j1.toString()];
             $(cellName).html('');
+            //$(cellName).addClass('spinner-grow');
             let level1Designs = [];
             let level2Designs = [];
             let level3Designs = [];
@@ -643,8 +558,10 @@ function populateGapMap(content){
             if(levelUnknownDesigns.length > 0){
                 populateLevelSummary(cellName,'Unknown',levelUnknownDesigns, levelUnknownHits);
             }
+            //$(cellName).removeClass('spinner-grow');
         }
     }
+
 }
 
 function populateLevelSummary(cell, levelName, levelArray, levelHits){
