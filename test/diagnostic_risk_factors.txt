@@ -1,3 +1,12 @@
+time from onset to presentation, delayed presentation, late presentation, early presentation, advanced disease, early symptoms,days from symptom onset to presentation, early progression, late progression
+Lung compliance,elastance,mL/cm H2O
+Ventilation-to-perfusion ratio,V/Q
+pulmonary artery pressure, arterial pressure, mean pulmonary artery pressure, systolic pulmonary artery pressure
+Ground glass opacity, GGO, ground glass opacities
+bilateral infiltrates
+fibrosis
+recruitability, lung recruitability
+PaCO2,hypocapnic,hypercapnic
 diabetes,diabetes mellitus, type 2 diabetes, type 1 diabetes,insulin, insulin-dependent, insulin resistance, glucose control, blood glucose level, metaformin, hemoglobin A1c, hyperglycemia, hypoglycemia, hyperglycemic, hypoglycemic, pre-diabetes
 hypertension,high blood pressure
 heart disease,coronary heart disease, heart valve disease, cardiovascular disease
