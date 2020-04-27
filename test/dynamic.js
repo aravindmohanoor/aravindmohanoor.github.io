@@ -763,7 +763,7 @@ function getSingleHit(hit){
     }
 
     if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
-        if(hit.abstract_excerpt !== ''){
+        if(hit._highlightResult.abstract_excerpt){
             var h6AbstractTitle = $('<h6/>');
             var labelAbstractTitle = $('<span>',{
                 html:'Abstract'
@@ -780,7 +780,7 @@ function getSingleHit(hit){
         }
     }
     if (window.displayAttributes.indexOf('best_method_snippet') > -1){
-        if(hit.best_method_title !== ''){
+        if(hit._highlightResult.best_method_snippet){
             var h6MethodTitle = $('<h6/>');
             var labelMethodTitle = $('<span>',{
                 html:'Methods > '+hit.best_method_title
@@ -797,7 +797,7 @@ function getSingleHit(hit){
         }
     }
     if (window.displayAttributes.indexOf('best_result_snippet') > -1){
-        if(hit.best_method_title !== ''){
+        if(hit._highlightResult.best_result_snippet){
             var h6ResultTitle = $('<h6/>');
             var labelResultTitle = $('<span>',{
                 html:'Results > '+hit.best_result_title
