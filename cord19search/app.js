@@ -1,7 +1,7 @@
 //Config
 var applicationID = 'ZZ2ZTTMSBH';
 var apiKey = '71090d1229c06a4d72829a3d0d59d6bc';
-var index = 'papers';
+var index = 'papers_dev';
 var hits_per_page = 25;
 
 var client = algoliasearch(applicationID, apiKey);

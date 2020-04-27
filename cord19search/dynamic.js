@@ -1,7 +1,7 @@
 //Config
 var applicationID = 'ZZ2ZTTMSBH';
 var apiKey = '71090d1229c06a4d72829a3d0d59d6bc';
-var index = 'papers';
+var index = 'papers_dev';
 var hits_per_page = 1000;
 
 var client = algoliasearch(applicationID, apiKey);
@@ -60,9 +60,13 @@ $(document).ready(function() {
                 let random = Math.floor(Math.random() * numLinesRiskFactors);
                 let select = '#intervention_'+i.toString();
                 allLinesSorted.forEach(function (item, index) {
+                    let synonyms = item.split(',');
+                    let key = synonyms[0];
+                    let value = synonyms.join(' | ');
                     let option = $('<option>', {
-                        html: item.charAt(0).toUpperCase()+item.slice(1)
+                        html: value
                     });
+                    option.attr("value",key.charAt(0).toUpperCase()+key.slice(1));
                     if (index === random) {
                         option.attr("selected", "selected");
                     }
@@ -84,9 +88,13 @@ $(document).ready(function() {
                 let random = Math.floor(Math.random() * numLines);
                 let select = '#outcome_'+i.toString();
                 allLinesSorted.forEach(function (item, index) {
+                    let synonyms = item.split(',');
+                    let key = synonyms[0];
+                    let value = synonyms.join(' | ');
                     let option = $('<option>', {
-                        html: item.charAt(0).toUpperCase()+item.slice(1)
+                        html: value
                     });
+                    option.attr("value",key.charAt(0).toUpperCase()+key.slice(1));
                     if (index === random) {
                         option.attr("selected", "selected");
                     }
@@ -112,14 +120,14 @@ $(document).ready(function() {
 
         for(let i=1;i<=5;i++){
             let interventionDiv = '#intervention_'+i.toString()+' option:selected';
-            let intervention = $(interventionDiv).text();
+            let intervention = $(interventionDiv).val();
             updateIntervention(i-1, intervention, true);
 
         }
 
         for(let j=1;j<=5;j++){
             let outcomeDiv = '#outcome_'+j.toString()+' option:selected';
-            let outcome = $(outcomeDiv).text();
+            let outcome = $(outcomeDiv).val();
             updateOutcome(j-1, outcome, true);
         }
 
@@ -209,6 +217,55 @@ function highlightFilter(filterName){
 
 function highlightDesigns(){
     $( "p.snippet" ).each(function( index ) {
+        highlighted_items = [];
+        $(this).find('.design').each(function( index, item ) {
+            var id = $(item).attr('data-id').toLowerCase();
+            if (window.selectedDesigns.length > 0){
+                window.selectedDesigns.forEach(function(item1){
+                    var lowerItem = item1.toLowerCase();
+                    if(lowerItem === id && !highlighted_items.includes(id)){
+                        $(item).addClass('design-pill');
+                        highlighted_items.push(id);
+                    }
+                })
+            }
+        });
+    });
+}
+
+function highlightInterventions(){
+    $( "p.snippet" ).each(function( index ) {
+        highlighted_items = [];
+        $(this).find('.diagnostic_risk_factor').each(function( index, item ) {
+            var id = $(item).attr('data-id').toLowerCase();
+            if (window.selectedIntervention){
+                if (id === window.selectedIntervention.toLowerCase() && !highlighted_items.includes(id)){
+                    $(item).addClass('diagnostic_risk_factor-pill');
+                    highlighted_items.push(id);
+                }
+            }
+        });
+    });
+}
+
+function highlightOutcomes(){
+    $( "p.snippet" ).each(function( index ) {
+        highlighted_items = [];
+        $(this).find('.outcome').each(function( index, item ) {
+            var id = $(item).attr('data-id').toLowerCase();
+            //var id = $(item).text().toLowerCase();
+            if (window.selectedOutcome){
+                if (id === window.selectedOutcome.toLowerCase() && !highlighted_items.includes(id)){
+                    $(item).addClass('outcome-pill');
+                    highlighted_items.push(id);
+                }
+            }
+        });
+    });
+}
+
+/*function highlightDesigns(){
+    $( "p.snippet" ).each(function( index ) {
         let highlighted_items = [];
         $(this).find('.design').each(function( index, item ) {
             var lower = $(item).text().toLowerCase();
@@ -253,7 +310,7 @@ function highlightOutcomes(){
             }
         });
     });
-}
+}*/
 
 function highlightSearchResults(){
     $( "p.snippet" ).each(function( index ) {
@@ -290,6 +347,7 @@ function updatePagination(content){
 }
 
 function populateGapMap(content){
+
     let gapmap = {
         "1":{
             "1":[],
@@ -339,19 +397,19 @@ function populateGapMap(content){
             if(hit && hit.hasOwnProperty('diagnostic_risk_factor')){
                 let diagnostic_risk_factors = hit.diagnostic_risk_factor;
                 diagnostic_risk_factors.forEach(function (item) {
-                    if ($('#intervention_1 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#intervention_1 option:selected').val().toLowerCase() === item.toLowerCase()){
                         outerIndex.push(1);
                     }
-                    if ($('#intervention_2 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#intervention_2 option:selected').val().toLowerCase() === item.toLowerCase()){
                         outerIndex.push(2);
                     }
-                    if ($('#intervention_3 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#intervention_3 option:selected').val().toLowerCase() === item.toLowerCase()){
                         outerIndex.push(3)
                     }
-                    if ($('#intervention_4 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#intervention_4 option:selected').val().toLowerCase() === item.toLowerCase()){
                         outerIndex.push(4);
                     }
-                    if ($('#intervention_5 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#intervention_5 option:selected').val().toLowerCase() === item.toLowerCase()){
                         outerIndex.push(5);
                     }
                 });
@@ -359,19 +417,19 @@ function populateGapMap(content){
             if(hit && hit.hasOwnProperty('outcome')){
                 let outcomes = hit.outcome;
                 outcomes.forEach(function (item) {
-                    if ($('#outcome_1 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#outcome_1 option:selected').val().toLowerCase() === item.toLowerCase()){
                         innerIndex.push(1);
                     }
-                    if ($('#outcome_2 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#outcome_2 option:selected').val().toLowerCase() === item.toLowerCase()){
                         innerIndex.push(2);
                     }
-                    if ($('#outcome_3 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#outcome_3 option:selected').val().toLowerCase() === item.toLowerCase()){
                         innerIndex.push(3);
                     }
-                    if ($('#outcome_4 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#outcome_4 option:selected').val().toLowerCase() === item.toLowerCase()){
                         innerIndex.push(4);
                     }
-                    if ($('#outcome_5 option:selected').text().toLowerCase() === item.toLowerCase()){
+                    if ($('#outcome_5 option:selected').val().toLowerCase() === item.toLowerCase()){
                         innerIndex.push(5);
                     }
                 });
@@ -383,9 +441,9 @@ function populateGapMap(content){
                     innerIndex.forEach(function (item1) {
                         gapmap[item.toString()][item1.toString()].push(hit);
                         let currInterventionElem = '#intervention_'+item.toString()+' option:selected';
-                        let currIntervention = $(currInterventionElem).text();
+                        let currIntervention = $(currInterventionElem).val();
                         let currOutcomeElem = '#outcome_'+item1.toString()+' option:selected';
-                        let currOutcome = $(currOutcomeElem).text();
+                        let currOutcome = $(currOutcomeElem).val();
                         let designs = hit.design;
                         let datarow = [hit.title, hit.doi, hit.year_month, currIntervention, currOutcome, designs];
                         allDataRows.push(datarow);
@@ -405,6 +463,7 @@ function populateGapMap(content){
             let cellName = '#row'+i1.toString()+'_col'+j1.toString();
             let gapmapArray = gapmap[i1.toString()][j1.toString()];
             $(cellName).html('');
+            //$(cellName).addClass('spinner-grow');
             let level1Designs = [];
             let level2Designs = [];
             let level3Designs = [];
@@ -499,8 +558,10 @@ function populateGapMap(content){
             if(levelUnknownDesigns.length > 0){
                 populateLevelSummary(cellName,'Unknown',levelUnknownDesigns, levelUnknownHits);
             }
+            //$(cellName).removeClass('spinner-grow');
         }
     }
+
 }
 
 function populateLevelSummary(cell, levelName, levelArray, levelHits){
@@ -539,8 +600,8 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
 
         let currDifferenceNum = cell.split('_')[0].replace('#row','');
         let currOutcomeNum = cell.split('_')[1].replace('col','');
-        let currDifference = $('#intervention_'+currDifferenceNum+' option:selected').text();
-        let currOutcome = $('#outcome_'+currOutcomeNum+' option:selected').text();
+        let currDifference = $('#intervention_'+currDifferenceNum+' option:selected').val();
+        let currOutcome = $('#outcome_'+currOutcomeNum+' option:selected').val();
         window.selectedIntervention = currDifference;
         window.selectedOutcome = currOutcome;
         window.selectedDesigns = levelArray;
@@ -619,7 +680,7 @@ function getSingleHit(hit){
     }
 
     if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
-        if(hit.abstract_excerpt !== ''){
+        if(hit._highlightResult.abstract_excerpt){
             var h6AbstractTitle = $('<h6/>');
             var labelAbstractTitle = $('<span>',{
                 html:'Abstract'
@@ -636,7 +697,7 @@ function getSingleHit(hit){
         }
     }
     if (window.displayAttributes.indexOf('best_method_snippet') > -1){
-        if(hit.best_method_title !== ''){
+        if(hit._highlightResult.best_method_snippet){
             var h6MethodTitle = $('<h6/>');
             var labelMethodTitle = $('<span>',{
                 html:'Methods > '+hit.best_method_title
@@ -653,7 +714,7 @@ function getSingleHit(hit){
         }
     }
     if (window.displayAttributes.indexOf('best_result_snippet') > -1){
-        if(hit.best_method_title !== ''){
+        if(hit._highlightResult.best_result_snippet){
             var h6ResultTitle = $('<h6/>');
             var labelResultTitle = $('<span>',{
                 html:'Results > '+hit.best_result_title

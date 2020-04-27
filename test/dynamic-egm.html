@@ -23,7 +23,7 @@
 <p>
     <label class="mr-3">Download all results</label>
     <button onclick="downloadResultsCSV()" id="btnDownloadAll" type="submit" class="btn btn-sm btn-primary my-1 mr-5">Export all results to CSV</button>
-    <span id="timer"></span>
+    <span id="timer">Loading...</span>
 </p>
 <table id="tbGapMap" class="table table-striped" style="width: 95%;">
     <thead>
@@ -75,7 +75,8 @@
 
             </select>
         </td>
-        <td style="width: 16%;" id="row1_col1"></td>
+        <td style="width: 16%;" id="row1_col1">
+        </td>
         <td style="width: 16%;" id="row1_col2"></td>
         <td style="width: 16%;" id="row1_col3"></td>
         <td style="width: 16%;" id="row1_col4"></td>
