@@ -156,42 +156,52 @@ helper.on('result', function (content) {
 });
 
 $('#intervention_1').on('change', function() {
+    $('#timer').html('Loading...');
     updateIntervention(0, this.value);
 });
 
 $('#intervention_2').on('change', function() {
+    $('#timer').html('Loading...');
     updateIntervention(1, this.value);
 });
 
 $('#intervention_3').on('change', function() {
+    $('#timer').html('Loading...');
     updateIntervention(2, this.value);
 });
 
 $('#intervention_4').on('change', function() {
+    $('#timer').html('Loading...');
     updateIntervention(3, this.value);
 });
 
 $('#intervention_5').on('change', function() {
+    $('#timer').html('Loading...');
     updateIntervention(4, this.value);
 });
 
 $('#outcome_1').on('change', function () {
+    $('#timer').html('Loading...');
     updateOutcome(0, this.value);
 });
 
 $('#outcome_2').on('change', function () {
+    $('#timer').html('Loading...');
     updateOutcome(1, this.value);
 });
 
 $('#outcome_3').on('change', function () {
+    $('#timer').html('Loading...');
     updateOutcome(2, this.value);
 });
 
 $('#outcome_4').on('change', function () {
+    $('#timer').html('Loading...');
     updateOutcome(3, this.value);
 });
 
 $('#outcome_5').on('change', function () {
+    $('#timer').html('Loading...');
     updateOutcome(4, this.value);
 });
 
@@ -264,54 +274,6 @@ function highlightOutcomes(){
     });
 }
 
-/*function highlightDesigns(){
-    $( "p.snippet" ).each(function( index ) {
-        let highlighted_items = [];
-        $(this).find('.design').each(function( index, item ) {
-            var lower = $(item).text().toLowerCase();
-            if (window.selectedDesigns.length > 0){
-                window.selectedDesigns.forEach(function(item1){
-                    var lowerItem = item1.toLowerCase();
-                    if(lowerItem === lower && !highlighted_items.includes(lower)){
-                        $(item).addClass('design-pill');
-                        highlighted_items.push(lower);
-                    }
-                })
-            }
-        });
-    });
-}
-
-function highlightInterventions(){
-    $( "p.snippet" ).each(function( index ) {
-        let highlighted_items = [];
-        $(this).find('.diagnostic_risk_factor').each(function( index, item ) {
-            var lower = $(item).text().toLowerCase();
-            if (window.selectedIntervention){
-                if (lower === window.selectedIntervention.toLowerCase() && !highlighted_items.includes(lower)){
-                    $(item).addClass('diagnostic_risk_factor-pill');
-                    highlighted_items.push(lower);
-                }
-            }
-        });
-    });
-}
-
-function highlightOutcomes(){
-    $( "p.snippet" ).each(function( index ) {
-        let highlighted_items = [];
-        $(this).find('.outcome').each(function( index, item ) {
-            var lower = $(item).text().toLowerCase();
-            if (window.selectedOutcome){
-                if (lower === window.selectedOutcome.toLowerCase() && !highlighted_items.includes(lower)){
-                    $(item).addClass('outcome-pill');
-                    highlighted_items.push(lower);
-                }
-            }
-        });
-    });
-}*/
-
 function highlightSearchResults(){
     $( "p.snippet" ).each(function( index ) {
         let highlighted_items = [];
@@ -347,7 +309,6 @@ function updatePagination(content){
 }
 
 function populateGapMap(content){
-
     let gapmap = {
         "1":{
             "1":[],
@@ -558,7 +519,7 @@ function populateGapMap(content){
             if(levelUnknownDesigns.length > 0){
                 populateLevelSummary(cellName,'Unknown',levelUnknownDesigns, levelUnknownHits);
             }
-            //$(cellName).removeClass('spinner-grow');
+            $('#timer').html('');
         }
     }
 
@@ -921,8 +882,6 @@ $('.section-search').on('change', function(){
     helper.setQueryParameter('restrictSearchableAttributes', restrictSearchableAttributesArray).search();
 });
 
-
-
 $('.section-display').on('change', function(){
     //get all checked boxes
     window.displayAttributes = [];
@@ -933,8 +892,6 @@ $('.section-display').on('change', function(){
     });
     helper.search();
 });
-
-
 
 $('.facet-highlight').on('change', function(){
     $('.facet-highlight:checkbox').each(function () {
