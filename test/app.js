@@ -92,6 +92,7 @@ function renderHits(content) {
                     var pSummaryText = $('<p>',{
                         html:strSummaryText
                     });
+                    pSummaryText.addClass('snippet');
                     liHit.append(h6SummaryTitle);
                     liHit.append(pSummaryText);
                 }
@@ -122,7 +123,7 @@ function renderHits(content) {
             }
 
             if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
-                if(hit.abstract_excerpt !== ''){
+                if(hit.abstract_excerpt && hit.abstract_excerpt.value && hit.abstract_excerpt.value != ''){
                     var h6AbstractTitle = $('<h6/>');
                     var labelAbstractTitle = $('<span>',{
                         html:'Abstract'

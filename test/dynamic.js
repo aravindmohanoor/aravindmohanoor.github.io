@@ -47,6 +47,7 @@ function updateOutcome(index, outcome, init=false){
 $(document).ready(function() {
 
     window.study_design = {};
+    window.study_design_keys = [];
 
     function loadRiskFactors() {
         return $.get('diagnostic_risk_factors.txt', function (data) {
@@ -104,7 +105,31 @@ $(document).ready(function() {
         });
     }
 
-    function loadStudyDesigns(){
+    function loadStudyTypes(){
+        return $.get('study_types.txt', function (data) {
+            let allLines = data.split(/\r\n|\n/);
+            allLines.forEach(function (item, index) {
+                let synonyms = item.split(',');
+                let key = synonyms[0].trim().toLowerCase();
+                let capitalizedKey = key.charAt(0).toUpperCase()+key.slice(1);
+                window.study_design[capitalizedKey] = capitalizedKey;
+                window.study_design_keys.push(capitalizedKey);
+                synonyms.forEach(function (item, index) {
+                    let label = item.trim().toLowerCase();
+                    let capitalizedLabel = label.charAt(0).toUpperCase()+label.slice(1);
+                    window.study_design[capitalizedLabel] = capitalizedKey;
+                });
+            });
+            /*allLines.forEach(function (item, index) {
+                let level = item.split(':')[0];
+                let label = item.split(':')[1];
+                let capitalizedLabel = label.charAt(0).toUpperCase()+label.slice(1);
+                window.study_design[capitalizedLabel] = level;
+            });*/
+        });
+    }
+
+    /*function loadStudyDesigns(){
         return $.get('study_design.txt', function (data) {
             let allLines = data.split(/\r\n|\n/);
             allLines.forEach(function (item, index) {
@@ -114,9 +139,9 @@ $(document).ready(function() {
                 window.study_design[capitalizedLabel] = level;
             });
         });
-    }
+    }*/
 
-    $.when(loadRiskFactors(), loadOutcomes(), loadStudyDesigns()).done(function(a1, a2, a3){
+    $.when(loadRiskFactors(), loadOutcomes(), loadStudyTypes()).done(function(a1, a2, a3){
 
         for(let i=1;i<=5;i++){
             let interventionDiv = '#intervention_'+i.toString()+' option:selected';
@@ -139,7 +164,7 @@ $(document).ready(function() {
 
 });
 
-window.displayAttributes = ['title','section_text','abstract_excerpt'];
+window.displayAttributes = ['title', 'abstract_excerpt','extractive_summary'];
 
 window.spanFilters = {};
 
@@ -235,6 +260,24 @@ function highlightDesigns(){
                     var lowerItem = item1.toLowerCase();
                     if(lowerItem === id && !highlighted_items.includes(id)){
                         $(item).addClass('design-pill');
+                        highlighted_items.push(id);
+                    }
+                })
+            }
+        });
+    });
+}
+
+function highlightStudyTypes(){
+    $( "p.snippet" ).each(function( index ) {
+        highlighted_items = [];
+        $(this).find('.study_type').each(function( index, item ) {
+            var id = $(item).attr('data-id').toLowerCase();
+            if (window.selectedDesigns.length > 0){
+                window.selectedDesigns.forEach(function(item1){
+                    var lowerItem = item1.toLowerCase();
+                    if(lowerItem === id && !highlighted_items.includes(id)){
+                        $(item).addClass('study_type-pill');
                         highlighted_items.push(id);
                     }
                 })
@@ -347,7 +390,7 @@ function populateGapMap(content){
         }
     };
 
-    let csvheaders = ['Title','URL','Publication Date', 'Risk Factor', 'Outcome', 'Study Design'];
+    let csvheaders = ['Title','URL','Publication Date', 'Risk Factor', 'Outcome', 'Study Design','Summary'];
     let allDataRows = [];
     allDataRows.push(csvheaders);
     for(let i=0;i<content.nbHits;i++){
@@ -406,7 +449,8 @@ function populateGapMap(content){
                         let currOutcomeElem = '#outcome_'+item1.toString()+' option:selected';
                         let currOutcome = $(currOutcomeElem).val();
                         let designs = hit.design;
-                        let datarow = [hit.title, hit.doi, hit.year_month, currIntervention, currOutcome, designs];
+                        let summary = hit.key_sentences;
+                        let datarow = [hit.title, hit.doi, hit.year_month, currIntervention, currOutcome, designs, summary];
                         allDataRows.push(datarow);
                     })
                 });
@@ -441,6 +485,9 @@ function populateGapMap(content){
             let level6Hits = [];
             let levelUnknownHits = [];
 
+            let study_type_hits = {};
+            let study_type_designs = {};
+
             gapmapArray.forEach(function (hit) {
                 let designs = hit.design;
 
@@ -457,7 +504,15 @@ function populateGapMap(content){
                 designs.forEach(function (design) {
                     let val = design.charAt(0).toUpperCase()+design.slice(1);
                     if(window.study_design.hasOwnProperty(val)){
-                        switch(window.study_design[val]) {
+                        if (!study_type_hits.hasOwnProperty(val)){
+                            study_type_hits[val] = [];
+                        }
+                        if (!study_type_designs.hasOwnProperty(val)){
+                            study_type_designs[val] = [];
+                        }
+                        study_type_hits[val].push(hit);
+                        addUniques(study_type_designs[val], val);
+                        /*switch(window.study_design[val]) {
                             case "1":
                                 addUniques(level1Designs, val);
                                 hasLevel1Design = true;
@@ -487,7 +542,7 @@ function populateGapMap(content){
                                 hasLevelUnknownDesign = true;
                                 console.log('incorrect level number');
                                 break;
-                        }
+                        }*/
                     }
                 });
                 if(hasLevel1Design) level1Hits.push(hit);
@@ -498,7 +553,15 @@ function populateGapMap(content){
                 if(hasLevel6Design) level6Hits.push(hit);
                 if(hasLevelUnknownDesign) levelUnknownHits.push(hit);
             });
-            if(level1Designs.length > 0){
+
+            for (let [key, value] of Object.entries(study_type_hits)) {
+                console.log(key, value);
+                if (value.length > 0){
+                    populateLevelSummary(cellName, key, study_type_designs[key], study_type_hits[key]);
+                }
+            }
+
+            /*if(level1Designs.length > 0){
                 populateLevelSummary(cellName,'Level 1',level1Designs, level1Hits);
             }
             if(level2Designs.length > 0){
@@ -518,7 +581,8 @@ function populateGapMap(content){
             }
             if(levelUnknownDesigns.length > 0){
                 populateLevelSummary(cellName,'Unknown',levelUnknownDesigns, levelUnknownHits);
-            }
+            }*/
+
             $('#timer').html('');
         }
     }
@@ -611,6 +675,7 @@ function getSingleHit(hit){
             var pSummaryText = $('<p>',{
                 html:strSummaryText
             });
+            pSummaryText.addClass('snippet');
             liHit.append(h6SummaryTitle);
             liHit.append(pSummaryText);
         }
@@ -916,6 +981,9 @@ $('.facet-highlight').on('change', function(){
                     break;
                 case 'search-highlight':
                     highlightSearchResults();
+                    break;
+                case 'study_type':
+                    highlightStudyTypes();
                     break;
                 default:
                     break;
