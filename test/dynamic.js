@@ -449,7 +449,13 @@ function populateGapMap(content){
                         let currOutcomeElem = '#outcome_'+item1.toString()+' option:selected';
                         let currOutcome = $(currOutcomeElem).val();
                         let designs = hit.design;
-                        let summary = hit.key_sentences;
+                        let strSummaryText = '<ul>';
+                        let key_sentences = hit.key_sentences;
+                        key_sentences.forEach(function(item){
+                            strSummaryText += '<li>'+item+'</li>';
+                        });
+                        strSummaryText += '</ul>';
+                        let summary = strSummaryText;
                         let datarow = [hit.title, hit.doi, hit.year_month, currIntervention, currOutcome, designs, summary];
                         allDataRows.push(datarow);
                     })

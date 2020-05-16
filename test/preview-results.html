@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Preview Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="app.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="jquery-csv.js"></script>
+    <script>
+        window.onload = function() {
+            var fileInput = document.getElementById("csv"),
+
+                readFile = function () {
+                    var reader = new FileReader();
+                    reader.onload = function () {
+                        result_str = reader.result;
+                        csv_array = $.csv.toArrays(result_str);
+                        for(let i=0;i<csv_array.length;i++) {
+                            row = csv_array[i];
+                            if (i == 0) {
+                                continue;
+                            }
+                            summary_html = row[6];
+                            titleItem = $('<h5/>');
+                            titleItem.append(row[0]);
+                            attributes_html = $('<p/>');
+                            attributes_html.append('Risk factor:'+row[3]+' Outcome:'+row[4]+' Study Type:'+row[5]);
+                            pSummaryItem = $('<p/>');
+                            pSummaryItem.append(titleItem);
+                            pSummaryItem.append(attributes_html);
+                            pSummaryItem.append(summary_html);
+                            $('#output').append(pSummaryItem);
+                            curr_outcome = row[4];
+                            $(pSummaryItem).find('.outcome').each(function( index ) {
+                                var lower = $(this).text().toLowerCase();
+                                if (lower == curr_outcome.toString().toLowerCase()) {
+                                    $(this).addClass('outcome-pill');
+                                }
+                            });
+                        }
+                    };
+                    // start reading the file. When it is done, calls the onload event defined above.
+                    reader.readAsBinaryString(fileInput.files[0]);
+                };
+
+            fileInput.addEventListener('change', readFile);
+        };
+    </script>
+</head>
+<p></p>
+<body class="container">
+<p>Select local CSV File:</p>
+<input id="csv" type="file">
+<p></p><p></p>
+<div class="container" id="output">
+
+</div>
+</body>
+</html>
