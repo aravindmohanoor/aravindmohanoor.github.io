@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Preview Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="app.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="jquery-csv.js"></script>
+    <script>
+        window.onload = function() {
+            var fileInput = document.getElementById("csv"),
+
+                readFile = function () {
+                    var reader = new FileReader();
+                    reader.onload = function () {
+                        result_str = reader.result;
+                        csv_array = $.csv.toArrays(result_str);
+                        for(let i=0;i<csv_array.length;i++) {
+                            row = csv_array[i];
+                            if (i == 0) {
+                                continue;
+                            }
+                            pSummaryItem = $('<p/>');
+                            summary_html = row[6];
+                            titleItem = $('<h5/>');
+                            titleItem.append(row[0]);
+                            pSummaryItem.append(titleItem);
+                            doi_url = row[1];
+                            if (doi_url.toString().trim() !== ''){
+                                pDoi = $('<p/>');
+                                doiItem = $('<a/>');
+                                doiItem.html(doi_url);
+                                doiItem.attr("target","_blank");
+                                if (!doi_url.toString().startsWith('http')){
+                                    doi_url = 'https://doi.org/'+doi_url;
+                                }
+                                doiItem.attr("href",doi_url);
+                                pDoi.append(doiItem);
+                                pSummaryItem.append(pDoi);
+                            }
+                            attributes_html = $('<p/>');
+                            attribute_risk_factor = $('<p/>');
+                            risk_factor_html = '<span class="diagnostic_risk_factor-pill">Risk factor : '+row[3]+'</span>';
+                            outcome_html = ' <span class="outcome-pill">Outcome : '+row[4]+'</span>';
+                            study_type_html = ' <span class="study_type-pill">Study Type : '+row[5]+'</span>';
+
+                            $(attribute_risk_factor).html(risk_factor_html+outcome_html+study_type_html);
+                            attributes_html.append(attribute_risk_factor);
+
+
+                            pSummaryItem.append(attributes_html);
+                            pSummaryItem.append(summary_html);
+                            $('#output').append(pSummaryItem);
+                            curr_outcome = row[4];
+                            curr_risk_factor = row[3];
+                            curr_study_type = row[5];
+                            highlighted_risk_factors = [];
+                            highlighted_outcomes = [];
+                            highlighted_study_types = [];
+                            $(pSummaryItem).find('.outcome').each(function( index ) {
+                                var lower = $(this).text().toLowerCase();
+                                if (lower == curr_outcome.toString().toLowerCase()) {
+                                    if(highlighted_outcomes.indexOf(lower)==-1){
+                                        $(this).addClass('outcome-pill');
+                                        highlighted_outcomes.push(lower);
+                                    }
+                                }
+                            });
+                            $(pSummaryItem).find('.diagnostic_risk_factor').each(function( index ) {
+                                var lower = $(this).text().toLowerCase();
+                                if (lower == curr_risk_factor.toString().toLowerCase()) {
+                                    if(highlighted_risk_factors.indexOf(lower) == -1){
+                                        $(this).addClass('diagnostic_risk_factor-pill');
+                                        highlighted_risk_factors.push(lower);
+                                    }
+                                }
+                            });
+                            $(pSummaryItem).find('.study_type').each(function( index ) {
+                                var lower = $(this).text().toLowerCase();
+                                if(highlighted_study_types.indexOf(lower)==-1){
+                                    $(this).addClass('study_type-pill');
+                                    highlighted_study_types.push(lower);
+                                }
+                            });
+                        }
+                    };
+                    // start reading the file. When it is done, calls the onload event defined above.
+                    reader.readAsBinaryString(fileInput.files[0]);
+                };
+            fileInput.addEventListener('change', readFile);
+        };
+    </script>
+</head>
+<p></p>
+<body class="container">
+<p>Select local CSV File:</p>
+<input id="csv" type="file">
+<p></p><p></p>
+<div class="container" id="output">
+
+</div>
+</body>
+</html>
