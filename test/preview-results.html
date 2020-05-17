@@ -52,27 +52,39 @@
                             curr_outcome = row[4];
                             curr_risk_factor = row[3];
                             curr_study_type = row[5];
+                            highlighted_risk_factors = [];
+                            highlighted_outcomes = [];
+                            highlighted_study_types = [];
                             $(pSummaryItem).find('.outcome').each(function( index ) {
                                 var lower = $(this).text().toLowerCase();
                                 if (lower == curr_outcome.toString().toLowerCase()) {
-                                    $(this).addClass('outcome-pill');
+                                    if(highlighted_outcomes.indexOf(lower)==-1){
+                                        $(this).addClass('outcome-pill');
+                                        highlighted_outcomes.push(lower);
+                                    }
                                 }
                             });
                             $(pSummaryItem).find('.diagnostic_risk_factor').each(function( index ) {
                                 var lower = $(this).text().toLowerCase();
                                 if (lower == curr_risk_factor.toString().toLowerCase()) {
-                                    $(this).addClass('diagnostic_risk_factor-pill');
+                                    if(highlighted_risk_factors.indexOf(lower) == -1){
+                                        $(this).addClass('diagnostic_risk_factor-pill');
+                                        highlighted_risk_factors.push(lower);
+                                    }
                                 }
                             });
                             $(pSummaryItem).find('.study_type').each(function( index ) {
-                                $(this).addClass('study_type-pill');
+                                var lower = $(this).text().toLowerCase();
+                                if(highlighted_study_types.indexOf(lower)==-1){
+                                    $(this).addClass('study_type-pill');
+                                    highlighted_study_types.push(lower);
+                                }
                             });
                         }
                     };
                     // start reading the file. When it is done, calls the onload event defined above.
                     reader.readAsBinaryString(fileInput.files[0]);
                 };
-
             fileInput.addEventListener('change', readFile);
         };
     </script>
