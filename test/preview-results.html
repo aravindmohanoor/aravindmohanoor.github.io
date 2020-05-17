@@ -43,7 +43,13 @@
                                 pSummaryItem.append(pDoi);
                             }
                             attributes_html = $('<p/>');
-                            attributes_html.append('Risk factor:'+row[3]+' Outcome:'+row[4]+' Study Type:'+row[5]);
+                            attribute_risk_factor = $('<p/>');
+                            risk_factor_html = '<span class="diagnostic_risk_factor-pill">Risk factor : '+row[3]+'</span>';
+                            outcome_html = ' <span class="outcome-pill">Outcome : '+row[4]+'</span>';
+                            study_type_html = ' <span class="study_type-pill">Study Type : '+row[5]+'</span>';
+
+                            $(attribute_risk_factor).html(risk_factor_html+outcome_html+study_type_html);
+                            attributes_html.append(attribute_risk_factor);
 
 
                             pSummaryItem.append(attributes_html);
