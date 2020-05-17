@@ -24,22 +24,48 @@
                             if (i == 0) {
                                 continue;
                             }
+                            pSummaryItem = $('<p/>');
                             summary_html = row[6];
                             titleItem = $('<h5/>');
                             titleItem.append(row[0]);
+                            pSummaryItem.append(titleItem);
+                            doi_url = row[1];
+                            if (doi_url.toString().trim() !== ''){
+                                pDoi = $('<p/>');
+                                doiItem = $('<a/>');
+                                doiItem.attr("target","_blank");
+                                if (!doi_url.toString().startsWith('http')){
+                                    doi_url = 'https://doi.org/'+doi_url;
+                                }
+                                doiItem.attr("href",doi_url);
+                                doiItem.html(doi_url);
+                                pDoi.append(doiItem);
+                                pSummaryItem.append(pDoi);
+                            }
                             attributes_html = $('<p/>');
                             attributes_html.append('Risk factor:'+row[3]+' Outcome:'+row[4]+' Study Type:'+row[5]);
-                            pSummaryItem = $('<p/>');
-                            pSummaryItem.append(titleItem);
+
+
                             pSummaryItem.append(attributes_html);
                             pSummaryItem.append(summary_html);
                             $('#output').append(pSummaryItem);
                             curr_outcome = row[4];
+                            curr_risk_factor = row[3];
+                            curr_study_type = row[5];
                             $(pSummaryItem).find('.outcome').each(function( index ) {
                                 var lower = $(this).text().toLowerCase();
                                 if (lower == curr_outcome.toString().toLowerCase()) {
                                     $(this).addClass('outcome-pill');
                                 }
+                            });
+                            $(pSummaryItem).find('.diagnostic_risk_factor').each(function( index ) {
+                                var lower = $(this).text().toLowerCase();
+                                if (lower == curr_risk_factor.toString().toLowerCase()) {
+                                    $(this).addClass('diagnostic_risk_factor-pill');
+                                }
+                            });
+                            $(pSummaryItem).find('.study_type').each(function( index ) {
+                                $(this).addClass('study_type-pill');
                             });
                         }
                     };
