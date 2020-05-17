@@ -33,12 +33,12 @@
                             if (doi_url.toString().trim() !== ''){
                                 pDoi = $('<p/>');
                                 doiItem = $('<a/>');
+                                doiItem.html(doi_url);
                                 doiItem.attr("target","_blank");
                                 if (!doi_url.toString().startsWith('http')){
                                     doi_url = 'https://doi.org/'+doi_url;
                                 }
                                 doiItem.attr("href",doi_url);
-                                doiItem.html(doi_url);
                                 pDoi.append(doiItem);
                                 pSummaryItem.append(pDoi);
                             }
