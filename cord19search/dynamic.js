@@ -456,7 +456,11 @@ function populateGapMap(content){
                         });
                         strSummaryText += '</ul>';
                         let summary = strSummaryText;
-                        let datarow = [hit.title, hit.doi, hit.year_month, currIntervention, currOutcome, designs, summary];
+                        url_str = ''
+                        if (hit.doi.toString().trim() !== ''){
+                            url_str = 'https://doi.org/'+hit.doi;
+                        }
+                        let datarow = [hit.title, url_str, hit.year_month, currIntervention, currOutcome, designs, summary];
                         allDataRows.push(datarow);
                     })
                 });
