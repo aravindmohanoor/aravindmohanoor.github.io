@@ -11,13 +11,18 @@ var helper = algoliasearchHelper(client, index, {
     hitsPerPage: hits_per_page
 });
 
-window.displayAttributes = ['title','section_text','abstract_excerpt'];
+window.displayAttributes = ['title','section_text','abstract_excerpt','tables'];
 
 window.spanFilters = {};
+
+$(function() {
+
+});
 
 helper.on('result', function (content) {
     renderFacetList(content); // not implemented yet
     renderHits(content);
+    $('table').addClass('table table-striped table-bordered');
     updatePagination(content);
     highlightFilter('search-highlight');
 });
@@ -122,8 +127,34 @@ function renderHits(content) {
                 liHit.append(pSnippetText);
             }
 
+            if (window.displayAttributes.indexOf('tables') > -1){
+                if (hit.tables){
+                    var h6TablesTitle = $('<h6/>');
+                    var labelTablesTitle = $('<span>',{
+                        html:'Tables'
+                    });
+                    h6TablesTitle.append(labelTablesTitle);
+                    labelTablesTitle.addClass('heading-pill');
+                    let strSectionText = '';
+                    if (Array.isArray(hit.tables)){
+                        for (let [key, value] of Object.entries(hit.tables)) {
+                            strSectionText += value+'<br/><br/>';
+                        }
+                    }
+                    else{
+                        strSectionText = hit._highlightResult.tables.value;
+                    }
+                    var pTableText = $('<p>',{
+                        html:strSectionText
+                    });
+                    pTableText.addClass('snippet');
+                    liHit.append(h6TablesTitle);
+                    liHit.append(pTableText);
+                }
+            }
+
             if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
-                if(hit.abstract_excerpt && hit.abstract_excerpt.value && hit.abstract_excerpt.value != ''){
+                if(hit.abstract_excerpt){
                     var h6AbstractTitle = $('<h6/>');
                     var labelAbstractTitle = $('<span>',{
                         html:'Abstract'
@@ -132,7 +163,7 @@ function renderHits(content) {
                     labelAbstractTitle.addClass('heading-pill');
 
                     var pAbstract = $('<p>',{
-                        html:hit._highlightResult.abstract_excerpt.value
+                        html:hit._highlightResult.abstract_excerpt
                     });
                     pAbstract.addClass('snippet');
                     liHit.append(h6AbstractTitle);
