@@ -163,7 +163,7 @@ function renderHits(content) {
                     labelAbstractTitle.addClass('heading-pill');
 
                     var pAbstract = $('<p>',{
-                        html:hit._highlightResult.abstract_excerpt
+                        html:hit._highlightResult.abstract_excerpt.value
                     });
                     pAbstract.addClass('snippet');
                     liHit.append(h6AbstractTitle);
