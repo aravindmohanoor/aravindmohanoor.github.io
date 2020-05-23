@@ -141,7 +141,7 @@ function renderHits(content) {
                 }
             }
             if (window.displayAttributes.indexOf('best_method_snippet') > -1){
-                if(hit.best_method_title !== ''){
+                if(hit._highlightResult.best_method_snippet){
                     var h6MethodTitle = $('<h6/>');
                     var labelMethodTitle = $('<span>',{
                         html:'Methods > '+hit.best_method_title
@@ -158,7 +158,7 @@ function renderHits(content) {
                 }
             }
             if (window.displayAttributes.indexOf('best_result_snippet') > -1){
-                if(hit.best_method_title !== ''){
+                if(hit._highlightResult.best_result_snippet){
                     var h6ResultTitle = $('<h6/>');
                     var labelResultTitle = $('<span>',{
                         html:'Results > '+hit.best_result_title
