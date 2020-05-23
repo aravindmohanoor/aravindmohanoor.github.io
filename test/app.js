@@ -15,16 +15,12 @@ window.displayAttributes = ['title','section_text','abstract_excerpt','tables'];
 
 window.spanFilters = {};
 
-$(function() {
-
-});
-
 helper.on('result', function (content) {
     renderFacetList(content); // not implemented yet
     renderHits(content);
-    $('table').addClass('table table-striped table-bordered');
     updatePagination(content);
     highlightFilter('search-highlight');
+    $('table').addClass('table table-striped table-bordered');
 });
 
 function highlightFilter(filterName){
@@ -206,22 +202,6 @@ function renderHits(content) {
                             liHit.append(pTableText);
                             counter += 1;
                         }
-                        /*for (let [key, value] of Object.entries(hit._highlightResult.tables)) {
-                            var h6TablesTitle = $('<h6/>');
-                            var labelTablesTitle = $('<span>',{
-                                html:'Table :'+hit._highlightResult.table_titles[]
-                            });
-                            h6TablesTitle.append(labelTablesTitle);
-                            labelTablesTitle.addClass('heading-pill');
-                            strSectionText = value.value+'<br/><br/>';
-                            var pTableText = $('<p>',{
-                                html:strSectionText
-                            });
-                            pTableText.addClass('snippet');
-                            liHit.append(h6TablesTitle);
-                            liHit.append(pTableText);
-                            counter += 1;
-                        }*/
                     }
                     else{
                         var h6TablesTitle = $('<h6/>');
