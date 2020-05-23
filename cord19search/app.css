@@ -111,3 +111,13 @@ summary{
 .borderless td, .borderless th {
     border: none;
 }
+
+.table {
+    font-size: 12px;
+}
+
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}

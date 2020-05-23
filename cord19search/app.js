@@ -1,7 +1,7 @@
 //Config
 var applicationID = 'ZZ2ZTTMSBH';
 var apiKey = '71090d1229c06a4d72829a3d0d59d6bc';
-var index = 'papers';
+var index = 'papers_dev';
 var hits_per_page = 25;
 
 var client = algoliasearch(applicationID, apiKey);
@@ -11,7 +11,7 @@ var helper = algoliasearchHelper(client, index, {
     hitsPerPage: hits_per_page
 });
 
-window.displayAttributes = ['title','section_text','abstract_excerpt'];
+window.displayAttributes = ['title','section_text','abstract_excerpt','tables'];
 
 window.spanFilters = {};
 
@@ -20,6 +20,7 @@ helper.on('result', function (content) {
     renderHits(content);
     updatePagination(content);
     highlightFilter('search-highlight');
+    $('table').addClass('table table-striped table-bordered');
 });
 
 function highlightFilter(filterName){
@@ -123,7 +124,7 @@ function renderHits(content) {
             }
 
             if (window.displayAttributes.indexOf('abstract_excerpt') > -1){
-                if(hit.abstract_excerpt && hit.abstract_excerpt.value && hit.abstract_excerpt.value != ''){
+                if(hit.abstract_excerpt){
                     var h6AbstractTitle = $('<h6/>');
                     var labelAbstractTitle = $('<span>',{
                         html:'Abstract'
@@ -170,6 +171,53 @@ function renderHits(content) {
                     pResultSnippet.addClass('snippet');
                     liHit.append(h6ResultTitle);
                     liHit.append(pResultSnippet);
+                }
+            }
+            if (window.displayAttributes.indexOf('tables') > -1){
+                if (hit._highlightResult.tables){
+                    let strSectionText = '';
+                    let counter = 1;
+                    table_titles = [];
+                    table_html = [];
+                    if (Array.isArray(hit._highlightResult.tables)){
+                        for (let [key, value] of Object.entries(hit._highlightResult.table_titles)) {
+                            table_titles.push(value.value);
+                        }
+                        for (let [key, value] of Object.entries(hit._highlightResult.tables)) {
+                            table_html.push(value.value);
+                        }
+                        for (let i = 0;i<table_titles.length;i++){
+                            var h6TablesTitle = $('<h6/>');
+                            var labelTablesTitle = $('<span>',{
+                                html: table_titles[i]
+                            });
+                            h6TablesTitle.append(labelTablesTitle);
+                            labelTablesTitle.addClass('heading-pill');
+                            strSectionText = table_html[i]+'<br/><br/>';
+                            var pTableText = $('<p>',{
+                                html:strSectionText
+                            });
+                            pTableText.addClass('snippet');
+                            liHit.append(h6TablesTitle);
+                            liHit.append(pTableText);
+                            counter += 1;
+                        }
+                    }
+                    else{
+                        var h6TablesTitle = $('<h6/>');
+                        var labelTablesTitle = $('<span>',{
+                            html:'Table '+counter.toString()
+                        });
+                        h6TablesTitle.append(labelTablesTitle);
+                        labelTablesTitle.addClass('heading-pill');
+                        strSectionText = hit._highlightResult.tables.value;
+                        var pTableText = $('<p>',{
+                            html:strSectionText
+                        });
+                        pTableText.addClass('snippet');
+                        liHit.append(h6TablesTitle);
+                        liHit.append(pTableText);
+                    }
                 }
             }
 
