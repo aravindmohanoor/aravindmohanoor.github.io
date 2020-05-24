@@ -71,7 +71,7 @@ function renderHits(content) {
                 html:hit._highlightResult.title.value
             });
             liHit.append(pTitle).append(h4Title);
-            strDetails =  hit.journal+' ('+hit.year_month+') - '+hit.authors+' - '+' <a target="_blank" href="'+hit.url+'">'+hit.doi+'</a>';
+            strDetails =  hit.journal+' ('+hit.year_month+') - '+hit.authors+' - '+' <a target="_blank" href="https://doi.org/'+hit.doi+'">'+hit.doi+'</a>';
             var pDetails = $('<p>',{
                 html:strDetails
             });
