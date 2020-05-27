@@ -9,10 +9,15 @@ $(function () {
     //alert('id = '+id+' section = '+section);
     //helper.toggleFacetRefinement('cord_uid',id).search();
     index.search('', {
-        filters: 'cord_uid:'+id
+        filters: 'pk_id:'+id,
+        distinct: false
     }).then(({ hits }) => {
+        let full_text = '';
         if (hits.length > 0){
-            document.body.innerHTML = hits[0].key_sentences;
+            for(let i=0;i<hits.length;i++){
+                full_text += hits[i].section_text+'<br/><br/><br/>';
+            }
+            document.body.innerHTML = full_text;
         }
     });
 });
