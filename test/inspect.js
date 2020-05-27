@@ -1,6 +1,6 @@
 const client = algoliasearch('ZZ2ZTTMSBH', '71090d1229c06a4d72829a3d0d59d6bc');
 const index = client.initIndex('papers_dev');
-
+var hits_per_page = 1000;
 
 $(function () {
     const urlParams = new URLSearchParams(window.location.search);
@@ -12,7 +12,8 @@ $(function () {
     //helper.toggleFacetRefinement('cord_uid',id).search();
     index.search('', {
         filters: 'pk_id:'+id,
-        distinct: false
+        distinct: false,
+        hitsPerPage:1000
     }).then(({ hits }) => {
 
         paper_fulltext = '';
@@ -54,14 +55,27 @@ $(function () {
             }
 
             found_search_string = false;
-            while(searchFor.length>20){
-                if (paper_fulltext.indexOf(searchFor)>-1){
-                    replacement = '<span id="result" class="highlight">'+searchFor+'</span>';
-                    paper_fulltext = paper_fulltext.replace(searchFor,replacement);
+            modified_search_for = searchFor;
+            while(modified_search_for.length>20){
+                if (paper_fulltext.indexOf(modified_search_for)>-1){
+                    replacement = '<span id="result" class="highlight">'+modified_search_for+'</span>';
+                    paper_fulltext = paper_fulltext.replace(modified_search_for,replacement);
                     found_search_string = true;
                     break;
                 }
-                searchFor = searchFor.slice(-20);
+                modified_search_for = modified_search_for.substring(0, modified_search_for.length - 20);
+            }
+            if(!found_search_string){
+                modified_search_for = searchFor;
+                while(modified_search_for.length>20){
+                    if (paper_fulltext.indexOf(modified_search_for)>-1){
+                        replacement = '<span id="result" class="highlight">'+modified_search_for+'</span>';
+                        paper_fulltext = paper_fulltext.replace(modified_search_for,replacement);
+                        found_search_string = true;
+                        break;
+                    }
+                    modified_search_for = modified_search_for.substring(20, modified_search_for.length-1);
+                }
             }
             document.body.innerHTML = paper_fulltext;
             if(found_search_string){
