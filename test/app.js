@@ -85,14 +85,33 @@ function renderHits(content) {
                     h6SummaryTitle.append(labelSummaryTitle);
                     labelSummaryTitle.addClass('heading-pill');
                     strSummaryText = '<ul>';
+                    ulSummaryText = $('<ul/>');
                     let key_sentences = hit.key_sentences;
                     key_sentences.forEach(function(item){
-                        strSummaryText += '<li>'+item+'</li>';
+                        var el = $( '<div></div>' );
+                        el.html(item);
+                        section_num = $(el.find('span')[0]).attr('sn');
+                        strSummaryText += '<li>'+item+'<i class="fa fa-external-link" style="margin-left: 5px; font-size: 15px;color: darkgray;"></i></li>';
+                        liItem = $('<li>',{
+                            html:item
+                        });
+                        anchorLink = $('<a/>');
+                        anchorLink.attr("target","_blank");
+                        anchorLink.attr("href","inspect.html?id="+hit.cord_uid+'&section='+section_num);
+                        faLink = $('<i/>');
+                        faLink.addClass('fa fa-external-link');
+                        faLink.css("margin-left","5px");
+                        faLink.css("font-size","15px");
+                        faLink.css("color","darkgray");
+                        anchorLink.append(faLink);
+                        liItem.append(anchorLink);
+                        ulSummaryText.append(liItem);
                     });
                     strSummaryText += '</ul>';
                     var pSummaryText = $('<p>',{
-                        html:strSummaryText
+                        //html:strSummaryText
                     });
+                    pSummaryText.append(ulSummaryText);
                     pSummaryText.addClass('snippet');
                     liHit.append(h6SummaryTitle);
                     liHit.append(pSummaryText);
