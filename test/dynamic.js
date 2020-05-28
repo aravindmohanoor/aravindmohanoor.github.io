@@ -390,7 +390,7 @@ function populateGapMap(content){
         }
     };
 
-    let csvheaders = ['Title','URL','Publication Date', 'Risk Factor', 'Outcome', 'Study Design','Summary'];
+    let csvheaders = ['Title','URL','Publication Date', 'Risk Factor', 'Outcome', 'Study Design','Summary','cord_uid'];
     let allDataRows = [];
     allDataRows.push(csvheaders);
     for(let i=0;i<content.nbHits;i++){
@@ -460,7 +460,8 @@ function populateGapMap(content){
                         if (hit.doi.toString().trim() !== ''){
                             url_str = 'https://doi.org/'+hit.doi;
                         }
-                        let datarow = [hit.title, url_str, hit.year_month, currIntervention, currOutcome, designs, summary];
+                        cord_uid = hit.cord_uid;
+                        let datarow = [hit.title, url_str, hit.year_month, currIntervention, currOutcome, designs, summary, cord_uid];
                         allDataRows.push(datarow);
                     })
                 });
