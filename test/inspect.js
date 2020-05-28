@@ -77,7 +77,8 @@ $(function () {
                     modified_search_for = modified_search_for.substring(20, modified_search_for.length-1);
                 }
             }
-            document.body.innerHTML = paper_fulltext;
+            //document.body.innerHTML = paper_fulltext;
+            $('#paper_fulltext').html(paper_fulltext);
             if(found_search_string){
                 document.getElementById('result').scrollIntoView();
             }
