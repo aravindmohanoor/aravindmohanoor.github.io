@@ -1,51 +1,43 @@
-time from onset to presentation, delayed presentation, late presentation, early presentation, advanced disease, early symptoms,days from symptom onset to presentation, early progression, late progression
-Lung compliance,elastance,mL/cm H2O
-Ventilation-to-perfusion ratio,V/Q
-pulmonary artery pressure, arterial pressure, mean pulmonary artery pressure, systolic pulmonary artery pressure
-Ground glass opacity, GGO, ground glass opacities
-bilateral infiltrates
-fibrosis
-recruitability, lung recruitability
-PaCO2,hypocapnic,hypercapnic
-diabetes,diabetes mellitus, type 2 diabetes, type 1 diabetes,insulin, insulin-dependent, insulin resistance, glucose control, blood glucose level, metaformin, hemoglobin A1c, hyperglycemia, hypoglycemia, hyperglycemic, hypoglycemic, pre-diabetes
+diabetes,diabetes mellitus, type 2 diabetes, type 1 diabetes, insulin, insulin - dependent, insulin dependent, insulin resistance, glucose control, blood glucose level, metaformin, hemoglobin A1c, hyperglycemia, hypoglycemia, hyperglycemic, hypoglycemic, prediabetes, pre-diabetes, prediabetic
 hypertension,high blood pressure
 heart disease,coronary heart disease, heart valve disease, cardiovascular disease
 cancer,malignancy, tumor
-smoking status, smoker,current smokers, former smokers, never smokers
-lung disease,asthma, COPD, chronic bronchitis, lung cancer, emphysema
-local climate,temperature, humidity,climatic factors,ambient temperature,room temperature,meteorological
+smoking status,current smokers, former smokers, never smokers, current smoker, former smoker, never smoker
+history of lung disease,asthma, COPD, chronic bronchitis, lung cancer, emphysema, chronic obstructive pulmonary disease
+local climate,temperature, humidity
+elderly
+small children, preschool, elementary school, primary school, daycare
 immune compromised groups,immune deficiency, immunodeficiency, HIV, AIDS, leukemia, asplenia, dysfunction of the spleen, spleen dysfunction, neutropenia, neutropaenia, chemotherapy, immune suppression, immune suppressed
-age,median age, mean age, average age, elderly, aged, older, younger, adolescent, adult, child, children, age range, age group
-race/ethnicity, African American, Caucasian, Hispanic, Latino, Asian, Native American, Non-Hispanic White, Roma, minorities, African immigrants, Turkish immigrants
-education, highest level of education completed, average education level, years of education completed, high school, some college, college, post-graduate degree
+age,median age, mean age, average age, elderly, aged, older, younger, adolescent, adult, child, age range, age group
+race/ethnicity,ethnicity, Black race, African American, White, Hispanic, Latino, Asian, Native American, Non Hispanic White, Non - Hispanic White, Roma, minorities, African immigrants, Turkish immigrants
+education,highest level of education, average education level, education level, years of education completed, high school, some college, college, post-graduate degree, post - graduate degree, post graduate degree
 income,socioeconomic status, median income, average income, mean income, annual income, monthly income, employment status
-insurance status, insured, uninsured, underinsured
+insurance status
 housing status,homeless, renting, home owners
 immigration status
-prison inmates, prison, inmates
-mental hospital inpatients
-long-term care facility residents
+prison inmates
+mental hospital inpatients,psychiatric inpatients, behavioral health clinic inpatients
+long-term care facility residents, long term care facility, LTCF
 health workers,doctors, nurses, hospital staff, paramedics, health care personnel, intensivists, ICU staff, Emergency Room staff
-first responders,paramedics, police, firefighters
-hospital staff
+first responders,paramedics, police, firefighters, first responders
 nursing home staff
 prison staff
-pregnancy status,parturients,trimester, weeks of gestation
+pregnancy status,parturients, trimester, weeks of gestation
 neonates
 chronic kidney disease,chronic renal impairment
-Parkinson's Disease,neurological diseases
+Parkinson's Disease,neurological diseases, parkinsons disease, parkinsons, parkinson's
 Cerebral Infarction,previous stroke, history of stroke, cerebrovascular disease
-History of stroke
 Influenza
 Bacterial pneumonia
 Hepatitis B,cirrhosis, HBV, HBsAg, HBeAg
-alcoholic liver disease
+alcoholic liver disease,cirrhosis
 fatty liver
-fungal infection,endocrine diseases, hypothyroidism, hyperthyroidism
-Thyroid diseases
+fungal infection
+Thyroid diseases,endocrine diseases, hypothyroidism, hyperthyroidism
 COPD,chronic obstructive pulmonary disease
 chronic bronchitis
-BMI, obesity, overweight, obese, Body Mass Index,kg/m2
+obesity,overweight, BMI>30
+BMI,body mass index, kg/m2
 gender,male gender, female gender, sex, male, female
 cough
 fever
@@ -56,10 +48,10 @@ shortness of breath,dyspnea
 sleep disruption
 fatigue
 general pain
-Lymphadenopathy,swelling of the lymph nodes
-dizzyness
+Lymphadenopathy,swelling of the lymph nodes, lymph node swelling
+dizzyness, dizziness
 chills
-chest tightness/pain
+chest tightness/pain,chest tightness, chest pain
 abdominal pain
 anorexia
 malnutrition
@@ -67,3 +59,12 @@ polypnea,increase in deep breathing
 septic shock
 asymptomatic
 Nasal congestion
+Lung compliance, elastance, mL / cm H2O
+ventilation to perfusion, Ventilation-to-perfusion ratio, V / Q
+Pulmonary artery systolic pressure
+pulmonary artery mean pressure
+Ground glass opacities, GGO
+bilateral infiltrates
+fibrosis
+lung recruitability,non - aerated lung volume, atelectasis
+PaCO2, hypocapnic, hypercapnic

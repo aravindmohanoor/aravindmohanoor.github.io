@@ -21,11 +21,48 @@
                         csv_array = $.csv.toArrays(result_str);
                         for(let i=0;i<csv_array.length;i++) {
                             row = csv_array[i];
+
                             if (i == 0) {
                                 continue;
                             }
                             pSummaryItem = $('<p/>');
                             summary_html = row[6];
+                            cord_uid = row[7];
+
+                            //text_only = $(item).text();
+                            var el = $( '<div></div>' );
+                            el.html(summary_html);
+                            ulSummaryText = $('<ul/>');
+                            $(el).find('span').each(function (index, item) {
+                                roc = item.getAttribute('roc');
+                                if(roc){
+                                    liItem = $('<li>',{
+                                        html:item
+                                    });
+                                    //anchorLink.attr("href","inspect.html?id="+hit.cord_uid+'&roc='+roc+'&searchFor='+text_only);
+                                    url = 'inspect.html?id='+cord_uid+'&roc='+roc+'&searchFor='+$(item).text();
+                                    anchorLink = $('<a/>');
+                                    anchorLink.attr("target","_blank");
+                                    anchorLink.attr("href",url);
+                                    faLink = $('<i/>');
+                                    faLink.addClass('fa fa-external-link');
+                                    faLink.css("margin-left","5px");
+                                    faLink.css("font-size","15px");
+                                    faLink.css("color","darkgray");
+                                    anchorLink.append(faLink);
+                                    liItem.append(anchorLink);
+                                    ulSummaryText.append(liItem);
+                                }
+                                console.log(item);
+                            });
+
+
+                            card = $('<div/>');
+                            card.addClass('card bg-light');
+                            cardBody = $('<div/>');
+                            cardBody.addClass('card-body');
+                            card.append(cardBody);
+
                             titleItem = $('<h5/>');
                             titleItem.append(row[0]);
                             pSummaryItem.append(titleItem);
@@ -53,8 +90,11 @@
 
 
                             pSummaryItem.append(attributes_html);
-                            pSummaryItem.append(summary_html);
-                            $('#output').append(pSummaryItem);
+                            //pSummaryItem.append(summary_html);
+                            pSummaryItem.append(ulSummaryText);
+
+                            cardBody.append(pSummaryItem);
+                            $('#output').append(cardBody);
                             curr_outcome = row[4];
                             curr_risk_factor = row[3];
                             curr_study_type = row[5];
