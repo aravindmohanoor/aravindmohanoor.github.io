@@ -1,202 +1,36 @@
-Lung compliance,elastance,mL/cm H2O
-Ventilation-to-perfusion ratio,V/Q
-pulmonary artery pressure, arterial pressure, mean pulmonary artery pressure, systolic pulmonary artery pressure
-Ground glass opacity, GGO, ground glass opacities
-bilateral infiltrates
-fibrosis
-recruitability, lung recruitability
-PaCO2,hypocapnic,hypercapnic
-2019-nCoV RT-PCR test
-administered with steroids, percentage of cases administered with steroids
-adverse events, frequency of adverse events
-Adverse reactions
-all-cause fatality rate
-all-cause mortality
-antibiotics use, percentage of antibiotics use
-anxiety scale, self-rating anxiety scale
-AOR,adjusted odds ratio, adjusted OR
-APACHE II score
-ARDS, frequency of ARDS
-Arterial blood-gas analysis
-attack rate
-blood biochemistry
-blood concentration of chloroquine
-blood gas analysis
-Blood oxygen saturation
-C-reactive protein
-calcitonin
-cardiac function
-CBC
-CD4, CD4+ T cells count
-CD8, CD8+ T cells count
-change curve of lymphocyte subsets count
-chest imaging
-clinical improvement, frequency of clinical improvement
-clinical remission, time to clinical remission
-clinical symptoms
-coagulation function
-coefficient
-combination with other infections
-complications, frequency of complications
-cough
-cough reported as absent, time to cough reported as absent
-cough reported as mild, time to cough reported as mild
-creatinine kinase
-CRP level
-CT and MRI scan of hip joint, CT scan of hip joint, MRI scan of hip joint
-CURB-65 pneumonia severity score
-cure rate
-D-dimer
-de-isolation rate
-Declining speed of SARS-CoV-2
-depression scale, self-rating depression scale
-diarrhea
-DIC score
-disease evolution, assessment of disease evolution
-disease progression, frequency of disease progression
-disease remission, frequency of disease remission
-drug withdrawal, frequency of drug withdrawal due to adverse reactions
-duration of ECMO
-Duration of mechanical ventilation
-duration of tube insertion
-dyspnea, frequency of dyspnea,Dyspnea prevalence
-ECMO
-electrocardiography
-erythrocyte sedimentation rate
-European Qol-5 dimensional questionnaire
-Fatality rate
-fatigue
-fever
-finger oxygen, improvement rate of finger oxygen
-FiO2
-Frequency of shock
-frequency/length of severe cases turning to critical type or death
-health survey short form
-hemodialysis filtration, frequency of hemodialysis filtration
-HR
-hypersensitive C-reactive protein
-hypoxia, frequency of hypoxia
-ICU admission, frequency of ICU admission
-icu treatment required
-immunological indexes
-improvement
-Improvement in respiratory rate
-incidence
-individual symptom absent, frequency of individual symptom absent
-Inflammation
-Inflammation absorption
-Leicester cough questionnaire
-Length of hospital stay
-length of ICU stay
-Lesions progression, Lesions progression within 24–48 h in pulmonary imaging
-liver and renal function
-liver function
-living ability, assessment of daily living ability
+odds
 log odds
-logistic regression
-Lymphocyte count
-mean difference
-Mechanical ventilation
-mechanical ventilation parameters, parameters of mechanical ventilation
-mode and parameters of ECMO
-Modified Barthel index
-MODS, frequency of MODS
-mortality rate
-mortality,death,survivors,non-survivors,discharged to hospice
-Murray lung injury score
-myocardial enzymes
-myoglobin
-need for icu treatment
-NEWS 2
-normal respiratory rate, Time to achieve a normal respiratory rate
 odds ratio
-organ failure
-organ support intensity
-oxygen inhalation, different approaches of oxygen inhalation
-Oxygen intake
-Oxygen saturation
-Oxygen-intake method
-PaO2
-percentage of cases without coughing
-peripheral blood cell count
-Pneumonia severity index
-Prevalence of dyspnea clearance
-prevalence of improvement
-Prevalence of mechanical ventilation
-prevalence of progressing to critical
-Prevalence of progressing to severe
-Prevalence of supplemental-oxygen requirement
-procalcitonin
-progressing to critical
-progressing to severe
-progression
-proinflammatory cytokines
-Proportion of patients negative for SARS-CoV-2
-PSI score
-psychological indexes
-pulmonary function
-pulmonary high-resolution CT score
-pulmonary imaging, changes in pulmonary imaging
-recovering to mild type, recovered to mild, percentage of cases recovering to mild type
-recovering to mild type, time to cases recovering to mild type
-recovery
-recovery prevalence
-recovery rate of laboratory indexes
-recovery time
-recovery time of pulmonary function
-remission rate of respiratory symptoms
-renal injury, frequency of renal injury
-requirement for first aid, frequency of requirement for first aid
-requirement for mechanical ventilation, Frequency of requirement for mechanical ventilation
-requirement for pulmonary surfactant, frequency of requirement for pulmonary surfactant
-requirement for supplemental oxygen, Frequency of requirement for supplemental oxygen
-respirator parameter, parameters of respirator
-Respiratory failure occurred and mechanical ventilation required
-respiratory progression, frequency of respiratory progression
-Respiratory rate
-respiratory remission, frequency of respiratory remission
-respiratory symptoms and signs
+AOR, adjusted odds ratio
+AHR, adjusted hazard ratio
+β
+incidence
+attack rate
 risk factor analysis
 risk factors
-routine urinalysis
-RR
-RT-PCR negativity, frequency of 2019-nCoV RT-PCR negativity
-score of clinical symptoms
-score of TCM symptoms
-sequential organ failure assessment
-seven-point ordinal scale
-severe adverse events, frequency of severe adverse events
-SF-36
-shock, shock occurrence
-shortness of breath
-Significant improvement, discharge standard, Percentage of cases with significant improvement or meeting discharge standard
-social support rating scale
-SOFA score
-St. George’s respiratory questionnaire
-supplemental oxygenation, Duration of supplemental oxygenation
-survival condition
-TCM syndrome, curative effects of TCM syndromes
-time for  CRP recovery
-time of progressing
-Time taken by SARS-CoV-2-RNA to become negative
-Time to 2019-nCoV RR-PCR negativity
-time to cure
-Time to defervescence
-time to dyspnea reported as mild/absent, time to dyspnea reported as mild, time to dyspnea reported as absent
-time to gastrointestinal symptoms reported as absent
-time to ICU admission
-time to recovery
-time to treatment failure
-TTCI
-tube insertion, frequency of tube insertion
-turning to critical, turned critical, percentage of cases turning to critical
-turning to severe, time to cases turning to severe
-turning to severe, turned severe, percentage of cases turning to severe
-vasopressor days
-viral burden
-Viral load
-virologic indicators
-Virus antibody level
-virus antibody level in blood samples
-X-ray examination
-β
+risk ratio, RR
+hazard ratio, HR
+multivariate
+univariate
+survival analysis
+Kaplan-Meier curve, Kaplan Meier, Kaplan Meier curve
+time-to-event analysis, time to event
+coefficient
+logistic regression
+mean difference
+risk of SARS-CoV-2 acquisition,incidence, attack rate, risk of acquisition
+risk of SARS-CoV-2 carriage, prevalence, nasopharyngeal swabs, nasal swabs, throat swabs, PCR, RT-PCR, RT - PCR, real time PCR
+risk of SARS-CoV-2 exposure,IgM, IgG,antibody prevalence, seroprevalence, risk of exposure
+risk of COVID-19 diagnosis, risk of diagnosis, abnormal CT scan, fever, shortness of breath, dyspnea, PCR, real time PCR
+risk of severe COVID-19 pneumonia, risk of severe pneumonia, dyspnea, tachypnea, peripheral capillary oxygen saturation, oxygen therapy, respiratory rate > 30 / min, respiratory rate ≥ 30
+risk of critical COVID-19 illness, risk of critical illness, risk of critical disease, ARDS, ICU admission, admission to ICU, MOF, composite endpoints, acute respiratory distress syndrome, intensive care, mechanical ventilation, invasive ventilation, intubation, multiple organ failure, sepsis, shock
+risk of death from COVID-19, risk of death, CFR, all cause mortality, death, case fatality rate, non-survivors, non survivors, discharge to hospice
+Lung compliance, elastance, mL / cm H2O
+ventilation to perfusion, Ventilation-to-perfusion ratio, V / Q
+Pulmonary artery systolic pressure
+pulmonary artery mean pressure
+Ground glass opacities, GGO
+bilateral infiltrates
+fibrosis
+lung recruitability,non - aerated lung volume, atelectasis
+PaCO2, hypocapnic, hypercapnic

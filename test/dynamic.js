@@ -624,7 +624,7 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
         let checkbox = $('<i>');
         checkbox.addClass('fa fa-check-square');
         checkbox.attr('aria-hidden',true);
-        checkbox.attr('font-size','80px');
+        checkbox.attr('font-size','100px');
         checkbox.attr('color','black');
         pButton.append(checkbox);
         $('#container').html(function () {
