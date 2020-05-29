@@ -56,6 +56,13 @@
                                 console.log(item);
                             });
 
+
+                            card = $('<div/>');
+                            card.addClass('card bg-light');
+                            cardBody = $('<div/>');
+                            cardBody.addClass('card-body');
+                            card.append(cardBody);
+
                             titleItem = $('<h5/>');
                             titleItem.append(row[0]);
                             pSummaryItem.append(titleItem);
@@ -85,7 +92,9 @@
                             pSummaryItem.append(attributes_html);
                             //pSummaryItem.append(summary_html);
                             pSummaryItem.append(ulSummaryText);
-                            $('#output').append(pSummaryItem);
+
+                            cardBody.append(pSummaryItem);
+                            $('#output').append(cardBody);
                             curr_outcome = row[4];
                             curr_risk_factor = row[3];
                             curr_study_type = row[5];

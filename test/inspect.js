@@ -20,6 +20,9 @@ $(function () {
                 paper_fulltext = '';
 
                 if (hits.length > 0){
+                    $('#title').html(hits[0].title);
+                    $('#divTable').html(hits[0].tables);
+                    $('table').addClass('table table-striped table-bordered');
                     var myMap = new Map();
 
                     for(let i=0;i<hits.length;i++){
@@ -46,10 +49,10 @@ $(function () {
                             if (addSectionName){
                                 paper_fulltext += '<b>' + capitalizeFirstLetter(curr_section)+'</b><br/>';
                             }
-                            if(curr_text.indexOf(searchFor)>-1){
+                            /*if(curr_text.indexOf(searchFor)>-1){
                                 search_roc = curr_roc;
                                 curr_text = curr_text.replace(searchFor,'<b>'+searchFor+'</b>');
-                            }
+                            }*/
                             paper_fulltext += '<span id="'+curr_roc+'"></span>'+ curr_text+'<br/><br/>';
                             prev_section = curr_section;
                         }
