@@ -1,5 +1,6 @@
 const client = algoliasearch('ZZ2ZTTMSBH', '71090d1229c06a4d72829a3d0d59d6bc');
-const index = client.initIndex('papers');
+//const index = client.initIndex('papers_dev');
+const index = client.initIndex(indexName);
 var hits_per_page = 1000;
 
 $(function () {

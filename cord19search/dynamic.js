@@ -1,7 +1,8 @@
 //Config
 var applicationID = 'ZZ2ZTTMSBH';
 var apiKey = '71090d1229c06a4d72829a3d0d59d6bc';
-var index = 'papers';
+//var index = 'papers_dev';
+var index = indexName;
 var hits_per_page = 1000;
 
 var client = algoliasearch(applicationID, apiKey);
@@ -606,7 +607,7 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
     let buttonBadge = $('<button>',{
         html:levelName
     });
-    buttonBadge.addClass('btn btn-light');
+    buttonBadge.addClass('btn btn-sm btn-light');
     let  spanCount = $('<span>',{
         html:levelHits.length.toString()
     });
