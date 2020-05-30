@@ -682,8 +682,9 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
             });
         });
 
-        let currDifferenceNum = cell.split('_')[0].replace('#row','');
-        let currOutcomeNum = cell.split('_')[1].replace('col','');
+        cellid = $(cell)[0].id;
+        let currDifferenceNum = cellid.split('_')[0].replace('row','');
+        let currOutcomeNum = cellid.split('_')[1].replace('col','');
         let currDifference = $('#intervention_'+currDifferenceNum+' option:selected').val();
         let currOutcome = $('#outcome_'+currOutcomeNum+' option:selected').val();
         window.selectedIntervention = currDifference;
