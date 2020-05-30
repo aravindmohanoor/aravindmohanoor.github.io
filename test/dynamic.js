@@ -566,12 +566,16 @@ function populateGapMap(content){
                 if(hasLevelUnknownDesign) levelUnknownHits.push(hit);
             });
 
+            //clear old results first
+            for(let i=1;i<=10;i++){
+                let cell_row = $('#row'+i1.toString()+'_col'+j1.toString()+'_'+i.toString());
+                $(cell_row).html('');
+            }
             for (let [key, value] of Object.entries(study_type_hits)) {
                 console.log(key, value);
                 if (value.length > 0){
                     row_num = cell_row_map[key.toLowerCase()];
                     let cell_row = $('#row'+i1.toString()+'_col'+j1.toString()+'_'+row_num.toString());
-                    $(cell_row).html('');
                     populateLevelSummary(cell_row, key, study_type_designs[key], study_type_hits[key]);
                 }
             }

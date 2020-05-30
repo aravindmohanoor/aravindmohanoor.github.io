@@ -479,7 +479,7 @@ function populateGapMap(content){
         for(let j1=1;j1<=5;j1++){
             let cellName = '#row'+i1.toString()+'_col'+j1.toString();
             let gapmapArray = gapmap[i1.toString()][j1.toString()];
-            $(cellName).html('');
+            //$(cellName).html('');
             //$(cellName).addClass('spinner-grow');
             let level1Designs = [];
             let level2Designs = [];
@@ -566,10 +566,17 @@ function populateGapMap(content){
                 if(hasLevelUnknownDesign) levelUnknownHits.push(hit);
             });
 
+            //clear old results first
+            for(let i=1;i<=10;i++){
+                let cell_row = $('#row'+i1.toString()+'_col'+j1.toString()+'_'+i.toString());
+                $(cell_row).html('');
+            }
             for (let [key, value] of Object.entries(study_type_hits)) {
                 console.log(key, value);
                 if (value.length > 0){
-                    populateLevelSummary(cellName, key, study_type_designs[key], study_type_hits[key]);
+                    row_num = cell_row_map[key.toLowerCase()];
+                    let cell_row = $('#row'+i1.toString()+'_col'+j1.toString()+'_'+row_num.toString());
+                    populateLevelSummary(cell_row, key, study_type_designs[key], study_type_hits[key]);
                 }
             }
 
@@ -601,11 +608,46 @@ function populateGapMap(content){
 
 }
 
+var cell_row_map = {
+    "generic risk factor analysis":1,
+    "retrospective observational studies":2,
+    "prospective observational studies":3,
+    "cross-sectional studies":4,
+    "time series analysis":5,
+    "systematic review and meta-analysis":6,
+    "randomized controlled trials":7,
+    "pseudo-randomized controlled trials":8,
+    "case series":9,
+    "simulation":10,
+};
+
 function populateLevelSummary(cell, levelName, levelArray, levelHits){
 
-    let pButton = $('<p/>');
+    let level_map_num = cell_row_map[levelName.toLowerCase()];
+
+    let pCellInfo = $('<p/>');
+
+
+    let pTableRow = $('<div/>');
+    pTableRow.addClass('row');
+
+    let pTableColLeft = $('<div/>');
+    pTableColLeft.addClass('col-lg-8');
+    pTableRow.append(pTableColLeft);
+
+    let pTableColRight = $('<div/>');
+    pTableColRight.addClass('col-lg-2');
+    pTableRow.append(pTableColRight);
+
+    let pTableColCheck = $('<div/>');
+    pTableColCheck.addClass('col-lg-2');
+    pTableRow.append(pTableColCheck);
+
+    let spanText = $('<span/>');
+    spanText.html(levelName);
+    pCellInfo.append(spanText);
     let buttonBadge = $('<button>',{
-        html:levelName
+        //html:levelName
     });
     buttonBadge.addClass('btn btn-sm btn-light');
     let  spanCount = $('<span>',{
@@ -614,8 +656,16 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
     spanCount.addClass('badge badge-primary');
     spanCount.css({'margin':'5px'});
     buttonBadge.append(spanCount);
-    pButton.append(buttonBadge);
-    $(cell).append(pButton);
+    pCellInfo.append(buttonBadge);
+    pTableColRight.append(buttonBadge);
+    pTableColLeft.append(spanText);
+
+    let cellid = $(cell).attr('id');
+    let cell_row_id = '#'+cellid+'_'+level_map_num;
+    let cell_row = $(cell_row_id);
+    $(cell).append(pTableRow);
+    //$(cell).append(pCellInfo);
+    //$(cell_row).append(pButton);
     buttonBadge.attr('title',levelArray.join(','));
 
     buttonBadge.on('click', function(item){
@@ -627,7 +677,8 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
         checkbox.attr('aria-hidden',true);
         checkbox.attr('font-size','100px');
         checkbox.attr('color','black');
-        pButton.append(checkbox);
+        //pCellInfo.append(checkbox);
+        pTableColCheck.append(checkbox);
         $('#container').html(function () {
             return $.map(levelHits, function (hit) {
                 let divHit = getSingleHit(hit);
@@ -635,8 +686,9 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
             });
         });
 
-        let currDifferenceNum = cell.split('_')[0].replace('#row','');
-        let currOutcomeNum = cell.split('_')[1].replace('col','');
+        cellid = $(cell)[0].id;
+        let currDifferenceNum = cellid.split('_')[0].replace('row','');
+        let currOutcomeNum = cellid.split('_')[1].replace('col','');
         let currDifference = $('#intervention_'+currDifferenceNum+' option:selected').val();
         let currOutcome = $('#outcome_'+currOutcomeNum+' option:selected').val();
         window.selectedIntervention = currDifference;

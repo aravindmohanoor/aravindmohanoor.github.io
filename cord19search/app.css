@@ -121,3 +121,9 @@ summary{
     white-space: nowrap;
     width: 1%;
 }
+
+.clearfix {
+    min-height: 60px;
+    margin: 3px 0px;
+    border-bottom: 1px solid lightgray;
+}
