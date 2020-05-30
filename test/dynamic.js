@@ -606,7 +606,7 @@ function populateLevelSummary(cell, levelName, levelArray, levelHits){
     let buttonBadge = $('<button>',{
         html:levelName
     });
-    buttonBadge.addClass('btn btn-light');
+    buttonBadge.addClass('btn btn-sm btn-light');
     let  spanCount = $('<span>',{
         html:levelHits.length.toString()
     });

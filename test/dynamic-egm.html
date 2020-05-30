@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="app.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/papaparse@5.1.1/papaparse.min.js"></script>
+    <style>
+        .table {height:300px;overflow:scroll;}
+        thead tr:nth-child(1) th{background: white; position: sticky;top: 0;z-index: 10;}
+    </style>
 </head>
 <body class="container" style="min-width: 95%;">
 <br/>
@@ -23,11 +27,12 @@
 <p>
     <label class="mr-3">Download all results</label>
     <button onclick="downloadResultsCSV()" id="btnDownloadAll" type="submit" class="btn btn-sm btn-primary my-1 mr-5">Export all results to CSV</button>
-    <span id="timer">Loading...</span>
+
 </p>
 <table id="tbGapMap" class="table table-striped" style="width: 95%;">
     <thead>
     <th scope="col" style="width: 20%;">
+        <span id="timer">Loading...</span>
         <table>
             <tr>
                 <td>
