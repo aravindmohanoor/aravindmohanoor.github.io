@@ -40,7 +40,6 @@
                                     liItem = $('<li>',{
                                         html:item
                                     });
-                                    //anchorLink.attr("href","inspect.html?id="+hit.cord_uid+'&roc='+roc+'&searchFor='+text_only);
                                     url = 'inspect.html?id='+cord_uid+'&roc='+roc+'&searchFor='+$(item).text();
                                     anchorLink = $('<a/>');
                                     anchorLink.attr("target","_blank");
@@ -100,29 +99,15 @@
                             $(attributes_html).append(outcome_span);
                             $(attributes_html).append(study_type_span);
 
-                            /*risk_factor_html = '<span class="diagnostic_risk_factor-pill">Risk factor : '+row[3]+'</span>';
-                            outcome_html = ' <span class="outcome-pill">Outcome : '+row[4]+'</span>';
-                            study_type_html = ' <span class="study_type-pill">Study Type : '+row[5]+'</span>';
-
-                            $(attribute_risk_factor).html(risk_factor_html+outcome_html+study_type_html);
-                            attributes_html.append(attribute_risk_factor);*/
-
-
-
-
                             pSummaryItem.append(attributes_html);
-                            //pSummaryItem.append(attributes_html);
-                            //pSummaryItem.append(summary_html);
                             pSummaryItem.append(ulSummaryText);
 
 
                             highlight_risk_factor = $('<input>',{
-                                type:'checkbox',
-                                id:'highlight_'+i.toString()
+                                type:'checkbox'
                             });
                             $(highlight_risk_factor).attr('data-text',row[3]);
                             $(highlight_risk_factor).css('margin','5px');
-
                             highlight_risk_factor.on('click', function () {
                                 checkbox = this;
                                 curr_risk_factor = $(checkbox).attr('data-text');
@@ -143,6 +128,58 @@
                             });
                             risk_factor_span.prepend(highlight_risk_factor);
 
+
+                            highlight_outcome = $('<input>',{
+                               type:'checkbox'
+                            });
+                            $(highlight_outcome).attr('data-text',row[4]);
+                            $(highlight_outcome).css('margin','5px');
+                            highlight_outcome.on('click',function () {
+                                checkbox = this;
+                                curr_outcome = $(checkbox).attr('data-text');
+                                if($(checkbox).is(':checked')){
+                                    $('#ul_'+i.toString()).find('.outcome').each(function (index) {
+                                        ul = this;
+                                        var lower = $(ul).attr('data-id').toLowerCase();
+                                        if (lower == curr_outcome.toString().toLowerCase()){
+                                            $(this).addClass('outcome-pill');
+                                        }
+                                    });
+                                }
+                                else{
+                                    $('#ul_'+i.toString()).find('.outcome-pill').each(function(index){
+                                        $(this).removeClass('outcome-pill');
+                                    });
+                                }
+                            });
+                            outcome_span.prepend(highlight_outcome);
+
+
+                            highlight_study_type = $('<input>',{
+                                type:'checkbox'
+                            });
+                            $(highlight_study_type).attr('data-text',row[5]);
+                            $(highlight_study_type).css('margin','5px');
+                            highlight_study_type.on('click',function () {
+                                checkbox = this;
+                                curr_study_type = $(checkbox).attr('data-text');
+                                if($(checkbox).is(':checked')){
+                                    $('#ul_'+i.toString()).find('.study_type').each(function(index){
+                                        ul = this;
+                                        var lower = $(ul).attr('data-id').toLowerCase();
+                                        if (lower == curr_study_type.toString().toLowerCase()){
+                                            $(this).addClass('study_type-pill');
+                                        }
+                                    })
+                                }
+                                else{
+                                    $('#ul_'+i.toString()).find('.study_type-pill').each(function(index){
+                                        $(this).removeClass('study_type-pill');
+                                    })
+                                }
+                            });
+                            study_type_span.prepend(highlight_study_type);
+
                             cardBody.append(pSummaryItem);
                             $('#output').append(cardBody);
                             curr_outcome = row[4];
@@ -151,32 +188,7 @@
                             highlighted_risk_factors = [];
                             highlighted_outcomes = [];
                             highlighted_study_types = [];
-                            /*$(pSummaryItem).find('.outcome').each(function (index) {
-                                var lower = $(this).text().toLowerCase();
-                                var dataid = $(this).attr('data-id');
-                                if (dataid == curr_outcome.toString().toLowerCase()) {
-                                    if (highlighted_outcomes.indexOf(lower) == -1) {
-                                        $(this).addClass('outcome-pill');
-                                        highlighted_outcomes.push(lower);
-                                    }
-                                }
-                            });
-                            $(pSummaryItem).find('.diagnostic_risk_factor').each(function (index) {
-                                var lower = $(this).text().toLowerCase();
-                                if (lower == curr_risk_factor.toString().toLowerCase()) {
-                                    if (highlighted_risk_factors.indexOf(lower) == -1) {
-                                        $(this).addClass('diagnostic_risk_factor-pill');
-                                        highlighted_risk_factors.push(lower);
-                                    }
-                                }
-                            });
-                            $(pSummaryItem).find('.study_type').each(function (index) {
-                                var lower = $(this).text().toLowerCase();
-                                if (highlighted_study_types.indexOf(lower) == -1) {
-                                    $(this).addClass('study_type-pill');
-                                    highlighted_study_types.push(lower);
-                                }
-                            });*/
+
                         }
                     };
                     // start reading the file. When it is done, calls the onload event defined above.
