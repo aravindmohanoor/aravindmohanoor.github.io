@@ -197,9 +197,33 @@
             fileInput.addEventListener('change', readFile);
         };
     </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-76380861-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-76380861-4');
+    </script>
 </head>
-<p></p>
-<body class="container">
+<body class="container" style="min-width: 95%;">
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="index.html">Search</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="dynamic-egm.html">Dynamic Evidence Gap Map</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="preview-results.html">Preview Results</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="documentation.html">Documentation</a>
+        </li>
+    </ul>
+</nav>
 <p>Select local CSV File:</p>
 <input id="csv" type="file">
 <p></p><p></p>
