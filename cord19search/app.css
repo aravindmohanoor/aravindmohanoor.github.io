@@ -127,3 +127,7 @@ summary{
     margin: 3px 0px;
     border-bottom: 1px solid lightgray;
 }
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,0.8);
+}
